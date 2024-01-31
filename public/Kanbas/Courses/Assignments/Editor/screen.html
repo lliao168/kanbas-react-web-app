@@ -1,5 +1,7 @@
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" href="/libs/bootstrap/bootstrap.min.css" />
+    </head>
     <body>
         <table width="50%">
             <tbody>
@@ -75,18 +77,21 @@
                                             </select>
                                             <hr />
                                             <h2>Assignment Name</h2>
-                                            <input value="A1 - ENV + HTML" />
+                                            <input 
+                                                class="form-control"
+                                                value="A1 - ENV + HTML" 
+                                                id="wd-assignment-name"/>
                                             <br/>
                                             <br/>
-                                            <textarea>Assignment Description. In this assignment we are learning about HTML. </textarea>
+                                            <textarea class="form-control">Assignment Description. In this assignment we are learning about HTML. </textarea>
                                             <br/>
                                             <br/>
                                             <label for="points">Points</label><br/>
-                                            <input id="points" value="100" />
+                                            <input class="form-control" id="points" value="100" />
                                             <br/>
                                             <br/>
                                             <label>Assignment Group</label><br/>
-                                            <select>
+                                            <select class="form-control">
                                                 <option>ASSIGNMENTS</option>
                                                 <option>QUIZ</option>
                                                 <option>EXAM</option>
@@ -95,15 +100,15 @@
                                             <br/>
                                             <br/>
                                             <label>Display Grade as</label><br/>
-                                            <select>
+                                            <select class="form-control">
                                                 <option>Percentage</option>
                                             </select>
                                             <br/>
                                             <br/>
                                             <label>Submission Type</label><br/>
-                                            <select>
+                                            <select class="form-control">
                                                 <option>Online</option>
-                                            </select>
+                                            </select class="form-control">
                                             <br/>
                                             <br/>
                                             <label>Online Entry Options</label><br/>
@@ -116,23 +121,23 @@
                                             <br/>
                                             <label>Assign</label><br/>
                                             <label for="assign to">Assign to</label><br/>
-                                            <input id="assign to" value="Everyone" />
+                                            <input  class="form-control" id="assign to" value="Everyone" />
                                             <br/>
                                             <br/>
                                             <label>Due Date</label>
-                                            <input type="date" value="2021-01-01" /><br/>
+                                            <input class="form-control" type="date" value="2021-01-01" /><br/>
                                             <br/>
                                             <br/>
                                             <label>Available from</label>
-                                            <input type="date" value="2021-01-01" /><br/>
+                                            <input class="form-control" type="date" value="2021-01-01" /><br/>
                                             <br/>
                                             <br/>
                                             <label>Until</label>
-                                            <input type="date" value="2021-01-01" /><br/>
+                                            <input class="form-control" type="date" value="2021-01-01" /><br/>
                                             <br/>
                                             <br/>
-                                            <button>Cancel</button>
-                                            <button>Save</button>
+                                            <button class="btn btn-light">Cancel</button>
+                                            <button class="btn btn-danger">Save</button>
                                         </form>
                                     </td>
                                 </tr>
