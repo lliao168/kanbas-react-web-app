@@ -9,12 +9,13 @@
     </head>
     <body>
         <!-- Implement links to Kanbas and Course Navigation -->
+        <div class="flex-container">
         <div class="d-flex">
             <div class="d-none d-md-block">
                 <ul class="wd-kanbas-navigation">
                     <li><a href="http://northeastern.edu"><img src="/images/NEU.png"/></a></li>
                     <li><a href="/Kanbas/Account/Profile/screen.html">
-                        <i class="fa-solid fa-user" style="color: #ffffff;"></i>Account</a>
+                        <i class="fa-solid fa-circle-user" style="color: white;"></i>Account</a>
                     </li>
                     <li class="wd-active">
                         <a href="/Kanbas/Dashboard/screen.html">
@@ -61,146 +62,26 @@
                     <li><a href="/Kanbas/Courses/Settings/Course_Details/screen.html">Settings</a></li>
                   </ul>          
             </div>
-            <div class="flex-fill">
-                <ul class="list-group wd-modules">
-                    <!-- Copy Course Home here -->
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td align="right">
-                                    <button type="button" class="btn btn-light">Collapse All</button>
-                                    <button type="button" class="btn btn-light">View Progress</button>
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Push All
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="#">Publish All</a></li>
-                                            <li><a class="dropdown-item" href="#">Unpublish All</a></li>
-                                            <li><a class="dropdown-item" href="#">Unpublish All</a></li>
-                                        </ul>
-                                    </div>
-                                    <button type="button" class="btn btn-danger">+ Module</button>
-                                    <i class="fa fa-ellipsis-v"></i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <ul class="list-group wd-modules">
-                        <li class="list-group-item"> 
-                          <div>
-                            <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> Week 1
-                            <span class="float-end">
-                            <i class="fa fa-check-circle text-success"></i>
-                            <i class="fa fa-plus ms-2"></i>
-                            <i class="fa fa-ellipsis-v ms-2"></i>
-                            </span>
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> Learning Objectives
-                              <span class="float-end">
-                              <i class="fa fa-check-circle text-success"></i>
-                              <i class="fa fa-ellipsis-v ms-2"></i>
-                              </span>
-                            <li class="list-group-item">
-                              <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:15px;"></i> Introduction to the course
-                              <span class="float-end">
-                              <i class="fa fa-check-circle text-success"></i>
-                              <i class="fa fa-ellipsis-v ms-2"></i>
-                              </span>
-                            <li class="list-group-item">
-                              <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:15px;"></i> Learn what is Web Development
-                              <span class="float-end">
-                              <i class="fa fa-check-circle text-success"></i>
-                              <i class="fa fa-ellipsis-v ms-2"></i>
-                              </span>
-                          </ul>
-                        </li>
-                        <li class="list-group-item"> 
-                          <div>
-                            <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> Week 2
-                            <span class="float-end">
-                            <i class="fa fa-check-circle text-success"></i>
-                            <i class="fa fa-plus ms-2"></i>
-                            <i class="fa fa-ellipsis-v ms-2"></i>
-                            </span>    
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> Learning Objectives
-                              <span class="float-end">
-                              <i class="fa fa-check-circle text-success"></i>
-                              <i class="fa fa-ellipsis-v ms-2"></i>
-                              </span>
-                            <li class="list-group-item">
-                              <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:15px;"></i> Introduction to the course
-                              <span class="float-end">
-                              <i class="fa fa-check-circle text-success"></i>
-                              <i class="fa fa-ellipsis-v ms-2"></i>
-                              </span>
-                            <li class="list-group-item">
-                              <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:15px;"></i> Learn what is Web Development
-                              <span class="float-end">
-                              <i class="fa fa-check-circle text-success"></i>
-                              <i class="fa fa-ellipsis-v ms-2"></i>
-                              </span>
-                          <ul>
-                        </li>
-                    </ul>
+           
+            <div>
+                <ul style="margin-top:20px">
+                    <i class="fa-regular fa-bars"></i>
+                    <a href="#" style="color:crimson; text-decoration: none; margin-left:30px">CS4550.12631.202410</a>
+                    <i class="fa-sharp fa-thin fa-chevron-right"></i> Modules
+                    <button class="btn btn-light" style="margin:0px; width:150px;">
+                        <i class="fa-regular fa-glasses"></i>
+                        Student View
+                    </button>
+                </ul>
             </div>
-            <div class="flex-grow-0 me-2 d-none d-lg-block" style="width: 250px">
-                <h6>Course Status</h6>
-                    <!-- Implement Course Status here -->
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <button>Unpublish</button>
-                                    </td>
-                                    <td>
-                                        <button>Published</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <ul>
-                            <li>
-                                <a href="#">Import Existing Content</a>
-                            </li>    
-                            <li>
-                                <a href="#">Import From Commons</a>
-                            </li>
-                            <li>
-                                <a href="#">Choose Home Page</a>
-                            </li>
-                            <li>
-                                <a href="#">View Course Stream</a>
-                            </li>
-                            <li>
-                                <a href="#">New Announcement</a>
-                            </li>
-                            <li>
-                                <a href="#">New Analytics</a>
-                            </li>
-                            <li>
-                                <a href="#">View Course Notifications</a>
-                            </li>
-                        </ul>
-                        <h2>Comming Up</h2>
-                        <a href="#">View Calendar</a>
-                        <ul>
-                            <li>
-                                <a href="#">Lecture CS4550.12631.202410 Sep 7 at 11:45am</a>
-                            </li>    
-                            <li>
-                                <a href="#">Lecture CS4550.12631.202410 Sep 11 at 11:45am</a>
-                            </li>
-                            <li>
-                                <a href="#">CS 5610 06 SP23 Lecture Sep 11 at 6pm</a>
-                            </li>
-                        </ul>
-            </div>
+        
+            
+            
         </div>
+
+        
+       
+    </div>
+
     </body>
 </html>

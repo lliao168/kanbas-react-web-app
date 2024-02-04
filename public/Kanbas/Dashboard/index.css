@@ -1,0 +1,15 @@
+.wd-container {
+    display: flex;
+}
+
+.wd-container > div {
+    margin-right: 20px; 
+    margin-top: 5px;
+}
+
+.wd-container > div:first-child {
+    margin-top: 0;
+}
+
+
+

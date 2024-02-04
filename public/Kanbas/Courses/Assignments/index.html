@@ -1,137 +1,272 @@
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" href="/libs/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://kit.fontawesome.com/367278d2a4.css" crossorigin="anonymous" />
+        <link rel="stylesheet" href="/Kanbas/styles.css" />
+        <link rel="stylesheet" href="/Kanbas/Navigation/index.css" />
+        <link rel="stylesheet" href="/Kanbas/Courses/Navigation/index.css" />
+        <link rel="stylesheet" href="/Kanbas/Courses/Modules/index.css" />
+        <link rel="stylesheet" href="/Kanbas/Courses/Home/index.css" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        
+    </head>
     <body>
-        
-            <table width="100%">
-                <tbody>
-                    <tr>
-                        <td>
-                            <input placeholder="Search for Assignments"/>
-                            <button>+ Group</button>
-                            <button>+ Assignment</button>
-                            <select>
-                                <option>Edit Assignment Dates</option>
-                                <option>Assignment Group Weights</option>
-                                <option>Gradescope 1.3</option>
-                            </select>
-                            <hr />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        
-                <h4>ASSIGNMENTS 40% of Total
-                <select>
-                    <option>Edit</option>
-                    <option>Speed Grader</option>
-                    <option>Duplicate</option>
-                    <option>Delete</option>
-                    <option>Move To...</option>
-                    <option>Send To...</option>
-                    <option>Copy To...</option>
-                    <option>Share to Commons</option>
-                </select> </h4>
-                    <ul>
-                        <li>
-                            <a href="/Kanbas/Courses/Assignments/Editor/screen.html">A1 - ENV + HTML</a><br/>
-                            <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                        </li>    
-                        <li>
-                            <a href="./Kanbas/Courses/Assignments/Editor/screen.html">A2 - CSS + BOOTSTRAP</a><br/>
-                            <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                        </li>
-                        <li>
-                            <a href="./Kanbas/Courses/Assignments/Editor/screen.html">A3 - JS + REACT</a><br/>
-                            <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                        </li>
-                        <li>
-                            <a href="./Kanbas/Courses/Assignments/Editor/screen.html">A4 - STATE + REDUX</a><br/>
-                            <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                        </li>
-                        <li>
-                            <a href="./Kanbas/Courses/Assignments/Editor/screen.html">A5 - NODE + SESSION</a><br/>
-                            <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                        </li>
-                        <li>
-                            <a href="./Kanbas/Courses/Assignments/Editor/screen.html">A6 - MONGO + MONGOOSE</a><br/>
-                            <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                        </li>
+        <div class="flex-container">
+        <div class="flex-fill">
+            <ul class="list-group wd-modules">
+                <div>
+                    <input type="search"
+                            class="form-control"
+                            id="search"
+                            placeholder="Search for Assignment">
+                    <button type="button" class="btn btn-light float-end" style="margin-left:5px; height:30px; width:30px; border-radius: 8px">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger float-end" style="margin-left:5px; height:30px; width:120px; border-radius: 8px">+ Assignment</button>
+                    <button type="button" class="btn btn-light float-end" style=" margin-left:5px; height:30px; width:90px; border-radius: 8px">+ Group</button>
+                </div>
+            </ul>
+            <hr/ style="margin-bottom:30px">
+            <ul class="list-group wd-modules">
+                <li class="list-group-item" > 
+                  <div>
+                    <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:10px"></i>
+                    <i class="fa-solid fa-caret-down" style="margin-right:10px"></i>  
+                    Assignments
+                    <span class="float-end">
+                    <button class="rounded">
+                        40% of Total
+                    </button>
+                    <i class="fa-light fa-plus ms-2" style="margin-right:10px"></i>
+                    <i class="fa-light fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                    </span>
+                  </div>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                      <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                      <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>A1 - ENV + HTML</b></a>
+                      <br/>
+                      <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                      <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                      <span class="float-end">
+                      <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                      <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                      </span>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>A2 - CSS + BOOTSTRAP</b></a>
+                        <br/>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>A3 - JS + REACT</b></a>
+                        <br/>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>A4 - STATE + REDUX</b></a>
+                        <br/>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>A5 - NODE + SESSION</b></a>
+                        <br/>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>A6 - MONGO + MONGOOSE</b></a>
+                        <br/>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="list-group-item" > 
+                    <div>
+                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:10px"></i>
+                      <i class="fa-solid fa-caret-down" style="margin-right:10px"></i>  
+                      Quizzes
+                      <span class="float-end">
+                      <button class="rounded">
+                          10% of Total
+                      </button>
+                      <i class="fa-light fa-plus ms-2" style="margin-right:10px"></i>
+                      <i class="fa-light fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                      </span>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Q1 - HTML</b></a>
+                        <br/>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                      </li>
+                      <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                          <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                          <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Q2 - CSS</b></a>
+                          <br/>
+                          <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                          <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                          <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                          </span>
+                      </li>
+                      <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                          <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                          <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Q3 - JS.ES6</b></a>
+                          <br/>
+                          <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                          <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                          <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                          </span>
+                      </li>
+                      <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                          <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                          <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Q4 - NODE</b></a>
+                          <br/>
+                          <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                          <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                          <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                          </span>
+                      </li>
+                      <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                          <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                          <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Q5 - MONGO</b></a>
+                          <br/>
+                          <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                          <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                          <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                          </span>
+                      </li>
                     </ul>
-                    <br/>
-                    <h4>QUIZZES 10% of Total
-                    <select>
-                        <option>Edit</option>
-                        <option>Speed Grader</option>
-                        <option>Duplicate</option>
-                        <option>Delete</option>
-                        <option>Move To...</option>
-                        <option>Send To...</option>
-                        <option>Copy To...</option>
-                        <option>Share to Commons</option>
-                    </select> </h4>
-                        <ul>
-                            <li>
-                                <a href="/Kanbas/Courses/Assignments/Editor/screen.html">Q1 - HTML</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>    
-                            <li>
-                                <a href="./Kanbas/Courses/Assignments/Editor/screen.html">Q2 - CSS</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>
-                            <li>
-                                <a href="./Kanbas/Courses/Assignments/Editor/screen.html">Q3 - JS.ES6</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>
-                            <li>
-                                <a href="./Kanbas/Courses/Assignments/Editor/screen.html">Q4 - NODE</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>
-                            <li>
-                                <a href="./Kanbas/Courses/Assignments/Editor/screen.html">Q5 - MONGO</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>
-                        </ul>
+                  </li>
+
+                  <li class="list-group-item" > 
+                    <div>
+                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:10px"></i>
+                      <i class="fa-solid fa-caret-down" style="margin-right:10px"></i>  
+                      Exams
+                      <span class="float-end">
+                      <button class="rounded">
+                          20% of Total
+                      </button>
+                      <i class="fa-light fa-plus ms-2" style="margin-right:10px"></i>
+                      <i class="fa-light fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                      </span>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Midterm</b></a>
                         <br/>
-                    <h4>EXAMS 20% of Total
-                    <select>
-                        <option>Edit</option>
-                        <option>Speed Grader</option>
-                        <option>Duplicate</option>
-                        <option>Delete</option>
-                        <option>Move To...</option>
-                        <option>Send To...</option>
-                        <option>Copy To...</option>
-                        <option>Share to Commons</option>
-                    </select> </h4>
-                        <ul>
-                            <li>
-                                <a href="/Kanbas/Courses/Assignments/Editor/screen.html">Midterm</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>    
-                            <li>
-                                <a href="./Kanbas/Courses/Assignments/Editor/screen.html">Final</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>
-                            
-                        </ul>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                      </li>
+                      <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                          <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                          <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Final</b></a>
+                          <br/>
+                          <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                          <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                          <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                          </span>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="list-group-item" > 
+                    <div>
+                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:10px"></i>
+                      <i class="fa-solid fa-caret-down" style="margin-right:10px"></i>  
+                      Project
+                      <span class="float-end">
+                      <button class="rounded">
+                          30% of Total
+                      </button>
+                      <i class="fa-light fa-plus ms-2" style="margin-right:10px"></i>
+                      <i class="fa-light fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                      </span>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:20px"></i> 
+                        <i class="fa-light fa-pen-to-square" style="color:green; margin-right:20px"></i>
+                        <a href="/Kanbas/Courses/Assignments/Editor/screen.html" style="text-decoration: none; color:black;"><b>Project</b></a>
                         <br/>
+                        <a href="#" style="margin-left:72px; text-decoration: none; color:grey; font-size:0.8em">Multiple modules</a> 
+                        <span style="color:grey; font-size:0.8em">| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
+                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        </span>
+                      </li>
+                    </ul>
+                  </li>
+
+            </ul>
+        </div>
+        </div>
                 
-                    <h4>PROJECT 30% of Total
-                    <select>
-                        <option>Edit</option>
-                        <option>Speed Grader</option>
-                        <option>Duplicate</option>
-                        <option>Delete</option>
-                        <option>Move To...</option>
-                        <option>Send To...</option>
-                        <option>Copy To...</option>
-                        <option>Share to Commons</option>
-                    </select> </h4>
-                        <ul>
-                            <li>
-                                <a href="/Kanbas/Courses/Assignments/Editor/screen.html">Project</a><br/>
-                                <a href="#">Multiple modules</a> | Due date: 2024-01-22 23:59:59 | 100pts
-                            </li>    
-                        </ul>
     </body>
 </html>
