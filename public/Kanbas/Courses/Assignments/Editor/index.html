@@ -43,11 +43,11 @@
                         
                     </div>
 
-                    <div class="d-grid gap-3 container" style="text-align:right">
+                    <div class="d-grid gap-3 text-sm-end">
                         <div class="row" >
                             <label for="points" class="col-sm-2  
                             col-form-label col-form-label-sm">Points</label>
-                            <div class="col-sm">
+                            <div class="col-sm w-25">
                                 <input type="text" class="form-control" id="points">
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                             <label for="display-grade" class="col-sm-2  
                             col-form-label col-form-label-sm">Submission Type</label>
                             <div class="d-grid gap-3 col-sm border border-1 rounded">
-                                <select class="form-select">
+                                <select class="form-select mt-3 w-25">
                                     <option selected>Online</option>
                                 </select> 
                                 
@@ -138,7 +138,7 @@
                                     </label>
                                 </div>
                                 
-                                <div class="form-check" style="text-align:left">
+                                <div class="form-check mb-4" style="text-align:left">
                                     <input class="form-check-input" type="checkbox" id="gridCheck">
                                     <label class="form-check-label" for="gridCheck">
                                       File Uploads
@@ -156,12 +156,15 @@
                                 <div class="row g-3">
                                     <div class="col-12" style="text-align:left">
                                         <label for="Assign to"
-                                            class="form-label"><b>
+                                            class="form-label mt-3"><b>
                                             Assign to</b></label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="assignment-to"
-                                            placeholder="">
+                                        <div class="d-grid gap-3 col-sm border border-1 rounded">
+                                            <div>
+                                            <button type="button" class="btn btn-light float end m-2">
+                                                Everyone<i class="fa-light fa-xmark ms-4"></i>
+                                            </button>
+                                            </div>
+                                        </div>
                                     </div>
             
                                     <div class="col-12" style="text-align:left">
@@ -176,25 +179,32 @@
 
                                     <div class="col-md-6" style="text-align:left">
                                         <label for="available-from" class="form-label"><b>Available from</b></label>
-                                        <input type="date" class="form-control" id="available-from">
+                                        <input type="date" class="form-control mb-5" id="available-from">
                                     </div>
                                     
                                     <div class="col-md-6" style="text-align:left">
-                                        <label for="until"><b>Until</b></label>
-                                        <input type="date" class="form-control" id="until">
+                                        <label for="until" class="form-label"><b>Until</b></label>
+                                        <input type="date" class="form-control mb-5" id="until">
                                     </div>
                                     
-                                </div>                                
-                            </div>
+                                    
+                                    <button type="button" class="btn btn-light border border-1">
+                                        <i class="fa-light fa-plus me-2"></i>Add
+                                    </button> 
+                                    
+                                        
+                                    
+                                </div>   
 
-                            
-                            
-                           
                                 
+                                
+                                                         
                             </div>
-                        </div>
 
-                       
+                            
+                            
+                        </div>
+                        
                     </div>
                 
                 </form>
@@ -218,18 +228,8 @@
                     </div>
 
                 </form>
-            
-            
-                
-        
-
-        
+  
         </div>
-        
-        
 
-
-    
-        
     </body>
 </html>

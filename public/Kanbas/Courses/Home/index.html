@@ -13,14 +13,14 @@
     <body>
         <div class="flex-container">
         <div class="flex-fill">
-            <ul class="list-group wd-modules">
-                <!-- Copy Course Home here -->
-                <div align="right">
-                    <button class="btn btn-light" style="margin: 0px; height:30px; width:110px; border-radius: 8px">Collapse All</button>
-                    <button type="button" class="btn btn-light" style="margin: 0px; height:30px; width:110px; border-radius: 8px">View Progress</button>
-                    <div class="btn-group">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="height:30px; width:130px; border-radius: 8px">
-                            <i class="fa-light fa-circle-check" style="color:green"></i> Push All
+            <div class="b-2">
+                <li class="list-group-item d-flex justify-content-end align-items-center">
+                    <button class="btn btn-light float-end m-1">Collapse All</button>
+                    <button class="btn btn-light float-end m-1">View Progress</button>
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-light fa-circle-check me-2" style="color:green"></i>Push All
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -28,254 +28,208 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </div>
-                    <button type="button" class="btn btn-danger" style="margin: 0px; height:30px; width:100px; border-radius: 8px">+ Module</button>
-                    <button type="button" class="btn btn-light" style="margin: 0px; height:30px; width:30px; border-radius: 8px">
+                    <button type="button" class="btn btn-danger float-end m-1">+ Module</button>
+                    <button type="button" class="btn btn-light float-end btn-lg m-1">
                         <i class="fa fa-ellipsis-v"></i>
                     </button>
-                </div>
-            </ul>
-            <hr/ style="margin-bottom:30px">
+                </li>
+                
+            </div>
+            <hr/>
             <ul class="list-group wd-modules">
                 <li class="list-group-item" > 
                   <div>
-                    <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:10px"></i>
-                    <i class="fa-solid fa-caret-down" style="margin-right:10px"></i> 
-                    Week 1 - INTRO
+                    <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i>
+                    <i class="fa-solid fa-caret-down ms-2"></i> 
+                    <span class="ms-1">Week 1 - INTRO</span>
                     <span class="float-end">
-                    <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                    <i class="fa-light fa-plus ms-2" style="margin-right:10px"></i>
-                    <i class="fa-light fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                    <i class="fa fa-check-circle text-success"></i>
+                    <i class="fa-light fa-plus ms-2"></i>
+                    <i class="fa-light fa-ellipsis-v ms-2"></i>
                     </span>
                   </div>
                   <ul class="list-group">
                     <li class="list-group-item">
-                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:5px"></i> LEARNING OBJECTIVES
+                      <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                      <span class="ms-2">LEARNING OBJECTIVES</span>
                       <span class="float-end">
-                      <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                      <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                      </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Introduction to the course
-                        <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                      <i class="fa fa-check-circle text-success"></i>
+                      <i class="fa-light fa-ellipsis-v ms-2"></i>
                         </span>
                         <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Learn what is Web Development
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <span class="ms-5">Introduction to the course</span>
                         <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
                         </span>
                         <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Creating a development environment
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <span class="ms-5">Learn what is Web Development</span>
                         <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
                         </span>
                         <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Getting started with the 1st assignment
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <span class="ms-5">Creating a development environment</span>
                         <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                        </span> 
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
+                        </span>
+                        
+                        <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <span class="ms-5">Creating a Web Application</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
+                        </span>
+                        
+                        <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <span class="ms-5">Getting started with the 1st assignment</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
+                        </span>
+                    </span> 
+                    </li>
                     
                     <li class="list-group-item">
-                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:5px"></i> READING
-                      <span class="float-end">
-                      <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                      <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                      </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Full Stack Developer - Chapter 1 - Introduction
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <span class="ms-2">READING</span>
                         <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
                         </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Full Stack Developer - Chapter 2 - Creating User Interfaces With HTML
-                        <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                        </span>
+                          <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                          <span class="ms-5">Full Stack Developer - Chapter 1 - Introduction</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success"></i>
+                          <i class="fa-light fa-ellipsis-v ms-2"></i>
+                          </span>
+                          <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                          <span class="ms-5">Full Stack Developer - Chapter 2 - Creating User Interfaces with HTML</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success"></i>
+                          <i class="fa-light fa-ellipsis-v ms-2"></i>
+                          </span>
+                        </span> 
+                      </li>
 
                     <li class="list-group-item">
-                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:5px"></i> SLIDES
+                      <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                      <span class="ms-2">SLIDES</span>
                       <span class="float-end">
-                      <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                      <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                      <i class="fa fa-check-circle text-success"></i>
+                      <i class="fa-light fa-ellipsis-v ms-2"></i>
                       </span>
                         <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:40px;"></i>
-                        <i class="fa-light fa-link" style="margin-right:5px"></i>
-                        <a href="#" style="text-decoration: none; color:crimson"> Introduction to Web Development Links to an external site.</a>
-                        <i class="fa-light fa-arrow-right-from-bracket" style="color:crimson"></i>
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <i class="fa-light fa-link ms-2" style="color:green"></i>
+                        <a href="#" style="text-decoration: none; color:crimson" class="ms-3">Introduction to Web Development Links to an external site</a>
+                        <i class="fa-light fa-arrow-right-from-bracket ms-2" style="color:crimson"></i>
                         <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
                         </span>
                         <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> 
-                        <i class="fa-light fa-link" style="margin-right:5px"></i>
-                        <a href="#" style="text-decoration: none; color:crimson">Creating an HTTP server with Node.js Links to an external site.</a>
-                        <i class="fa-light fa-arrow-right-from-bracket" style="color:crimson"></i>
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <i class="fa-light fa-link ms-2" style="color:green"></i>
+                        <a href="#" style="text-decoration: none; color:crimson" class="ms-3">Creating an HTTP server with Node.js Links to an external site</a>
+                        <i class="fa-light fa-arrow-right-from-bracket ms-2" style="color:crimson"></i>
                         <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
                         </span>
                         <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> 
-                        <i class="fa-light fa-link" style="margin-right:5px"></i>
-                        <a href="#" style="text-decoration: none; color:crimson">Creating a React Application Links to an external site.</a>
-                        <i class="fa-light fa-arrow-right-from-bracket" style="color:crimson"></i>
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <i class="fa-light fa-link ms-2" style="color:green"></i>
+                        <a href="#" style="text-decoration: none; color:crimson" class="ms-3">Creating a React Application Links to an external site</a>
+                        <i class="fa-light fa-arrow-right-from-bracket ms-2" style="color:crimson"></i>
                         <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
                         </span>
     
 
                   </ul>
-                </li>
-                <li class="list-group-item"> 
-                  <div>
-                    <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:10px"></i> 
-                    <i class="fa-solid fa-caret-down" style="margin-right:10px"></i> 
-                    Week 2 - HTML
-                    <span class="float-end">
-                    <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                    <i class="fa-light fa-plus ms-2" style="margin-right:10px"></i>
-                    <i class="fa-light fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                    </span>
-                  </div>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:5px"></i> LEARNING OBJECTIVES
-                      <span class="float-end">
-                      <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                      <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                      </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Learn how to create user interfaces with HTML
-                        <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                        </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Keep working on assignment 1
-                        <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                        </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Deploy the assignment to Netify
-                        <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                        </span>
-                    
-                    <li class="list-group-item">
-                      <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:5px"></i> READING
-                      <span class="float-end">
-                      <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                      <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                      </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Full Stack Developer - Chapter 1 - Introduction
-                        <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                        </span>
-                        <li class="list-group-item">
-                        <i class="fa-sharp fa-solid fa-grip-dots-vertical" style="margin-right:45px;"></i> Full Stack Developer - Chapter 2 - Creating User Interfaces With HTML
-                        <span class="float-end">
-                        <i class="fa fa-check-circle text-success" style="margin-right:10px"></i>
-                        <i class="fa fa-ellipsis-v ms-2" style="margin-right:10px"></i>
-                        </span>
-                  <ul>
-                </li>
-            </ul>
-        </div>
 
-        <div class="flex-grow-0 course-status me-2 d-none d-lg-block">
-            <h6 style="margin-bottom:0px;">Course Status</h6>
-                <!-- Implement Course Status here -->
-                <div class="flex-container">
-                    <div class="flex-fill">
-                        <ul class="list-group wd-modules">
-                            <!-- Copy Course Home here -->
-                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button class="btn btn-light" style="height:30px; width:110px;">
-                                    <i class="fa-regular fa-ban"></i> Unpublish</button>
-                                <button class="btn btn-light" style="margin: 0px; height:30px; width:110px; background-color:green; color:white">
-                                    <i class="fa-regular fa-circle-check" style="background-color:white; color: green;"></i> Published</a>
-                                
-                            </div>
-                        </ul>
-                    <ul>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-light" style="margin:0px; width:230px;">
-                                <i class="fa-light fa-file-import"></i>
-                                Import Existing Content
-                            </button>
-                            <button class="btn btn-light" style="margin: 0px; width:230px;">
-                                <i class="fa-solid fa-arrow-right-from-arc"></i>
-                                Import from Commons
-                            </button>
-                            <button class="btn btn-light" style="margin: 0px; width:230px;">
-                                <i class="fa-light fa-location-crosshairs"></i>
-                                Choose Home Page
-                            </button>
-                            <button class="btn btn-light" style="margin: 0px; width:230px;">
-                                <i class="fa-sharp fa-solid fa-chart-simple"></i>
-                                View Course Stream
-                            </button>
-                            <button class="btn btn-light" style="margin: 0px; width:230px;">
-                                <i class="fa-regular fa-bullhorn"></i>
-                                Announcement
-                            </button>
-                            <button class="btn btn-light" style="margin: 0px; width:230px;">
-                                <i class="fa-sharp fa-solid fa-chart-simple"></i>
-                                New Analytics
-                            </button>
-                            <button class="btn btn-light" style="margin: 0px; width:230px;">
-                                <i class="fa-light fa-bell"></i>
-                                View Course Notifications
-                            </button>
-                        </div>
+                  <li class="list-group-item" > 
+                    <div>
+                      <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i>
+                      <i class="fa-solid fa-caret-down ms-2"></i> 
+                      <span class="ms-1">Week 2 - HTML</span>
+                      <span class="float-end">
+                      <i class="fa fa-check-circle text-success"></i>
+                      <i class="fa-light fa-plus ms-2"></i>
+                      <i class="fa-light fa-ellipsis-v ms-2"></i>
+                      </span>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                        <span class="ms-2">LEARNING OBJECTIVES</span>
+                        <span class="float-end">
+                        <i class="fa fa-check-circle text-success"></i>
+                        <i class="fa-light fa-ellipsis-v ms-2"></i>
+                          </span>
+                          <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                          <span class="ms-5">Learn how to create user interfaces with HTML</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success"></i>
+                          <i class="fa-light fa-ellipsis-v ms-2"></i>
+                          </span>
+                          <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                          <span class="ms-5">Keep working on assignment 1</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success"></i>
+                          <i class="fa-light fa-ellipsis-v ms-2"></i>
+                          </span>
+                          <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                          <span class="ms-5">Deploy the assignment to Netify</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success"></i>
+                          <i class="fa-light fa-ellipsis-v ms-2"></i>
+                          </span>
+                          
+                          
+                      </li>
+                      
+                      <li class="list-group-item">
+                          <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                          <span class="ms-2">READING</span>
+                          <span class="float-end">
+                          <i class="fa fa-check-circle text-success"></i>
+                          <i class="fa-light fa-ellipsis-v ms-2"></i>
+                          </span>
+                            <li class="list-group-item">
+                            <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                            <span class="ms-5">Full Stack Developer - Chapter 1 - Introduction</span>
+                            <span class="float-end">
+                            <i class="fa fa-check-circle text-success"></i>
+                            <i class="fa-light fa-ellipsis-v ms-2"></i>
+                            </span>
+                            <li class="list-group-item">
+                            <i class="fa-sharp fa-solid fa-grip-dots-vertical"></i> 
+                            <span class="ms-5">Full Stack Developer - Chapter 2 - Creating User Interfaces with HTML</span>
+                            <span class="float-end">
+                            <i class="fa fa-check-circle text-success"></i>
+                            <i class="fa-light fa-ellipsis-v ms-2"></i>
+                            </span>
+                          </span> 
+                        </li>
+      
+  
                     </ul>
-            <h6 >TO DO</h6>
-            <hr />
-            <i class="fa-light fa-xmark" style="margin-left:200px"></i>
-            <div>
-                <a href="#" style="color:crimson; text-decoration: none;"><i class="fa-solid fa-circle-1" style="color:crimson"></i>  Grade A1 - ENV + HTML</a>
-                <label style="color:grey;">100 points <i class="fa-solid fa-circle-small fa-2xs"></i> Sep 18 at 11:59pm</label>
-            </div>
-            <br/>
-            <h6 >Comming Up</h6>
-            <hr/>
-                <a href="#" style="color:crimson; text-decoration: none;"><i class="fa-light fa-calendar" style="color:grey"></i> View Calendar</a>
-                <div>
-                    <a href="#" style="color:crimson; text-decoration: none;"><i class="fa-light fa-calendar" style="color:grey"></i> Lecture</a>
-                    <label style="color:grey; margin-left:20px">Lecture CS4550.12631.202410</label>
-                    <label style="color:grey; margin-left:20px">Sep 7 at 11:45am</label>
-                    
-                </div>
-                <div>
-                    <a href="#" style="color:crimson; text-decoration: none;"><i class="fa-light fa-calendar" style="color:grey"></i> CS5610 06 SP23 Lecture</a>
-                    <label style="color:grey; margin-left:20px">Lecture CS4550.12631.202410</label>
-                    <label style="color:grey; margin-left:20px">Sep 11 at 6pm</label>
-                    
-                </div>
-                <div>
-                    <a href="#" style="color:crimson; text-decoration: none;""><i class="fa-light fa-calendar" style="color:grey"></i> CS5610 Web Development Summer 1 2023 - LECTURE</a>
-                    <label style="color:grey; margin-left:20px">Lecture CS4550.12631.202410</label>
-                    <label style="color:grey; margin-left:20px">Sep 11 at 7pm</label>
-                    
-                </div>
-                <div>
-                    <br/>
-                    <a href="#" style="color:crimson; text-decoration: none;""> 12 more in the next week...</a>
-                </div>
-   
+    
+            </ul>
         </div>
         </div>
                 

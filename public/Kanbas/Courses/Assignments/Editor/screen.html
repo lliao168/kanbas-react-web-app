@@ -9,7 +9,6 @@
     </head>
     <body>
         <!-- Implement links to Kanbas and Course Navigation -->
-        <div class="flex-container">
         <div class="d-flex">
             <div class="d-none d-md-block">
                 <ul class="wd-kanbas-navigation">
@@ -17,11 +16,11 @@
                     <li><a href="/Kanbas/Account/Profile/screen.html">
                         <i class="fa-solid fa-circle-user" style="color: white;"></i>Account</a>
                     </li>
-                    <li class="wd-active">
+                    <li>
                         <a href="/Kanbas/Dashboard/screen.html">
                             <i class="fa fa-tachometer"></i> Dashboard</a>
                     </li>
-                    <li><a href="/Kanbas/Courses/Home/screen.html">
+                    <li class="wd-active"><a href="/Kanbas/Courses/Home/screen.html">
                         <i class="fa-regular fa-book"></i>Courses</a>
                     </li>
                     <li><a href="#"><i class="fa fa-calendar"></i>Calendar</a>
@@ -38,15 +37,18 @@
                     </li>
                    </ul>
             </div>
+   
             <div class="d-none d-md-block">
+                
                 <ul class="wd-navigation">
-                    <li class="wd-active"><a href="/Kanbas/Courses/Home/screen.html">Home</a></li>
+                    <li><span style="color:grey; font-size:12px">202430_2 Spring 2024 Semes...</span></li>
+                    <li><a href="/Kanbas/Courses/Home/screen.html">Home</a></li>
                     <li>
                         <a href="/Kanbas/Courses/Modules/screen.html">Modules</a>
                     </li>
                     <li><a href="#">Piazza</a></li>
                     <li><a href="#">Zoom Meetings</a></li>
-                    <li><a href="/Kanbas/Courses/Assignments/screen.html">Assignments</a></li>
+                    <li class="wd-active"><a href="/Kanbas/Courses/Assignments/screen.html">Assignments</a></li>
                     <li><a href="#">Quizzes</a></li>
                     <li><a href="/Kanbas/Courses/Grades/screen.html">Grades</a></li>
                     <li><a href="#">People</a></li>
@@ -62,27 +64,230 @@
                     <li><a href="/Kanbas/Courses/Settings/Course_Details/screen.html">Settings</a></li>
                   </ul>          
             </div>
-           <ul style="margin-top:20px">
-            <i class="fa-regular fa-bars float-start"></i>
-            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                <ol class="breadcrumb" >
-                  <li class="breadcrumb-item"><a href="#" style="text-decoration: none; color:crimson">CS5610.11744.202310</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Assignment</li>
-                </ol>
-            </nav>
-            <button class="btn btn-light float-end" style="margin:0px; width:150px;">
-                <i class="fa-regular fa-glasses"></i>
-                Student View
-            </button>
-            </ul>
-        
-            
-            
+
+            <div class="flex-fill p-5">
+            <div class="flex-container">
+                <div class="b-2">
+                    <li class="list-group-item d-flex justify-content-end align-items-center">
+                        <i class="fa-solid fa-circle-check float-end" style="color:green"></i>
+                            <span class="m-1" style="color:green">Published</span>
+                            <button type="button" class="btn btn-light float-end m-3">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                    </li>
+                    <hr/ class="mt-0">
+            </div>
+                    
+                    
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="Assignment Name"
+                                    class="form-label">
+                                    Assignment Name</label>
+                                <input type="text"
+                                    class="form-control"
+                                    id="assignment-name"
+                                    placeholder="A1 - ENV + HTML">
+                            </div>
+    
+                            <div class="col-12">
+                                <textarea class="form-control"
+                                    id="textarea1"
+                                    rows="3"
+                                    placeholder="Assignment Description. In this assignment we are learning about HTML."></textarea>
+                                    </div>
+                            </div>
+                            
+                        </div>
+    
+                        <div class="d-grid gap-3 container text-sm-end">
+                            <div class="row" >
+                                <label for="points" class="col-sm-2  
+                                col-form-label col-form-label-sm">Points</label>
+                                <div class="col-sm">
+                                    <input type="text" class="form-control" id="points">
+                                </div>
+                            </div>
+                           
+                            <div class="row" >
+                                <label for="assignment-group" class="col-sm-2  
+                                col-form-label col-form-label-sm">Assignment Group</label>
+                                <div class="col-sm">
+                                    <select class="form-select">
+                                        <option selected>ASSIGNMENTS</option>
+                                        <option value="1">QUIZZES</option>
+                                        <option value="2">EXAM</option>
+                                        <option value="3">PROJECT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <label for="display-grade" class="col-sm-2  
+                                col-form-label col-form-label-sm">Display Grade</label>
+                                <div class="col-sm">
+                                    <select class="form-select">
+                                        <option selected>Percentage</option>
+                                    </select>
+                                </div>
+                            </div>
+                           
+                            <div class="row">
+                                <label for="display-grade" class="col-sm-2  
+                                col-form-label col-form-label-sm">Display Grade</label>
+                                <div class="col-sm">
+                                    <select class="form-select">
+                                        <option selected>Percentage</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="text-align:left">
+                                <label for="display-grade" class="col-sm-2  
+                                col-form-label col-form-label-sm"></label>
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          Do not count this assignment towards the final grade
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <label for="display-grade" class="col-sm-2  
+                                col-form-label col-form-label-sm">Submission Type</label>
+                                <div class="d-grid gap-3 col-sm border border-1 rounded">
+                                    <select class="form-select mt-3 w-25">
+                                        <option selected>Online</option>
+                                    </select> 
+                                    
+                                    <div style="text-align:left">
+                                        <label><b>Online Entry Options</b></label>
+                                    </div>
+                                    
+                                    <div class="form-check" style="text-align:left">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          Text Entry
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-check" style="text-align:left">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          Website URL
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-check" style="text-align:left">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          Media Recordings
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-check" style="text-align:left">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          Student Annotations
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-check mb-4" style="text-align:left">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                                        <label class="form-check-label" for="gridCheck">
+                                          File Uploads
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <label for="display-grade" class="col-sm-2  
+                                col-form-label col-form-label-sm">Assign</label>
+                                
+                                <div class="d-grid gap-3 col-sm border border-1 rounded">
+                                    
+                                    <div class="row g-3">
+                                        <div class="col-12" style="text-align:left">
+                                            <label for="Assign to"
+                                                class="form-label mt-3"><b>
+                                                Assign to</b></label>
+                                            <div class="d-grid gap-3 col-sm border border-1 rounded">
+                                                <div>
+                                                <button type="button" class="btn btn-light float end m-2">
+                                                    Everyone<i class="fa-light fa-xmark ms-4"></i>
+                                                </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-12" style="text-align:left">
+                                            <label for="Due"
+                                                class="form-label"><b>
+                                                Due to</b></label>
+                                            <input type="date"
+                                                class="form-control"
+                                                id="due-date"
+                                                placeholder="">
+                                        </div>
+    
+                                        <div class="col-md-6" style="text-align:left">
+                                            <label for="available-from" class="form-label"><b>Available from</b></label>
+                                            <input type="date" class="form-control mb-5" id="available-from">
+                                        </div>
+                                        
+                                        <div class="col-md-6" style="text-align:left">
+                                            <label for="until" class="form-label"><b>Until</b></label>
+                                            <input type="date" class="form-control mb-5" id="until">
+                                        </div>
+                                        
+                                        
+                                        <button type="button" class="btn btn-light border border-1">
+                                            <i class="fa-light fa-plus me-2"></i>Add
+                                        </button> 
+                                        
+                                            
+                                        
+                                    </div>   
+    
+                                    
+                                    
+                                                             
+                                </div>
+    
+                                
+                                
+                            </div>
+                            
+                        </div>
+                    
+                    </form>
+                    <hr/>
+    
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6" style="text-align:left">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                      Notify uders that this content has changed
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6" style="text-align:left">
+                                <button type="button" class="btn btn-danger btn-border-radius:round float-end">Save</button>
+                                <button type="button" class="btn btn-light float-end">Cancel</button>
+                            </div>
+                        </div>
+    
+                    </form>
+      
+            </div>
         </div>
-
-        
-       
-    </div>
-
     </body>
 </html>
