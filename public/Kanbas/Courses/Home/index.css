@@ -19,8 +19,7 @@
 
 .wd-kanbas-navigation-narrow {
 list-style: none;
-padding: 100px;
-width: 100px;
+width: 100%;
 }
 .wd-kanbas-navigation-narrow li {
 display: flex;
@@ -34,8 +33,6 @@ text-align: center;
 .wd-kanbas-navigation-narrow li a {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
     color: crimson;
     text-decoration: none;
     }
@@ -47,8 +44,7 @@ text-align: center;
 
 .wd-course-navigation-narrow {
 list-style: none;
-padding: 100px;
-width: 90px;
+width: 100%;
 }
 .wd-course-navigation-narrow li {
 display: flex;
@@ -62,7 +58,6 @@ text-align: center;
 .wd-course-navigation-narrow li a {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
     color: crimson;
     text-decoration: none;
@@ -73,5 +68,9 @@ text-align: center;
     font-size: 2em;
     margin-right: 10px;
     }    
+
+.min-height {
+    min-height:100vh;
+}    
 
 
