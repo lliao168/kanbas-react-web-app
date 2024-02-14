@@ -64,12 +64,10 @@ padding: 50px;
 .wd-margin-bottom {
 margin-bottom: 50px;
 }
-
 .wd-margin-right-left {
 margin-left: 50px;
 margin-right: 50px;
 }
-
 .wd-margin-all-around {
 margin: 30px;
 }
@@ -190,3 +188,5 @@ flex-grow: 1;
 .wd-width-75px {
 width: 75px;
 }
+
+
