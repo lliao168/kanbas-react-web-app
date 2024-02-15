@@ -9,11 +9,10 @@ function MapFunction() {
     //         {a} * {a} = {a * a}
     //     </li>
     // );
-    
+
     // const squares = numberArray1.map(square);
     // const cubes = numberArray1.map(a => a * a * a);
     // const squareLis = numberArray1.map(squareLi);
-
 
     return (
         <>

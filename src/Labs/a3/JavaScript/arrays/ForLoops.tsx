@@ -1,4 +1,4 @@
-function AddingAndRemovingDataToFromArrays() {
+function ForLoops() {
     let stringArray1 = ['string1', 'string3'];
     let stringArray2 = [];
     for (let i = 0;
@@ -17,4 +17,4 @@ function AddingAndRemovingDataToFromArrays() {
     )
 };
 
-export default AddingAndRemovingDataToFromArrays;
+export default ForLoops;
