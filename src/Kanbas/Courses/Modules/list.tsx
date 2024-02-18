@@ -4,6 +4,10 @@ import { modules } from "../../Database";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router";
 import {HiEllipsisVertical } from "react-icons/hi2";
+import { PiDotsSixVerticalBold } from "react-icons/pi";
+import { GrLink } from "react-icons/gr";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 function ModuleList() {
     const { courseId } = useParams();
@@ -27,7 +31,7 @@ function ModuleList() {
                         </ul>
                     </div>
                     <button type="button" className="btn btn-danger float-end m-1">+ Module</button>
-                    <button type="button" className="btn btn-light float-end btn-lg m-1">
+                    <button type="button" className="btn btn-light float-end m-1">
                         <FaEllipsisV/>
                     </button>
                 </li>
@@ -39,9 +43,9 @@ function ModuleList() {
                         className="list-group-item"
                         onClick={() => setSelectedModule(module)}>
                         <div>
-                            <FaEllipsisV className="me-2" />
+                            <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
                             <FaCaretDown className="me-2"/>
-                            {module.name}
+                            <span style={{fontWeight:"bold"}}>{module.name}</span>
                             <span className="float-end">
                                 <FaCheckCircle className="text-success me-2" />
                                 <FaPlusCircle className="ms-2" />
@@ -49,17 +53,65 @@ function ModuleList() {
                             </span>
                         </div>
                         {/* {selectedModule._id === module._id && ( */}
-                        <ul className="list-group">
-                            {module.lessons?.map((lesson) => (        
+                        <ul className="list-group">    
                             <li className="list-group-item">
-                                <FaEllipsisV className="me-2" />
-                                {lesson.name}
+                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-3" />
+                                {module.category}
                                 <span className="float-end">
                                     <FaCheckCircle className="text-success" />
                                     <FaEllipsisV className="ms-2" />
                                 </span>
                             </li>
-                        ))}
+                            {module.lessons?.map((lesson) => (        
+                            <li className="list-group-item">
+                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
+                                <span className="ms-4">{lesson.name}</span>
+                                <span className="float-end">
+                                    <FaCheckCircle className="text-success" />
+                                    <FaEllipsisV className="ms-2" />
+                                </span>
+                            </li>
+                            ))} 
+
+                            <li className="list-group-item">
+                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-3" />
+                                {module.category2}
+                                <span className="float-end">
+                                    <FaCheckCircle className="text-success" />
+                                    <FaEllipsisV className="ms-2" />
+                                </span>
+                            </li>
+                            {module.lessons2?.map((lesson) => (        
+                            <li className="list-group-item">
+                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-3" />
+                                <span className="ms-4">{lesson.name}</span>
+                                <span className="float-end">
+                                    <FaCheckCircle className="text-success" />
+                                    <FaEllipsisV className="ms-2" />
+                                </span>
+                            </li>
+                            ))} 
+
+                            <li className="list-group-item">
+                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
+                                {module.category3}
+                                <span className="float-end">
+                                    <FaCheckCircle className="text-success" />
+                                    <FaEllipsisV className="ms-2" />
+                                </span>
+                            </li>
+                            {module.lessons3?.map((lesson) => (        
+                            <li className="list-group-item">
+                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
+                                <GrLink style={{color:"green"}} />
+                                <Link to="#" className="ms-4" style={{textDecoration:"none", color:"crimson"}}>{lesson.name}</Link>
+                                <FaArrowRightFromBracket className="ms-2" style={{color:"crimson"}} />
+                                <span className="float-end">
+                                    <FaCheckCircle className="text-success" />
+                                    <FaEllipsisV className="ms-2" />
+                                </span>
+                            </li>
+                            ))} 
                         </ul>
                         {/* )} */}
                     </li>

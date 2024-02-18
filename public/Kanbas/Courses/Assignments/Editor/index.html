@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="/Kanbas/Courses/Modules/index.css" />
     </head>
     <body>
-        <div>
+        <div class="flex-container">
             <div>
                 <li class="list-group-item d-flex justify-content-end align-items-center">
                     <i class="fa-solid fa-circle-check float-end" style="color:green"></i>
@@ -18,11 +18,11 @@
                         </button>
                 </li>
                 <hr/ class="mt-0">
-        </div>
+            </div>
                 
                 
                 <form>
-                    <div class="row g-3">
+                    <div class="row g-3 justify-content-center">
                         <div class="col-12">
                             <label for="Assignment Name"
                                 class="form-label">
@@ -43,13 +43,13 @@
                         
                     </div>
 
-                    <div class="d-grid gap-3 text-sm-end justify-content-center">
+                    <div class="d-grid gap-3 container text-sm-end justify-content-center">
                         <div class="row" >
-                                <label for="points" class="col-sm-2  
-                                col-form-label col-form-label-sm">Points</label>
-                                <div class="col-sm">
-                                    <input type="text" class="form-control" id="points">
-                                </div>
+                            <label for="points" class="col-sm-2  
+                            col-form-label col-form-label-sm">Points</label>
+                            <div class="col-sm">
+                                <input type="number" class="form-control" id="points">
+                            </div>
                         </div>
                        
                         <div class="row" >
@@ -151,7 +151,7 @@
                                         <div class="d-grid gap-3 col-sm border border-1 rounded">
                                             <div>
                                             <button type="button" class="btn btn-light float end m-2">
-                                                Everyone<i class="fa-light fa-xmark"></i>
+                                                Everyone<i class="fa-light fa-xmark ms-4"></i>
                                             </button>
                                             </div>
                                         </div>
@@ -169,27 +169,24 @@
 
                                     <div class="col-md-6" style="text-align:left">
                                         <label for="available-from" class="form-label"><b>Available from</b></label>
-                                        <input type="date" class="form-control mb-5" id="available-from">
+                                        <input type="date" class="form-control mb-4" id="available-from">
                                     </div>
                                     
                                     <div class="col-md-6" style="text-align:left">
                                         <label for="until" class="form-label"><b>Until</b></label>
-                                        <input type="date" class="form-control mb-5" id="until">
+                                        <input type="date" class="form-control mb-4" id="until">
                                     </div>
-
-                                </div>   
-                                   
+                                    
+                                </div>  
+                                
                                 <div class="d-flex row justify-content-end">
                                     <button type="button" class="btn btn-light border border-1">
                                         <i class="fa-light fa-plus me-2"></i>Add
                                     </button> 
-                                </div>                  
+                                </div> 
+                  
                             </div>
 
-                            
-
-                            
-                            
                         </div>
                         
                     </div>
@@ -199,7 +196,7 @@
 
                 <form>
                     <div class="row g-3">
-                        <div class="col-md-6" style="text-align:left">
+                        <div class="col-md-6 text-align:left">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="gridCheck">
                                 <label class="form-check-label" for="gridCheck">
@@ -208,7 +205,7 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-6" style="text-align:left">
+                        <div class="col-md-6 text-align:left">
                             <a href="/Kanbas/Courses/Assignments/screen.html" class="btn btn-danger btn-border-radius:round float-end">Save</a>
                             <a href="/Kanbas/Courses/Assignments/screen.html"  class="btn btn-light float-end">Cancel</a>
                         </div>
@@ -216,6 +213,7 @@
 
                 </form>
   
+
         </div>
 
     </body>
