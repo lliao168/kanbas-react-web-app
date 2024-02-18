@@ -82,7 +82,7 @@ function Grades() {
                                         {assignments.map((assignment) => {
                                         const grade = grades.find(
                                         (grade) => grade.student === enrollment.user && grade.assignment === assignment._id);
-                                        return (<td style={{textAlign:"center"}}>{grade?.grade || ""}
+                                        return (<td><input type="number" className="form-control" min="0" max="100" value={grade?.grade || ""} style={{textAlign:"center", border:"none", backgroundColor:"transparent"}}/>
                                     </td>);})}
                                 </tr>);
                                 })}

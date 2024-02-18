@@ -1,6 +1,7 @@
 // import { useParams } from "react-router";
+import React from "react";
 import { courses } from "../../Kanbas/Database";
-import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
+import { Link, Navigate, Route, Routes, useParams, useLocation, useNavigate } from "react-router-dom";
 import { HiMiniBars3 } from "react-icons/hi2";
 import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
@@ -9,35 +10,356 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import Grades from "./Grades";
+import { FaArrowCircleRight, FaBook, FaClock, FaDesktop, FaInbox, FaRegCalendarAlt, FaRegQuestionCircle, FaTachometerAlt, FaUserCircle } from "react-icons/fa";
+import { FaChevronRight} from "react-icons/fa6";
+import { AiOutlineHome } from "react-icons/ai";
+import { FaCircleNodes } from "react-icons/fa6";
+import { LuPlug2 } from "react-icons/lu";
+import { FaFilePen } from "react-icons/fa6";
+import { IoRocketOutline } from "react-icons/io5";
+import { SlNotebook } from "react-icons/sl";
+import { FaUserGroup } from "react-icons/fa6";
+import { TiMessages } from "react-icons/ti";
+import { CiBullhorn } from "react-icons/ci";
+import { FaRegFileLines } from "react-icons/fa6";
+import { FaRegFolderClosed } from "react-icons/fa6";
+import { LuClipboardList } from "react-icons/lu";
+import { FaBullseye } from "react-icons/fa";
+import { FaRegCircle } from "react-icons/fa";
+import { GoGear } from "react-icons/go";
+import { FaChevronDown } from "react-icons/fa6";
+import "./index.css";
+import { assignments } from "../Database";
 
 function Courses() {
         const { courseId } = useParams();
         const course = courses.find((course) => course._id === courseId);
+        const links = ["Home", "Modules", "Piazza", "Zoom%20Meetings", "Assignments", "Quizzes", "Grades", "People", "Panopto%20Video", 
+        "Discussions", "Announcements", "Pages", "Files", "Rubrics", "Outcomes", "Collaborations", "Syllabus", "Settings"];
+        const { pathname } = useLocation();
+        const { assignmentId } = useParams();
+        const assignment = assignments.find((assignment) => assignment._id === assignmentId);
+        const navigate = useNavigate();
+        console.log("pathname:", pathname);
+        console.log("links array:", links);
+
     return (
         <div>
-            <div className="d-none d-md-block">
-                    {/* <h4><HiMiniBars3 style={{color:"crimson", fontWeight:"normal"}}/> {course?.name}</h4> */}
-                    <li className="d-flex justify-content-end align-items-center" style={{ marginLeft: "20px"}}>
-                                <div className="col-auto">
-                                    <button className="btn btn-primary border border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collpaseKanbasNavigation" aria-expanded="false" aria-controls="collpaseKanbasNavigation" style={{backgroundColor: "white"}}>
-                                        <HiMiniBars3 style={{color:"crimson", fontWeight:"normal"}}/>
-                                    </button>
-                                </div>    
-                                <div className="d-flex flex-grow-1 align-item-center mt-3">
-                                    <nav style={{ "--bs-breadcrumb-divider": "'>'" } as any} aria-label="breadcrumb">
-                                        <ul className="breadcrumb">
-                                        <li className="breadcrumb-item"><Link to="#" style={{textDecoration: "none", color:"crimson"}}>{course?.name}</Link></li>
-                                        <li className="breadcrumb-item active" aria-current="page">Modules</li>
-                                        </ul>
-                                    </nav>   
-                                </div>    
-                                <div>
-                                    <button type="button" className="btn btn-light">
-                                        <FaGlasses/><span className="ms-2">Student View</span>
-                                    </button>
-                                </div>    
+                <div className="d-none d-md-block">
+                        {/* <h4><HiMiniBars3 style={{color:"crimson", fontWeight:"normal"}}/> {course?.name}</h4> */}
+                        <li className="d-flex justify-content-end align-items-center" style={{ marginLeft: "20px"}}>
+                                    <div className="col-auto">
+                                        <button className="btn btn-primary border border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collpaseKanbasNavigation" aria-expanded="false" aria-controls="collpaseKanbasNavigation" style={{backgroundColor: "white"}}>
+                                            <HiMiniBars3 style={{color:"crimson", fontWeight:"normal"}}/>
+                                        </button>
+                                    </div>    
+
+                                    <div className="collapse collapse-horizontal" id="collpaseKanbasNavigation">
+                                        <div className="card card-body">
+                                            <div>
+                                                <ul className="wd-kanbas-navigation-narrow">     
+                                                    <div className="d-flex align-items-center">
+                                                        <div className="col-6">
+                                                            <span><img src="/images/canvaslogo.png" width="200px"/></span>
+                                                        </div>    
+                                                        <div className="col-6">
+                                                            <button type="button" className="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collpaseKanbasNavigation" aria-label="Close"></button>
+                                                        </div>    
+                                                    </div>    
+                                                    
+                                                    <li className="wd-active">
+                                                        <div className="col-6">    
+                                                            <Link to="/Kanbas/Dashboard">
+                                                                <FaTachometerAlt/> 
+                                                                <span>Dashboard</span>
+                                                            </Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">    
+                                                            <Link to="/Kanbas/Account">
+                                                            <FaUserCircle style={{color:"grey"}}/>Account</Link>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">
+                                                            <Link to="/Kanbas/Courses/">
+                                                            <FaBook/>Courses</Link>
+                                                        </div>  
+                                                        <div className="col-6">  
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                                
+                                                        </div>        
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6"> 
+                                                            <Link to="#"><FaRegCalendarAlt/>Calendar</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6"> 
+                                                            <Link to="#"><FaInbox/>Inbox</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6"> 
+                                                            <Link to="#"><FaClock/>History</Link>
+                                                        </div>
+                                                        <div className="col-6">    
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">    
+                                                            <Link to="#"><FaDesktop/>Studio</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">
+                                                            <Link to="#"><FaArrowCircleRight/>Commons</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">
+                                                            <Link to="#"><FaRegQuestionCircle/>Help</Link>
+                                                        </div>
+                                                        <div className="col-6">        
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                        </div>    
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="d-flex flex-grow-1 align-item-center mt-3">
+                                        <nav style={{ "--bs-breadcrumb-divider": "'>'" } as any} aria-label="breadcrumb">
+                                            <ul className="breadcrumb">
+                                            <li className="breadcrumb-item"><Link to="#" style={{textDecoration: "none", color:"crimson"}}>{course?.name}</Link></li>
+                                            
+                                            <li className="breadcrumb-item active" aria-current="page">
+                                                <span>{decodeURIComponent(links.find(link => pathname.includes(link)) || "")}</span>
+                                            </li>
+                                            </ul>
+                                        </nav>   
+                                    </div>    
+                                    <div>
+                                        <button type="button" className="btn btn-light">
+                                            <FaGlasses/><span className="ms-2">Student View</span>
+                                        </button>
+                                    </div>    
+                        </li>
+
+                                    
+                </div> 
+
+                <div className="d-block d-md-none">
+                    <li className="list-group-item d-flex justify-content-start align-items-center" style={{backgroundColor:"black"}}>
+                        <div className="col float-start">
+                            <button className="btn btn-primary border border-black me-3" type="button" data-bs-toggle="collapse" data-bs-target="#collpaseKanbasNavigation" aria-expanded="false" aria-controls="collpaseKanbasNavigation" style={{backgroundColor: "black"}}>
+                                <HiMiniBars3 style={{color:"white"}}/>
+                            </button>
+                        </div>   
+                        <div className="d-flex align-items-center flex-grow-1 p-2 ms-5"> 
+                            <div className="center-text">
+                                <div>CS4550.12631.202410</div>
+                                <div>Modules</div>
+                            </div>    
+                        </div>
+                        <button type="button" className="btn btn-dark border-black float-end">
+                            <FaGlasses/>
+                        </button>
+                        <button className="btn btn-dark border border-black float-end me-3" type="button" data-bs-toggle="collapse" data-bs-target="#collpaseCourseNavigation" aria-expanded="false" aria-controls="collpaseCourseNavigation">
+                            <FaChevronDown style={{color:"white"}}/>
+                        </button>
+                        
                     </li>
-            </div>    
+                    
+                    <div className="collapse collapse-horizontal" id="collpaseKanbasNavigation">
+                                        <div className="card card-body">
+                                            <div>
+                                                <ul className="wd-kanbas-navigation-narrow">     
+                                                    <div className="d-flex align-items-center">
+                                                        <div className="col-6">
+                                                            <span><img src="/images/canvaslogo.png" width="200px"/></span>
+                                                        </div>    
+                                                        <div className="col-6">
+                                                            <button type="button" className="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collpaseKanbasNavigation" aria-label="Close"></button>
+                                                        </div>    
+                                                    </div>    
+                                                    
+                                                    <li className="wd-active">
+                                                        <div className="col-6">    
+                                                            <Link to="/Kanbas/Dashboard">
+                                                                <FaTachometerAlt/> 
+                                                                <span>Dashboard</span>
+                                                            </Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">    
+                                                            <Link to="/Kanbas/Account">
+                                                            <FaUserCircle style={{color:"grey"}}/>Account</Link>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">
+                                                            <Link to="/Kanbas/Courses/">
+                                                            <FaBook/>Courses</Link>
+                                                        </div>  
+                                                        <div className="col-6">  
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                                
+                                                        </div>        
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6"> 
+                                                            <Link to="#"><FaRegCalendarAlt/>Calendar</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6"> 
+                                                            <Link to="#"><FaInbox/>Inbox</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6"> 
+                                                            <Link to="#"><FaClock/>History</Link>
+                                                        </div>
+                                                        <div className="col-6">    
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">    
+                                                            <Link to="#"><FaDesktop/>Studio</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">
+                                                            <Link to="#"><FaArrowCircleRight/>Commons</Link>
+                                                        </div>    
+                                                    </li>
+
+                                                    <li>
+                                                        <div className="col-6">
+                                                            <Link to="#"><FaRegQuestionCircle/>Help</Link>
+                                                        </div>
+                                                        <div className="col-6">        
+                                                            <button className="btn btn-primary border border-white float-end" type="button" data-bs-toggle="collapse" aria-expanded="false" style={{backgroundColor: "white"}}>
+                                                                <FaChevronRight style={{fontSize:"1em", color:"black"}}/>
+                                                            </button>
+                                                        </div>    
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                    </div>
+                
+                    <div className="collapse" id="collpaseCourseNavigation">
+                        <div className="card card-body">
+                            <div>
+                                <button type="button" className="btn-close float-end" data-bs-toggle="collapse" data-bs-target="#collpaseCourseNavigation" aria-label="Close"></button>
+                            </div>
+                            <ul className="wd-course-navigation-narrow">
+                                <li className="wd-active"><Link to="/Kanbas/Courses">
+                                    <AiOutlineHome/>Home</Link>
+                                </li>
+                                <li>
+                                    <Link to="/Kanbas/Courses/Modules">
+                                        <FaCircleNodes/>Modules</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <LuPlug2/>Piazza</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <LuPlug2/>Zoom Meetings</Link>
+                                </li>
+                                <li><Link to="/Kanbas/Courses/Assignments">
+                                    <FaFilePen/>Assignments</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <IoRocketOutline/>Quizzes</Link>
+                                </li>
+                                <li><Link to="/Kanbas/Courses/Grades">
+                                    <SlNotebook/>Grades</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <FaUserGroup/>People</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <LuPlug2/>Panopto Video</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <TiMessages/>Discussions</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <CiBullhorn/>Announcements</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <FaRegFileLines/>Pages</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <FaRegFolderClosed/>Files</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <LuClipboardList/>Rubrics</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <FaBullseye/>Outcomes</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <FaRegCircle/>Collaborations</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <SlNotebook/>Syllabus</Link>
+                                </li>
+                                <li><Link to="#">
+                                    <LuPlug2/>Progress Reports(EAB Navigate)</Link>
+                                </li>
+                                <li><Link to="/Kanbas/Courses/Settings">
+                                    <GoGear/>Settings</Link>
+                                </li>
+                            </ul>          
+                        </div>
+                    </div>
+                </div>    
+
                 <CourseNavigation />
                 <div>
                     <div

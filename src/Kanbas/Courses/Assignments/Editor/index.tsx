@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { assignments } from "../../../Database";
 import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 
 function AssignmentEditor() {
     const { assignmentId } = useParams();
@@ -151,7 +152,7 @@ function AssignmentEditor() {
                                                         <div className="d-grid gap-3 col-sm border border-1 rounded">
                                                             <div>
                                                             <button type="button" className="btn btn-light float end m-2">
-                                                                Everyone<i className="fa-light fa-xmark ms-4"></i>
+                                                                Everyone<FaXmark className="ms-1"/>
                                                             </button>
                                                             </div>
                                                         </div>
@@ -181,7 +182,7 @@ function AssignmentEditor() {
                                                 
                                                 <div className="d-flex row justify-content-end">
                                                     <button type="button" className="btn btn-light border border-1">
-                                                        <i className="fa-light fa-plus me-2"></i>Add
+                                                        <i className="fa-light fa-plus me-2"></i>+ Add
                                                     </button> 
                                                 </div> 
                                 
