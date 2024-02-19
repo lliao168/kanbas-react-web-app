@@ -52,7 +52,7 @@ function AssignmentEditor() {
                                             <label htmlFor="points" className="col-sm-2  
                                             col-form-label col-form-label-sm">Points</label>
                                             <div className="col-sm">
-                                                <input type="number" className="form-control" id="points"/>
+                                                <input type="number" className="form-control" id="points" value="100"/>
                                             </div>
                                         </div>
 
