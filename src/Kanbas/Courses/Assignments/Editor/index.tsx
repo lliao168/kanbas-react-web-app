@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { assignments } from "../../../Database";
+import { assignments, quizzes } from "../../../Database";
 import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
@@ -8,6 +8,9 @@ function AssignmentEditor() {
     const { assignmentId } = useParams();
     const assignment = assignments.find(
     (assignment) => assignment._id === assignmentId);
+    const { quizId } = useParams();
+    const quiz = quizzes.find(
+    (quiz) => quiz._id === quizId);
     const { courseId } = useParams();
     const navigate = useNavigate();
     const handleSave = () => {
@@ -24,7 +27,7 @@ function AssignmentEditor() {
                                         <FaEllipsisV/>
                                     </button>
                             </li>
-                            <hr className="mt-0"/>
+                            <hr className="mt-0" style={{color:"grey"}} />
             </div>
             <form>
                 <div className="row g-3 justify-content-center">
@@ -192,7 +195,7 @@ function AssignmentEditor() {
                 
             </form>
 
-            <hr/>
+            <hr style={{color:"grey"}} />
 
             <form>
                 <div className="row g-3">

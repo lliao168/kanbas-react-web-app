@@ -7,10 +7,13 @@ function Grades() {
     const { courseId } = useParams();
     const as = assignments.filter((assignment) => assignment.course === courseId);
     const es = enrollments.filter((enrollment) => enrollment.course === courseId);
+    {console.log('courseId:', courseId)}
+    {console.log('assignments for current course:', as.filter((assignment) => assignment.course === courseId))}
+
     return (
         <div className="flex-fill p-4">
-            <div className="flex-container">
-                <div className="flex-container">
+            <div>
+                <div >
                                     <li className="list-group-item d-flex justify-content-end align-items-center">
                                         <button type="button" className="btn btn-light float end m-2">
                                             <i className="fa-light fa-file-import"></i>Import
@@ -62,7 +65,7 @@ function Grades() {
                     </form>
                 </div>
 
-                <div className="col-12 mt-3">
+                <div className="mt-3">
                     <div className="table-responsive">
                         <table className="table table-striped table table-bordered">
                             {/* <thead>
@@ -71,18 +74,18 @@ function Grades() {
                             </thead> */}
                             <tbody>
                                 <tr>
-                                    <th className="col-md-2">Student Name</th>
-                                    {as.map((assignment) => (<th className="col-md-1" style={{textAlign:"center", width: "10%"}}>{assignment.title} <br /><span>Out of 100</span> </th>))}
+                                    <th className="col-md-1">Student Name</th>
+                                    {as.map((assignment) => (<th style={{textAlign:"center", width: "8%"}}>{assignment.title} <br /><span>Out of 100</span> </th>))}
                                 </tr>
                                 {es.map((enrollment) => {
                                 const user = users.find((user) => user._id === enrollment.user);
                                 return (
-                                <tr>
+                                <tr key={enrollment.user}>
                                     <td style={{color:"crimson"}}>{user?.firstName} {user?.lastName}</td>
-                                        {assignments.map((assignment) => {
+                                        {as.map((assignment) => {
                                         const grade = grades.find(
                                         (grade) => grade.student === enrollment.user && grade.assignment === assignment._id);
-                                        return (<td><input type="number" className="form-control" min="0" max="100" value={grade?.grade || ""} style={{textAlign:"center", border:"none", backgroundColor:"transparent"}}/>
+                                        return (<td><input type="number" className="form-control" value={grade?.grade || ""} style={{textAlign:"center", border:"none", backgroundColor:"transparent"}}/>
                                     </td>);})}
                                 </tr>);
                                 })}

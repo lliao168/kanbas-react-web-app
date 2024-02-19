@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import {HiEllipsisVertical } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { GrLink } from "react-icons/gr";
-import { FaArrowRightFromBracket } from "react-icons/fa6";
+import { FaArrowRightFromBracket, FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 function ModuleList() {
@@ -17,7 +17,7 @@ function ModuleList() {
         <>
             {/* <!-- Add buttons here --> */}
             <div>
-                <li className="list-group-item d-flex justify-content-end align-items-center buttons">
+                <li className="list-group-item d-flex justify-content-end align-items-center buttons mt-3">
                     <button className="btn btn-light float-end m-1">Collapse All</button>
                     <button className="btn btn-light float-end m-1">View Progress</button>
                     <div className="dropdown">
@@ -35,6 +35,8 @@ function ModuleList() {
                         <FaEllipsisV/>
                     </button>
                 </li>
+
+                <hr style={{color:"grey", marginLeft:"20px", marginRight:"20px"}} />
                                         
             </div>
             <ul className="list-group wd-modules">
@@ -48,11 +50,11 @@ function ModuleList() {
                             <span style={{fontWeight:"bold"}}>{module.name}</span>
                             <span className="float-end">
                                 <FaCheckCircle className="text-success me-2" />
-                                <FaPlusCircle className="ms-2" />
+                                <FaPlus className="ms-2" />
                                 <FaEllipsisV className="ms-2" />
                             </span>
                         </div>
-                        {/* {selectedModule._id === module._id && ( */}
+                        {selectedModule._id === module._id && (
                         <ul className="list-group">    
                             <li className="list-group-item">
                                 <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-3" />
@@ -93,7 +95,7 @@ function ModuleList() {
                             ))} 
 
                             <li className="list-group-item">
-                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
+                                <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-3" />
                                 {module.category3}
                                 <span className="float-end">
                                     <FaCheckCircle className="text-success" />
@@ -113,7 +115,7 @@ function ModuleList() {
                             </li>
                             ))} 
                         </ul>
-                        {/* )} */}
+                        )} 
                     </li>
                 ))}
             </ul>

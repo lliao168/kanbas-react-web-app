@@ -30,6 +30,7 @@ import { GoGear } from "react-icons/go";
 import { FaChevronDown } from "react-icons/fa6";
 import "./index.css";
 import { assignments } from "../Database";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Courses() {
         const { courseId } = useParams();
@@ -169,8 +170,11 @@ function Courses() {
                                     </div>    
                         </li>
 
+                        <hr style={{marginTop:"2px", marginLeft:"30px", color:"grey"}} />
                                     
                 </div> 
+
+                
 
                 <div className="d-block d-md-none">
                     <li className="list-group-item d-flex justify-content-start align-items-center" style={{backgroundColor:"black"}}>
@@ -181,8 +185,8 @@ function Courses() {
                         </div>   
                         <div className="d-flex align-items-center flex-grow-1 p-2 ms-5"> 
                             <div className="center-text">
-                                <div>CS4550.12631.202410</div>
-                                <div>Modules</div>
+                                <div>{course?.courseNumber}</div>
+                                <div>{decodeURIComponent(links.find(link => pathname.includes(link)) || "")}</div>
                             </div>    
                         </div>
                         <button type="button" className="btn btn-dark border-black float-end">
