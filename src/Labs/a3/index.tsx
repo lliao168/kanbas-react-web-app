@@ -15,6 +15,7 @@ function Assignment3() {
     return(
         <div>
             <h1>Assignment 3</h1>
+            <TodoItem/>
             <TodoList/>
             <ConditionalOutput/>
             <Styles/>
@@ -26,7 +27,6 @@ function Assignment3() {
                 vel nihil repellat nemo explicabo excepturi consectetur. Modi omnis minus sequi maiores, provident voluptates.
             </Highlight>
             <Add a={3} b={4} />
-            
         </div>
     );
 }
