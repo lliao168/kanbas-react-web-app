@@ -1626,7 +1626,681 @@
       "student": "130",
       "assignment": "A703",
       "grade": "85"
+    },
+
+    {
+      "_id": "270",
+      "student": "121",
+      "assignment": "A110",
+      "grade": "90"
+    },
+    {
+      "_id": "271",
+      "student": "122",
+      "assignment": "A110",
+      "grade": "80"
+    },
+    {
+      "_id": "272",
+      "student": "123",
+      "assignment": "A110",
+      "grade": "81"
+    },
+    {
+      "_id": "273",
+      "student": "124",
+      "assignment": "A110",
+      "grade": "82"
+    },
+    {
+      "_id": "274",
+      "student": "125",
+      "assignment": "A110",
+      "grade": "83"
+    },
+    {
+      "_id": "275",
+      "student": "126",
+      "assignment": "A110",
+      "grade": "84"
+    },
+    {
+      "_id": "276",
+      "student": "127",
+      "assignment": "A110",
+      "grade": "86"
+    },
+    {
+      "_id": "277",
+      "student": "128",
+      "assignment": "A110",
+      "grade": "83"
+    },
+    {
+      "_id": "278",
+      "student": "129",
+      "assignment": "A110",
+      "grade": "84"
+    },
+    {
+      "_id": "279",
+      "student": "130",
+      "assignment": "A110",
+      "grade": "85"
+    },
+
+    {
+      "_id": "280",
+      "student": "121",
+      "assignment": "A204",
+      "grade": "90"
+    },
+    {
+      "_id": "281",
+      "student": "122",
+      "assignment": "A204",
+      "grade": "80"
+    },
+    {
+      "_id": "282",
+      "student": "123",
+      "assignment": "A204",
+      "grade": "81"
+    },
+    {
+      "_id": "283",
+      "student": "124",
+      "assignment": "A204",
+      "grade": "82"
+    },
+    {
+      "_id": "284",
+      "student": "125",
+      "assignment": "A204",
+      "grade": "83"
+    },
+    {
+      "_id": "285",
+      "student": "126",
+      "assignment": "A204",
+      "grade": "84"
+    },
+    {
+      "_id": "286",
+      "student": "127",
+      "assignment": "A204",
+      "grade": "86"
+    },
+    {
+      "_id": "287",
+      "student": "128",
+      "assignment": "A204",
+      "grade": "83"
+    },
+    {
+      "_id": "288",
+      "student": "129",
+      "assignment": "A204",
+      "grade": "84"
+    },
+    {
+      "_id": "289",
+      "student": "130",
+      "assignment": "A204",
+      "grade": "85"
+    },
+
+    {
+      "_id": "290",
+      "student": "121",
+      "assignment": "A205",
+      "grade": "90"
+    },
+    {
+      "_id": "291",
+      "student": "122",
+      "assignment": "A205",
+      "grade": "80"
+    },
+    {
+      "_id": "292",
+      "student": "123",
+      "assignment": "A205",
+      "grade": "81"
+    },
+    {
+      "_id": "293",
+      "student": "124",
+      "assignment": "A205",
+      "grade": "82"
+    },
+    {
+      "_id": "294",
+      "student": "125",
+      "assignment": "A205",
+      "grade": "83"
+    },
+    {
+      "_id": "295",
+      "student": "126",
+      "assignment": "A205",
+      "grade": "84"
+    },
+    {
+      "_id": "296",
+      "student": "127",
+      "assignment": "A205",
+      "grade": "86"
+    },
+    {
+      "_id": "297",
+      "student": "128",
+      "assignment": "A205",
+      "grade": "83"
+    },
+    {
+      "_id": "298",
+      "student": "129",
+      "assignment": "A205",
+      "grade": "84"
+    },
+    {
+      "_id": "299",
+      "student": "130",
+      "assignment": "A205",
+      "grade": "85"
+    },
+
+    {
+      "_id": "300",
+      "student": "121",
+      "assignment": "A206",
+      "grade": "90"
+    },
+    {
+      "_id": "301",
+      "student": "122",
+      "assignment": "A206",
+      "grade": "80"
+    },
+    {
+      "_id": "302",
+      "student": "123",
+      "assignment": "A206",
+      "grade": "81"
+    },
+    {
+      "_id": "303",
+      "student": "124",
+      "assignment": "A206",
+      "grade": "82"
+    },
+    {
+      "_id": "304",
+      "student": "125",
+      "assignment": "A206",
+      "grade": "83"
+    },
+    {
+      "_id": "305",
+      "student": "126",
+      "assignment": "A206",
+      "grade": "84"
+    },
+    {
+      "_id": "306",
+      "student": "127",
+      "assignment": "A206",
+      "grade": "86"
+    },
+    {
+      "_id": "307",
+      "student": "128",
+      "assignment": "A206",
+      "grade": "83"
+    },
+    {
+      "_id": "308",
+      "student": "129",
+      "assignment": "A206",
+      "grade": "84"
+    },
+    {
+      "_id": "309",
+      "student": "130",
+      "assignment": "A206",
+      "grade": "85"
+    },
+
+    {
+      "_id": "400",
+      "student": "121",
+      "assignment": "A207",
+      "grade": "90"
+    },
+    {
+      "_id": "401",
+      "student": "122",
+      "assignment": "A207",
+      "grade": "80"
+    },
+    {
+      "_id": "402",
+      "student": "123",
+      "assignment": "A207",
+      "grade": "81"
+    },
+    {
+      "_id": "403",
+      "student": "124",
+      "assignment": "A207",
+      "grade": "82"
+    },
+    {
+      "_id": "404",
+      "student": "125",
+      "assignment": "A207",
+      "grade": "83"
+    },
+    {
+      "_id": "405",
+      "student": "126",
+      "assignment": "A207",
+      "grade": "84"
+    },
+    {
+      "_id": "406",
+      "student": "127",
+      "assignment": "A207",
+      "grade": "86"
+    },
+    {
+      "_id": "407",
+      "student": "128",
+      "assignment": "A207",
+      "grade": "83"
+    },
+    {
+      "_id": "408",
+      "student": "129",
+      "assignment": "A207",
+      "grade": "84"
+    },
+    {
+      "_id": "409",
+      "student": "130",
+      "assignment": "A207",
+      "grade": "85"
+    },
+
+    {
+      "_id": "500",
+      "student": "121",
+      "assignment": "A208",
+      "grade": "90"
+    },
+    {
+      "_id": "501",
+      "student": "122",
+      "assignment": "A208",
+      "grade": "80"
+    },
+    {
+      "_id": "502",
+      "student": "123",
+      "assignment": "A208",
+      "grade": "81"
+    },
+    {
+      "_id": "503",
+      "student": "124",
+      "assignment": "A208",
+      "grade": "82"
+    },
+    {
+      "_id": "504",
+      "student": "125",
+      "assignment": "A208",
+      "grade": "83"
+    },
+    {
+      "_id": "505",
+      "student": "126",
+      "assignment": "A208",
+      "grade": "84"
+    },
+    {
+      "_id": "506",
+      "student": "127",
+      "assignment": "A208",
+      "grade": "86"
+    },
+    {
+      "_id": "507",
+      "student": "128",
+      "assignment": "A208",
+      "grade": "83"
+    },
+    {
+      "_id": "508",
+      "student": "129",
+      "assignment": "A208",
+      "grade": "84"
+    },
+    {
+      "_id": "509",
+      "student": "130",
+      "assignment": "A208",
+      "grade": "85"
+    },
+
+    {
+      "_id": "600",
+      "student": "121",
+      "assignment": "A304",
+      "grade": "90"
+    },
+    {
+      "_id": "601",
+      "student": "122",
+      "assignment": "A304",
+      "grade": "80"
+    },
+    {
+      "_id": "602",
+      "student": "123",
+      "assignment": "A304",
+      "grade": "81"
+    },
+    {
+      "_id": "603",
+      "student": "124",
+      "assignment": "A304",
+      "grade": "82"
+    },
+    {
+      "_id": "604",
+      "student": "125",
+      "assignment": "A304",
+      "grade": "83"
+    },
+    {
+      "_id": "605",
+      "student": "126",
+      "assignment": "A304",
+      "grade": "84"
+    },
+    {
+      "_id": "606",
+      "student": "127",
+      "assignment": "A304",
+      "grade": "86"
+    },
+    {
+      "_id": "607",
+      "student": "128",
+      "assignment": "A304",
+      "grade": "83"
+    },
+    {
+      "_id": "608",
+      "student": "129",
+      "assignment": "A304",
+      "grade": "84"
+    },
+    {
+      "_id": "609",
+      "student": "130",
+      "assignment": "A304",
+      "grade": "85"
+    },
+
+    {
+      "_id": "700",
+      "student": "121",
+      "assignment": "A305",
+      "grade": "90"
+    },
+    {
+      "_id": "701",
+      "student": "122",
+      "assignment": "A305",
+      "grade": "80"
+    },
+    {
+      "_id": "702",
+      "student": "123",
+      "assignment": "A305",
+      "grade": "81"
+    },
+    {
+      "_id": "703",
+      "student": "124",
+      "assignment": "A305",
+      "grade": "82"
+    },
+    {
+      "_id": "704",
+      "student": "125",
+      "assignment": "A305",
+      "grade": "83"
+    },
+    {
+      "_id": "705",
+      "student": "126",
+      "assignment": "A305",
+      "grade": "84"
+    },
+    {
+      "_id": "706",
+      "student": "127",
+      "assignment": "A305",
+      "grade": "86"
+    },
+    {
+      "_id": "707",
+      "student": "128",
+      "assignment": "A305",
+      "grade": "83"
+    },
+    {
+      "_id": "708",
+      "student": "129",
+      "assignment": "A305",
+      "grade": "84"
+    },
+    {
+      "_id": "709",
+      "student": "130",
+      "assignment": "A305",
+      "grade": "85"
+    },
+
+    {
+      "_id": "800",
+      "student": "121",
+      "assignment": "A306",
+      "grade": "90"
+    },
+    {
+      "_id": "801",
+      "student": "122",
+      "assignment": "A306",
+      "grade": "80"
+    },
+    {
+      "_id": "802",
+      "student": "123",
+      "assignment": "A306",
+      "grade": "81"
+    },
+    {
+      "_id": "803",
+      "student": "124",
+      "assignment": "A306",
+      "grade": "82"
+    },
+    {
+      "_id": "804",
+      "student": "125",
+      "assignment": "A306",
+      "grade": "83"
+    },
+    {
+      "_id": "805",
+      "student": "126",
+      "assignment": "A306",
+      "grade": "84"
+    },
+    {
+      "_id": "806",
+      "student": "127",
+      "assignment": "A306",
+      "grade": "86"
+    },
+    {
+      "_id": "807",
+      "student": "128",
+      "assignment": "A306",
+      "grade": "83"
+    },
+    {
+      "_id": "808",
+      "student": "129",
+      "assignment": "A306",
+      "grade": "84"
+    },
+    {
+      "_id": "809",
+      "student": "130",
+      "assignment": "A306",
+      "grade": "85"
+    },
+
+    {
+      "_id": "900",
+      "student": "121",
+      "assignment": "A307",
+      "grade": "90"
+    },
+    {
+      "_id": "901",
+      "student": "122",
+      "assignment": "A307",
+      "grade": "80"
+    },
+    {
+      "_id": "902",
+      "student": "123",
+      "assignment": "A307",
+      "grade": "81"
+    },
+    {
+      "_id": "903",
+      "student": "124",
+      "assignment": "A307",
+      "grade": "82"
+    },
+    {
+      "_id": "904",
+      "student": "125",
+      "assignment": "A307",
+      "grade": "83"
+    },
+    {
+      "_id": "905",
+      "student": "126",
+      "assignment": "A307",
+      "grade": "84"
+    },
+    {
+      "_id": "906",
+      "student": "127",
+      "assignment": "A307",
+      "grade": "86"
+    },
+    {
+      "_id": "907",
+      "student": "128",
+      "assignment": "A307",
+      "grade": "83"
+    },
+    {
+      "_id": "908",
+      "student": "129",
+      "assignment": "A307",
+      "grade": "84"
+    },
+    {
+      "_id": "909",
+      "student": "130",
+      "assignment": "A307",
+      "grade": "85"
+    },
+
+    {
+      "_id": "1000",
+      "student": "121",
+      "assignment": "A308",
+      "grade": "90"
+    },
+    {
+      "_id": "1001",
+      "student": "122",
+      "assignment": "A308",
+      "grade": "80"
+    },
+    {
+      "_id": "1002",
+      "student": "123",
+      "assignment": "A308",
+      "grade": "81"
+    },
+    {
+      "_id": "1003",
+      "student": "124",
+      "assignment": "A308",
+      "grade": "82"
+    },
+    {
+      "_id": "1004",
+      "student": "125",
+      "assignment": "A308",
+      "grade": "83"
+    },
+    {
+      "_id": "1005",
+      "student": "126",
+      "assignment": "A308",
+      "grade": "84"
+    },
+    {
+      "_id": "1006",
+      "student": "127",
+      "assignment": "A308",
+      "grade": "86"
+    },
+    {
+      "_id": "1007",
+      "student": "128",
+      "assignment": "A308",
+      "grade": "83"
+    },
+    {
+      "_id": "1008",
+      "student": "129",
+      "assignment": "A308",
+      "grade": "84"
+    },
+    {
+      "_id": "1009",
+      "student": "130",
+      "assignment": "A308",
+      "grade": "85"
     }
+
+
+    
 
 
   ]

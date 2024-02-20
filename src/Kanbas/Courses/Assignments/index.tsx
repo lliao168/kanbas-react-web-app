@@ -1,20 +1,20 @@
 import React from "react";
 import { FaCheckCircle, FaEllipsisV, FaPlusCircle } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { assignments, exams, projects, quizzes } from "../../Database";
+import { assignments } from "../../Database";
 import { FaCaretDown, FaPlus } from "react-icons/fa6";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
 function Assignments() {
     const { courseId } = useParams();
     const assignmentList = assignments.filter(
-    (assignment) => assignment.course === courseId);
-    const quizList = quizzes.filter(
-        (quiz) => quiz.course === courseId);
-    const examList = exams.filter(
-        (exam) => exam.course === courseId);
-    const projectList = projects.filter(
-        (project) => project.course === courseId);
+    (assignment) => assignment.course === courseId && assignment.category === "Assignment");
+    const quizList = assignments.filter(
+        (assignment) => assignment.course === courseId && assignment.category === "Quiz");
+    const examList = assignments.filter(
+        (assignment) => assignment.course === courseId && assignment.category === "Exam");    
+    const projectList = assignments.filter(
+        (assignment) => assignment.course === courseId && assignment.category === "Project");
     
     return (
         <>
@@ -87,11 +87,11 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {quizList.map((quiz) => (
+                        {quizList.map((assignment) => (
                         <li className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${quiz._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{quiz.title}</Link>
+                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
                             <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
                                 <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
                                 <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>
@@ -119,11 +119,11 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {examList.map((exam) => (
+                        {examList.map((assignment) => (
                         <li className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${exam._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{exam.title}</Link>
+                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
                             <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
                                 <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
                                 <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>
@@ -151,11 +151,11 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {projectList.map((project) => (
+                        {projectList.map((assignment) => (
                         <li className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${project._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{project.title}</Link>
+                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
                             <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
                                 <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
                                 <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>

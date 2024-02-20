@@ -35,11 +35,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Courses() {
         const { courseId } = useParams();
         const course = courses.find((course) => course._id === courseId);
+        const { assignmentId } = useParams();
+        const assignmentList = assignments.find((assignment) => assignment._id === assignmentId);
         const links = ["Home", "Modules", "Piazza", "Zoom%20Meetings", "Assignments", "Quizzes", "Grades", "People", "Panopto%20Video", 
         "Discussions", "Announcements", "Pages", "Files", "Rubrics", "Outcomes", "Collaborations", "Syllabus", "Settings"];
         const { pathname } = useLocation();
-        const { assignmentId } = useParams();
-        const assignment = assignments.find((assignment) => assignment._id === assignmentId);
         const navigate = useNavigate();
         console.log("pathname:", pathname);
         console.log("links array:", links);
@@ -155,11 +155,14 @@ function Courses() {
                                     <div className="d-flex flex-grow-1 align-item-center mt-3">
                                         <nav style={{ "--bs-breadcrumb-divider": "'>'" } as any} aria-label="breadcrumb">
                                             <ul className="breadcrumb">
-                                            <li className="breadcrumb-item"><Link to="#" style={{textDecoration: "none", color:"crimson"}}>{course?.name}</Link></li>
+                                               
+                                            <li className="breadcrumb-item"><Link to={`/Kanbas/Courses/${course?._id}/Home`} style={{textDecoration: "none", color:"crimson"}}>{course?.name}</Link></li>
+                                            
                                             
                                             <li className="breadcrumb-item active" aria-current="page">
                                                 <span>{decodeURIComponent(links.find(link => pathname.includes(link)) || "")}</span>
                                             </li>
+
                                             </ul>
                                         </nav>   
                                     </div>    
