@@ -25,7 +25,7 @@ function Home() {
             </div>
 
             {/* <h2>Status</h2> */}
-            <div className="mt-0 d-none d-lg-block course-status">
+            <div className="mt-3 d-none d-lg-block course-status">
                 {/* <!-- Implement Course Status here --> */}
                
                     <span>Course Status</span>

@@ -201,7 +201,7 @@ function AssignmentEditor() {
                                         <div className="form-check">
                                             <input className="form-check-input" type="checkbox" id="gridCheck"/>
                                             <label className="form-check-label" htmlFor="gridCheck">
-                                              Notify uders that this content has changed
+                                              Notify users that this content has changed
                                             </label>
                                         </div>
                     </div>
