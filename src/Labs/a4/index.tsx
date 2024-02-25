@@ -11,6 +11,10 @@ import ArrayStateVariable from "./ArrayStateVariable";
 import ParentStateComponent from "./ParentStateComponent";
 import ReduxExamples from "./ReduxExamples";
 import TodoList from "./ReduxExamples/todos/TodoList";
+import HelloRedux from "./ReduxExamples/HelloRedux";
+import CounterRedux from "./ReduxExamples/CounterRedux";
+import AddRedux from "./ReduxExamples/AddRedux";
+
 
 const Assignment4 = () => {
   function sayHello() {
@@ -21,6 +25,9 @@ const Assignment4 = () => {
     <>
       <h1>Assignment 4</h1>
       <ReduxExamples/>
+      <HelloRedux/>
+      <CounterRedux/>
+      <AddRedux/>
       <PassingDataOnEvent/>
       <PassingFunctions theFunction={sayHello} />
       <EventObject/>
@@ -32,6 +39,7 @@ const Assignment4 = () => {
       <ArrayStateVariable/>
       <ParentStateComponent/>
       <TodoList/>
+
     </>
   );
 };
