@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { courses } from "../Database";
+import db from "../Database";
+// import { courses } from "../Database";
 import { FaEllipsisVertical, FaFilePen} from "react-icons/fa6";
 import "./index.css";
 
-
 function Dashboard() {
+    const [courses, setCourses] = useState(db.courses);
     return (
         <div className="p-4">
         <h1>Dashboard</h1> 
         <hr />
-        <h2 className="ms-4">Published Courses (7)</h2> 
+        <h2 className="ms-4">Published Courses ({courses.length})</h2> 
         <hr className="ms-4 mb-0"/>
         <div className="row">
             <div className="row row-cols-1 row-cols-md-5 g-4 mt-0 ms-2">
-              {courses.map((course) => (<div className="col" style={{width: "300px"}}>
+              {courses.map((course) => (<div key={course._id} className="col" style={{width: "300px"}}>
                     <div className="card">
                         <img src={`/images/${course.image}`} className="card-img-top"
                             style={{height: "150px"}}/>
