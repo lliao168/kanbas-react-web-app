@@ -1,15 +1,71 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import db from "../Database";
-// import { courses } from "../Database";
+import * as db from "../Database";
+import { courses } from "../Database";
 import { FaEllipsisVertical, FaFilePen} from "react-icons/fa6";
 import "./index.css";
 
-function Dashboard() {
-    const [courses, setCourses] = useState(db.courses);
+function Dashboard({ courses, course, setCourse, addNewCourse,
+    deleteCourse, updateCourse }: {
+    courses: any[]; course: any; setCourse: (course: any) => void;
+    addNewCourse: () => void; deleteCourse: (course: any) => void;
+    updateCourse: () => void; }) {
+    // const [db_courses, setCourses] = useState(courses);
+    // const [course, setCourse] = useState( {
+    //     _id: "0", name: "New Course", number: "New Number",
+    //     startDate: "2023-09-10", endDate: "2023-12-15",
+    //     image: "/images/reactjs.jpg", courseNumber: "CS5610.35159.202430", term: "202430_2 Spring 2024 Semester Full Term",
+    //     termCode: "Spring 2 2024"
+    //   });
+    // const updateCourse = () => {
+    //     setCourses(
+    //       courses.map((c) => {
+    //         if (c._id === course._id) {
+    //           return course;
+    //         } else {
+    //           return c;
+    //         }
+    //       })
+    //     );
+    // };
+    
+    // const addNewCourse = () => {
+    //     const newCourse = { ...course,
+    //                         _id: new Date().getTime().toString() };
+    //     setCourses([...db_courses, { ...course, ...newCourse }]);
+    // };
+    // const deleteCourse = (courseId: string) => {
+    //     setCourses(courses.filter((course) => course._id !== courseId));
+    // };
+    
+    
+
     return (
         <div className="p-4">
         <h1>Dashboard</h1> 
+        <h5>Course</h5>
+        <input value={course.name} className="form-control" 
+            onChange={(e) => setCourse({ ...course, name: e.target.value }) } />
+        <input value={course.number} className="form-control"
+            onChange={(e) => setCourse({ ...course, number: e.target.value }) } />
+        <input value={course.startDate} className="form-control" type="date"
+            onChange={(e) => setCourse({ ...course, startDate: e.target.value }) }/>
+        <input value={course.endDate} className="form-control" type="date" 
+            onChange={(e) => setCourse({ ...course, endDate: e.target.value }) } />
+        <input value={course.courseNumber} className="form-control" type="form-control" 
+             onChange={(e) => setCourse({ ...course, courseNumber: e.target.value }) } />
+        <input value={course.term} className="form-control" type="form-control" 
+             onChange={(e) => setCourse({ ...course, term: e.target.value }) } />
+        <input value={course.termCode} className="form-control" type="form-control"
+             onChange={(e) => setCourse({ ...course, termCode: e.target.value }) } />
+        <button onClick={addNewCourse} >
+            Add
+        </button>
+        <button onClick={updateCourse} >
+            Update
+        </button>
+
+
         <hr />
         <h2 className="ms-4">Published Courses ({courses.length})</h2> 
         <hr className="ms-4 mb-0"/>
@@ -24,10 +80,26 @@ function Dashboard() {
                             <Link className="card-title" to={`/Kanbas/Courses/${course._id}`}
                                 style={{textDecoration: "none", color: "navy", fontWeight: "bold", 
                                 whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block"}}>
-                                {course.name}</Link>
+                                    {course.name}
+                                
+                            </Link>
+                                
                             <p className="card-text mb-0" style={{ color:"grey", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block"}}>{course.courseNumber}</p>
                             <p className="card-text" style={{ fontSize: '12px', color:"grey", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block"}}>{course.term}</p>
-                            <Link to={`/Kanbas/Courses/${course._id}/Home`}> <FaFilePen style={{ color: "grey"}}/></Link>
+                            {/* <Link to={`/Kanbas/Courses/${course._id}/Home`}> <FaFilePen style={{ color: "grey"}}/></Link> */}
+                            <button style={{backgroundColor:"white", border:"none"}} onClick={(event) => {
+                                event.preventDefault();
+                                setCourse(course);
+                            }}>
+                                <FaFilePen style={{ color: "grey"}}/>
+                            </button>
+
+                            <button className="float-end" onClick={(event) => {
+                                    event.preventDefault();
+                                    deleteCourse(course._id);
+                                    }}>
+                                    Delete
+                            </button>
                         </div>
                     </div>
                 </div>))}
