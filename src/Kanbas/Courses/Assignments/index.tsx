@@ -1,12 +1,24 @@
 import React from "react";
 import { FaCheckCircle, FaEllipsisV, FaPlusCircle } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate} from "react-router-dom";
 import { assignments } from "../../Database";
 import { FaCaretDown, FaPlus } from "react-icons/fa6";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
+import { useSelector, useDispatch } from "react-redux";
+import { KanbasState } from "../../store";
+import {
+    addAssignment,
+    deleteAssignment,
+    updateAssignment,
+    selectAssignment,
+  } from "./assignmentsReducer";
+  
+
 function Assignments() {
     const { courseId } = useParams();
+    const assignmentsList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    const newAssignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
     const assignmentList = assignments.filter(
     (assignment) => assignment.course === courseId && assignment.category === "Assignment");
     const quizList = assignments.filter(
@@ -15,7 +27,14 @@ function Assignments() {
         (assignment) => assignment.course === courseId && assignment.category === "Exam");    
     const projectList = assignments.filter(
         (assignment) => assignment.course === courseId && assignment.category === "Project");
-    
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleAddAssignment = () => {
+        navigate(`/Kanbas/Courses/${courseId}/Assignments/new`);
+    };
+
     return (
         <>
         <div className="flex-fill">
@@ -29,7 +48,7 @@ function Assignments() {
                                   <button type="button" className="btn btn-light float end m-2">
                                     + Group
                                   </button>
-                                  <button type="button" className="btn btn-danger float end m-2">
+                                  <button type="button" className="btn btn-danger float end m-2" onClick={handleAddAssignment}>
                                     + Assignments
                                   </button>
                                   <button type="button" className="btn btn-light float-end m-2">
@@ -55,8 +74,10 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {assignmentList.map((assignment) => (
-                        <li className="list-group-item">
+                        {assignmentsList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Assignment")
+                        .map((assignment, index) => (
+                        <li key={index} className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
                             <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
@@ -66,6 +87,12 @@ function Assignments() {
                                 <span className="float-end">
                                     <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
                                 </span>
+                                <button
+                                    className="btn btn-danger float-end me-2"
+                                    style={{height:"25px", width:"50px"}}
+                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    Delete
+                                </button>
                             </div>    
                             
                         </li>))}
@@ -87,7 +114,9 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {quizList.map((assignment) => (
+                        {assignmentsList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Quiz")
+                        .map((assignment) => (
                         <li className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
@@ -98,6 +127,12 @@ function Assignments() {
                                 <span className="float-end">
                                     <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
                                 </span>
+                                <button
+                                    className="btn btn-danger float-end me-2"
+                                    style={{height:"25px", width:"50px"}}
+                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    Delete
+                                </button>
                             </div>    
                             
                         </li>))}
@@ -119,7 +154,9 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {examList.map((assignment) => (
+                        {assignmentsList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Exam")
+                        .map((assignment) => (
                         <li className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
@@ -130,6 +167,12 @@ function Assignments() {
                                 <span className="float-end">
                                     <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
                                 </span>
+                                <button
+                                    className="btn btn-danger float-end me-2"
+                                    style={{height:"25px", width:"50px"}}
+                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    Delete
+                                </button>
                             </div>    
                             
                         </li>))}
@@ -151,7 +194,9 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {projectList.map((assignment) => (
+                        {assignmentsList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Project")
+                        .map((assignment) => (
                         <li className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
@@ -162,6 +207,12 @@ function Assignments() {
                                 <span className="float-end">
                                     <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
                                 </span>
+                                <button
+                                    className="btn btn-danger float-end me-2"
+                                    style={{height:"25px", width:"50px"}}
+                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    Delete
+                                </button>
                             </div>    
                             
                         </li>))}

@@ -8,11 +8,58 @@ import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { GrLink } from "react-icons/gr";
 import { FaArrowRightFromBracket, FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addModule,
+  deleteModule,
+  updateModule,
+  setModule,
+} from "./reducer";
+import { KanbasState } from "../../store";
 
 function ModuleList() {
     const { courseId } = useParams();
-    const modulesList = modules.filter((module) => module.course === courseId);
-    const [selectedModule, setSelectedModule] = useState(modulesList[0]);
+    // const modulesList = modules.filter((module) => module.course === courseId);
+    // const [selectedModule, setSelectedModule] = useState(modulesList[0]);
+    // const [moduleList, setModuleList] = useState<any[]>(modules);
+    // const [module, setModule] = useState({
+    //     _id: "0", name: "New Module",
+    //     description: "New Description",
+    //     course: courseId || "",
+    // });
+    // const addModule = (module: any) => {
+    //     const newModule = { ...module,
+    //       _id: new Date().getTime().toString() };
+    //     const newModuleList = [newModule, ...moduleList];
+    //     setModuleList(newModuleList);
+    // };
+    interface Lesson {
+        _id: string;
+        name: string;
+        description: string;
+        module?: string; // include other properties as needed and use '?' for optional properties
+    }
+    // const deleteModule = (moduleId: string) => {
+    //     const newModuleList = moduleList.filter(
+    //       (module) => module._id !== moduleId );
+    //     setModuleList(newModuleList);
+    // };
+    // const updateModule = () => {
+    //     const newModuleList = moduleList.map((m) => {
+    //       if (m._id === module._id) {
+    //         return module;
+    //       } else {
+    //         return m;
+    //       }
+    //     });
+    //     setModuleList(newModuleList);
+    // };
+    const moduleList = useSelector((state: KanbasState) => 
+        state.modulesReducer.modules);
+    const module = useSelector((state: KanbasState) => 
+        state.modulesReducer.module);
+    const dispatch = useDispatch();
+    
     return (
         <>
             {/* <!-- Add buttons here --> */}
@@ -40,10 +87,41 @@ function ModuleList() {
                                         
             </div>
             <ul className="list-group wd-modules">
-                {modulesList.map((module) => (
-                    <li
-                        className="list-group-item"
-                        onClick={() => setSelectedModule(module)}>
+                {/* <li className="list-group-item" style={{backgroundColor:"white", border:"white"}}> */}
+                    <div className="row g-3">
+                        <div className="col-md-6 d-flex align-items-center">
+                            <input className="form-control mb-2" 
+                            value={module.name} 
+                            onChange={(e) => 
+                                dispatch(setModule({ ...module, name: e.target.value }))
+                            } 
+                            />
+                            <button className="btn btn-primary mb-2 ms-2" onClick={() => dispatch(updateModule(module))} style={{height:"30px", width:"80px"}}>
+                                Update
+                            </button>
+                            <button className="btn btn-success float-end mb-2 ms-2" onClick={() => dispatch(addModule({ ...module, course: courseId }))} style={{height:"30px", width:"50px"}}>
+                                    Add
+                            </button>
+                        </div>
+
+                        <div className="row-2">
+                            <textarea className="form-control mb-2" value={module.description}
+                            onChange={(e) => 
+                                dispatch(setModule({ ...module, description: e.target.value }))
+                            }
+                            style={{width:"50%"}}
+                            />
+                        </div>
+                        
+                    </div>
+                {/* </li>     */}
+                {moduleList
+                    .filter((module) => module.course === courseId)
+                    .map((module, index) => (
+                    <li key={index} className="list-group-item">
+                        {/* onClick={() => setSelectedModule(module)}> */}
+                        
+
                         <div>
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
                             <FaCaretDown className="me-2"/>
@@ -53,8 +131,21 @@ function ModuleList() {
                                 <FaPlus className="ms-2" />
                                 <FaEllipsisV className="ms-2" />
                             </span>
+                            <button
+                                className="btn btn-success float-end me-2"
+                                style={{height:"25px", width:"40px"}}
+                                onClick={() => dispatch(setModule(module))}>
+                                Edit
+                            </button>
+                            <button
+                                className="btn btn-danger float-end me-2"
+                                style={{height:"25px", width:"50px"}}
+                                onClick={() => dispatch(deleteModule(module._id))}>
+                                Delete
+                            </button>
+                            
                         </div>
-                        {selectedModule._id === module._id && (
+                        {/* {setModuleList === module._id && ( */}
                         <ul className="list-group">    
                             <li className="list-group-item">
                                 <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-3" />
@@ -64,7 +155,7 @@ function ModuleList() {
                                     <FaEllipsisV className="ms-2" />
                                 </span>
                             </li>
-                            {module.lessons?.map((lesson) => (        
+                            {module.lessons?.map((lesson: Lesson) => (        
                             <li className="list-group-item">
                                 <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
                                 <span className="ms-4">{lesson.name}</span>
@@ -83,7 +174,7 @@ function ModuleList() {
                                     <FaEllipsisV className="ms-2" />
                                 </span>
                             </li>
-                            {module.lessons2?.map((lesson) => (        
+                            {module.lessons2?.map((lesson: Lesson) => (        
                             <li className="list-group-item">
                                 <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-3" />
                                 <span className="ms-4">{lesson.name}</span>
@@ -102,7 +193,7 @@ function ModuleList() {
                                     <FaEllipsisV className="ms-2" />
                                 </span>
                             </li>
-                            {module.lessons3?.map((lesson) => (        
+                            {module.lessons3?.map((lesson: Lesson) => (        
                             <li className="list-group-item">
                                 <PiDotsSixVerticalBold style={{fontSize:"1.3em"}} className="me-2" />
                                 <GrLink style={{color:"green"}} />
@@ -115,7 +206,7 @@ function ModuleList() {
                             </li>
                             ))} 
                         </ul>
-                        )} 
+                        {/* )}  */}
                     </li>
                 ))}
             </ul>

@@ -3,16 +3,25 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { assignments } from "../../../Database";
 import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment } from "../assignmentsReducer";
+import { KanbasState } from "../../../store";
 
 function AssignmentEditor() {
-    const { assignmentId} = useParams();
+    const { assignmentId } = useParams();
     const assignment = assignments.find(
     (assignment) => assignment._id === assignmentId);
     const { courseId } = useParams();
+    const assignmentsList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    const newAssignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleSave = () => {
-    console.log("Actually saving assignment TBD in later assignments");
-    navigate(`/Kanbas/Courses/${courseId}/Assignments`);
+        dispatch(addAssignment({ ...assignment, assignment: assignmentId }));
+        navigate(`/Kanbas/Courses/${courseId}/Assignments`);
+    };
+    const handleCancel = () => {
+        navigate(`/Kanbas/Courses/${courseId}/Assignments`);
     };
     return (
         <div className="flex-fill p-4" >
@@ -41,7 +50,7 @@ function AssignmentEditor() {
                         <textarea className="form-control"
                             id="textarea1"
                             rows={3}
-                            placeholder="Assignment Description. In this assignment we are learning about HTML."></textarea>
+                            placeholder="Assignment Description"></textarea>
                     </div>
                 </div>
 
@@ -211,7 +220,7 @@ function AssignmentEditor() {
                         Save
                         </button>
                         <Link to={`/Kanbas/Courses/${courseId}/Assignments`}
-                            className="btn btn-danger float-end">
+                            onClick={handleCancel} className="btn btn-danger float-end">
                             Cancel
                         </Link>
                     </div>    
