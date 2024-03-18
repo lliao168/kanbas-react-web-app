@@ -57,7 +57,7 @@ function Assignments() {
         setShowDeleteModal(false);
     };
 
-    const handleDeleteAssignment = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleDeleteAssignment = (e: any) => {
         e.stopPropagation();
         if (selectedAssignmentId) {
             dispatch(deleteAssignment(selectedAssignmentId));
@@ -87,7 +87,8 @@ function Assignments() {
                                         points: 100,
                                         dueDate: '',
                                         availableFromDate: '',
-                                        availableUntilDate: ''
+                                        availableUntilDate: '',
+                                        category:'',
                                       };
                                     dispatch(selectAssignment(newAssignment));
                                     navigate(`/Kanbas/Courses/${courseId}/Assignments/new`)}}>

@@ -8,7 +8,7 @@ import { addAssignment, updateAssignment, selectAssignment } from "../assignment
 import { KanbasState } from "../../../store";
 
 function AssignmentEditor() {
-    const { assignmentId, courseId } = useParams();
+    const { assignmentId, courseId, categoryId } = useParams();
     // const assignment = assignments.find(
     // (assignment) => assignment._id === assignmentId);
     const assignmentsList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
@@ -23,7 +23,7 @@ function AssignmentEditor() {
             const newAssignmentDetails = {
                 ...assignment, 
                 course: courseId,
-                category: "ASSIGNMENTS"
+                category: assignment.category
             };
             dispatch(addAssignment(newAssignmentDetails));
         }
@@ -90,10 +90,10 @@ function AssignmentEditor() {
                                                 <select className="form-select"
                                                 onChange={(e) => dispatch(selectAssignment({...assignment, category: e.target.value}))}>
                                                     <option selected>{assignment?.category}</option>
-                                                    <option value="1">ASSIGNMENTS</option>
-                                                    <option value="1">QUIZZES</option>
-                                                    <option value="2">EXAM</option>
-                                                    <option value="3">PROJECT</option>
+                                                    <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+                                                    <option value="QUIZZES">QUIZZES</option>
+                                                    <option value="EXAM">EXAM</option>
+                                                    <option value="PROJECT">PROJECT</option>
                                                 </select>
                                             </div>
                                         </div>
