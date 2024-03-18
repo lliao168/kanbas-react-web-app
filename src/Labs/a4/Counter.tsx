@@ -15,8 +15,8 @@ const [count, setCount] = useState(7);
         onClick={() => { count--; console.log(count); }}>
         Down
       </button> */}
-      <button onClick={() => setCount(count + 1)}>Up</button>
-      <button onClick={() => setCount(count - 1)}>Down</button>
+      <button className="btn btn-success me-2" onClick={() => setCount(count + 1)}>Up</button>
+      <button className="btn btn-danger" onClick={() => setCount(count - 1)}>Down</button>
     </div>
   );
 }

@@ -27,15 +27,10 @@ function Assignments() {
         description: string;
     }
     
-    const handleAddAssignment = () => {
-        // dispatch(selectAssignment(initialState.assignment));
-        navigate(`/Kanbas/Courses/${courseId}/Assignments/new`);
-    };
     const handleSelectAssignment = (assignment: Assignment) => {
         dispatch(selectAssignment(assignment));
         navigate(`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`);
     };
-
 
     // const assignmentList = assignments.filter(
     // (assignment) => assignment.course === courseId && assignment.category === "Assignment");
@@ -49,21 +44,21 @@ function Assignments() {
     const dispatch = useDispatch();
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedAssignmentId, setSelectedAssignmentId] = useState<Assignment | null>(null);
+    const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
 
     const handleShowDeleteModal = (assignment: Assignment) => {
-        setSelectedAssignmentId(assignment);
+        setSelectedAssignment(assignment);
         setShowDeleteModal(true);
     };
 
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false);
-        setSelectedAssignmentId(null);
+        setSelectedAssignment(null);
     };
 
     const handleDeleteAssignment = () => {
-        if (selectedAssignmentId) {
-            dispatch(deleteAssignment(selectedAssignmentId));
+        if (selectedAssignment) {
+            dispatch(deleteAssignment(selectedAssignment));
             handleCloseDeleteModal();
         }
     };
@@ -134,7 +129,7 @@ function Assignments() {
                                 </span>
                                 <button
                                     className="btn btn-danger float-end me-2"
-                                    style={{height:"25px", width:"50px"}}
+                                    style={{height:"25px", width:"50px", borderRadius: '5px'}}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
@@ -194,7 +189,7 @@ function Assignments() {
                                 </span>
                                 <button
                                     className="btn btn-danger float-end me-2"
-                                    style={{height:"25px", width:"50px"}}
+                                    style={{height:"25px", width:"50px", borderRadius: '5px'}}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
@@ -254,10 +249,10 @@ function Assignments() {
                                 </span>
                                 <button
                                     className="btn btn-danger float-end me-2"
-                                    style={{height:"25px", width:"50px"}}
+                                    style={{height:"25px", width:"50px", borderRadius: '5px'}}
                                     onClick={(e) => {
-                                        e.preventDefault();
                                         e.stopPropagation();
+                                        e.preventDefault();
                                         handleShowDeleteModal(assignment._id)}
                                     }>
                                     Delete
@@ -313,7 +308,7 @@ function Assignments() {
                                 </span>
                                 <button
                                     className="btn btn-danger float-end me-2"
-                                    style={{height:"25px", width:"50px"}}
+                                    style={{height:"25px", width:"50px", borderRadius: '5px'}}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();

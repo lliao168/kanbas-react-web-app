@@ -90,52 +90,57 @@ function ModuleList() {
                     <div className="row g-3">
                         <div className="col-md-6 d-flex align-items-center">
                             <input className="form-control mb-2" 
+                            style={{border:"1px solid #d3d3d3", borderRadius: '5px', height:"35px"}}
                             value={module.name} 
                             onChange={(e) => 
                                 dispatch(setModule({ ...module, name: e.target.value }))
                             } 
                             />
-                            <button className="btn btn-primary mb-2 ms-2" onClick={() => dispatch(updateModule(module))} style={{height:"30px", width:"80px"}}>
+                            <button className="btn btn-primary mb-2 ms-2" onClick={() => dispatch(updateModule(module))} style={{height:"30px", width:"80px", borderRadius: '5px'}}>
                                 Update
                             </button>
-                            <button className="btn btn-success float-end mb-2 ms-2" onClick={() => dispatch(addModule({ ...module, course: courseId }))} style={{height:"30px", width:"50px"}}>
+                            <button className="btn btn-success float-end mb-2 ms-2" onClick={() => dispatch(addModule({ ...module, course: courseId }))} style={{height:"30px", width:"50px", borderRadius: '5px'}}>
                                     Add
                             </button>
                         </div>
 
                         <div className="row-2">
-                            <textarea className="form-control mb-2" value={module.description}
+                            <textarea className="form-control mb-2" 
+                            value={module.description}
+                            style={{width:"50%", border:"1px solid #d3d3d3", borderRadius: '5px'}}
                             onChange={(e) => 
                                 dispatch(setModule({ ...module, description: e.target.value }))
                             }
-                            style={{width:"50%"}}
                             />
                         </div>
 
                         <div className="row-2">
-                            <textarea className="form-control mb-2" value={module.category}
+                            <textarea className="form-control mb-2" 
+                            value={module.category}
+                            style={{width:"50%", border:"1px solid #d3d3d3", borderRadius: '5px'}}
                             onChange={(e) => 
                                 dispatch(setModule({ ...module, category: e.target.value }))
                             }
-                            style={{width:"50%"}}
                             />
                         </div>
 
                         <div className="row-2">
-                            <textarea className="form-control mb-2" value={module.category2}
+                            <textarea className="form-control mb-2" 
+                            value={module.category2}
+                            style={{width:"50%", border:"1px solid #d3d3d3", borderRadius: '5px'}}
                             onChange={(e) => 
                                 dispatch(setModule({ ...module, category2: e.target.value }))
                             }
-                            style={{width:"50%"}}
                             />
                         </div>
 
                         <div className="row-2">
-                            <textarea className="form-control mb-2" value={module.category3}
+                            <textarea className="form-control mb-2" 
+                            value={module.category3}
+                            style={{width:"50%", border:"1px solid #d3d3d3", borderRadius: '5px'}}
                             onChange={(e) => 
                                 dispatch(setModule({ ...module, category3: e.target.value }))
                             }
-                            style={{width:"50%"}}
                             />
                         </div>
                         
@@ -159,13 +164,13 @@ function ModuleList() {
                             </span>
                             <button
                                 className="btn btn-success float-end me-2"
-                                style={{height:"25px", width:"40px"}}
+                                style={{height:"25px", width:"40px", borderRadius: '5px'}}
                                 onClick={() => dispatch(setModule(module))}>
                                 Edit
                             </button>
                             <button
                                 className="btn btn-danger float-end me-2"
-                                style={{height:"25px", width:"50px"}}
+                                style={{height:"25px", width:"50px", borderRadius: '5px'}}
                                 onClick={() => dispatch(deleteModule(module._id))}>
                                 Delete
                             </button>

@@ -25,9 +25,6 @@ const Assignment4 = () => {
     <>
       <h1>Assignment 4</h1>
       <ReduxExamples/>
-      <HelloRedux/>
-      <CounterRedux/>
-      <AddRedux/>
       <PassingDataOnEvent/>
       <PassingFunctions theFunction={sayHello} />
       <EventObject/>
