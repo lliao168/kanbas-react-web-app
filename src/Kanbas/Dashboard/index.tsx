@@ -46,22 +46,22 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
         <h5>Course</h5>
         <input value={course.name} className="form-control" 
             onChange={(e) => setCourse({ ...course, name: e.target.value }) } />
-        <input value={course.number} className="form-control"
+        <input value={course.number} className="form-control mt-2"
             onChange={(e) => setCourse({ ...course, number: e.target.value }) } />
-        <input value={course.startDate} className="form-control" type="date"
+        <input value={course.startDate} className="form-control mt-2" type="date"
             onChange={(e) => setCourse({ ...course, startDate: e.target.value }) }/>
-        <input value={course.endDate} className="form-control" type="date" 
+        <input value={course.endDate} className="form-control mt-2" type="date" 
             onChange={(e) => setCourse({ ...course, endDate: e.target.value }) } />
-        <input value={course.courseNumber} className="form-control" type="form-control" 
+        <input value={course.courseNumber} className="form-control mt-2" type="form-control" 
              onChange={(e) => setCourse({ ...course, courseNumber: e.target.value }) } />
-        <input value={course.term} className="form-control" type="form-control" 
+        <input value={course.term} className="form-control mt-2" type="form-control" 
              onChange={(e) => setCourse({ ...course, term: e.target.value }) } />
-        <input value={course.termCode} className="form-control" type="form-control"
+        <input value={course.termCode} className="form-control mt-2" type="form-control"
              onChange={(e) => setCourse({ ...course, termCode: e.target.value }) } />
-        <button onClick={addNewCourse} >
+        <button className="btn btn-success me-2 mt-2" onClick={addNewCourse} >
             Add
         </button>
-        <button onClick={updateCourse} >
+        <button className="btn btn-primary mt-2" onClick={updateCourse} >
             Update
         </button>
 
@@ -94,7 +94,7 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
                                 <FaFilePen style={{ color: "grey"}}/>
                             </button>
 
-                            <button className="float-end" onClick={(event) => {
+                            <button className="float-end btn btn-danger" onClick={(event) => {
                                     event.preventDefault();
                                     deleteCourse(course._id);
                                     }}>

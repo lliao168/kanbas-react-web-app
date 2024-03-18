@@ -3,7 +3,6 @@ import "./index.css";
 import { modules } from "../../Database";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router";
-import {HiEllipsisVertical } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { GrLink } from "react-icons/gr";
 import { FaArrowRightFromBracket, FaPlus } from "react-icons/fa6";
@@ -108,6 +107,33 @@ function ModuleList() {
                             <textarea className="form-control mb-2" value={module.description}
                             onChange={(e) => 
                                 dispatch(setModule({ ...module, description: e.target.value }))
+                            }
+                            style={{width:"50%"}}
+                            />
+                        </div>
+
+                        <div className="row-2">
+                            <textarea className="form-control mb-2" value={module.category}
+                            onChange={(e) => 
+                                dispatch(setModule({ ...module, category: e.target.value }))
+                            }
+                            style={{width:"50%"}}
+                            />
+                        </div>
+
+                        <div className="row-2">
+                            <textarea className="form-control mb-2" value={module.category2}
+                            onChange={(e) => 
+                                dispatch(setModule({ ...module, category2: e.target.value }))
+                            }
+                            style={{width:"50%"}}
+                            />
+                        </div>
+
+                        <div className="row-2">
+                            <textarea className="form-control mb-2" value={module.category3}
+                            onChange={(e) => 
+                                dispatch(setModule({ ...module, category3: e.target.value }))
                             }
                             style={{width:"50%"}}
                             />

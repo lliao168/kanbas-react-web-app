@@ -1,5 +1,5 @@
-import React from "react";
-import { FaCheckCircle, FaEllipsisV, FaPlusCircle } from "react-icons/fa";
+import React, { useState } from 'react';
+import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { Link, useParams, useNavigate} from "react-router-dom";
 import { assignments } from "../../Database";
 import { FaCaretDown, FaPlus } from "react-icons/fa6";
@@ -7,6 +7,8 @@ import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
 import { KanbasState } from "../../store";
+import { Modal, Button} from 'react-bootstrap';
+
 import {
     addAssignment,
     deleteAssignment,
@@ -14,26 +16,58 @@ import {
     selectAssignment,
   } from "./assignmentsReducer";
   
-
 function Assignments() {
     const { courseId } = useParams();
-    const assignmentsList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
-    const newAssignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
-    const assignmentList = assignments.filter(
-    (assignment) => assignment.course === courseId && assignment.category === "Assignment");
-    const quizList = assignments.filter(
-        (assignment) => assignment.course === courseId && assignment.category === "Quiz");
-    const examList = assignments.filter(
-        (assignment) => assignment.course === courseId && assignment.category === "Exam");    
-    const projectList = assignments.filter(
-        (assignment) => assignment.course === courseId && assignment.category === "Project");
+    const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    interface Assignment {
+        _id: string;
+        title: string;
+        course: string;
+        category: string;
+        description: string;
+    }
+    
+    const handleAddAssignment = () => {
+        // dispatch(selectAssignment(initialState.assignment));
+        navigate(`/Kanbas/Courses/${courseId}/Assignments/new`);
+    };
+    const handleSelectAssignment = (assignment: Assignment) => {
+        dispatch(selectAssignment(assignment));
+        navigate(`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`);
+    };
 
+
+    // const assignmentList = assignments.filter(
+    // (assignment) => assignment.course === courseId && assignment.category === "Assignment");
+    // const quizList = assignments.filter(
+    //     (assignment) => assignment.course === courseId && assignment.category === "Quiz");
+    // const examList = assignments.filter(
+    //     (assignment) => assignment.course === courseId && assignment.category === "Exam");    
+    // const projectList = assignments.filter(
+    //     (assignment) => assignment.course === courseId && assignment.category === "Project");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleAddAssignment = () => {
-        navigate(`/Kanbas/Courses/${courseId}/Assignments/new`);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedAssignmentId, setSelectedAssignmentId] = useState<Assignment | null>(null);
+
+    const handleShowDeleteModal = (assignment: Assignment) => {
+        setSelectedAssignmentId(assignment);
+        setShowDeleteModal(true);
     };
+
+    const handleCloseDeleteModal = () => {
+        setShowDeleteModal(false);
+        setSelectedAssignmentId(null);
+    };
+
+    const handleDeleteAssignment = () => {
+        if (selectedAssignmentId) {
+            dispatch(deleteAssignment(selectedAssignmentId));
+            handleCloseDeleteModal();
+        }
+    };
+
 
     return (
         <>
@@ -48,7 +82,18 @@ function Assignments() {
                                   <button type="button" className="btn btn-light float end m-2">
                                     + Group
                                   </button>
-                                  <button type="button" className="btn btn-danger float end m-2" onClick={handleAddAssignment}>
+                                  <button type="button" className="btn btn-danger float end m-2" 
+                                  onClick={() => {
+                                    const newAssignment = {
+                                        title: "New Assignment",
+                                        description: "New Assignment Description",
+                                        points: 100,
+                                        dueDate: '',
+                                        availableFromDate: '',
+                                        availableUntilDate: ''
+                                      };
+                                    dispatch(selectAssignment(newAssignment));
+                                    navigate(`/Kanbas/Courses/${courseId}/Assignments/new`)}}>
                                     + Assignments
                                   </button>
                                   <button type="button" className="btn btn-light float-end m-2">
@@ -74,10 +119,10 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {assignmentsList
-                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Assignment")
+                        {assignmentList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "ASSIGNMENTS")
                         .map((assignment, index) => (
-                        <li key={index} className="list-group-item">
+                        <li key={index} className="list-group-item" onClick={() => {handleSelectAssignment(assignment)}}>
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
                             <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
@@ -90,9 +135,29 @@ function Assignments() {
                                 <button
                                     className="btn btn-danger float-end me-2"
                                     style={{height:"25px", width:"50px"}}
-                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        handleShowDeleteModal(assignment._id)}
+                                    }
+                                    >
                                     Delete
                                 </button>
+
+                                <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} aria-labelledby="contained-modal-title-vcenter" centered>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title >Confirm Delete</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                            Yes
+                                        </Button>
+                                        <Button variant="secondary" onClick={handleCloseDeleteModal}>
+                                            No
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>    
                             
                         </li>))}
@@ -114,10 +179,10 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {assignmentsList
-                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Quiz")
-                        .map((assignment) => (
-                        <li className="list-group-item">
+                        {assignmentList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "QUIZZES")
+                        .map((assignment, index) => (
+                        <li key={index} className="list-group-item" onClick={() => handleSelectAssignment(assignment)}>
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
                             <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
@@ -130,9 +195,29 @@ function Assignments() {
                                 <button
                                     className="btn btn-danger float-end me-2"
                                     style={{height:"25px", width:"50px"}}
-                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        handleShowDeleteModal(assignment._id)}
+                                    }
+                                    >
                                     Delete
                                 </button>
+
+                                <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} aria-labelledby="contained-modal-title-vcenter" centered>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title >Confirm Delete</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                            Yes
+                                        </Button>
+                                        <Button variant="secondary" onClick={handleCloseDeleteModal}>
+                                            No
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>    
                             
                         </li>))}
@@ -154,10 +239,10 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {assignmentsList
-                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Exam")
-                        .map((assignment) => (
-                        <li className="list-group-item">
+                        {assignmentList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "EXAM")
+                        .map((assignment, index) => (
+                        <li key={index} className="list-group-item" onClick={() => handleSelectAssignment(assignment)}>
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
                             <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
@@ -170,9 +255,28 @@ function Assignments() {
                                 <button
                                     className="btn btn-danger float-end me-2"
                                     style={{height:"25px", width:"50px"}}
-                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        handleShowDeleteModal(assignment._id)}
+                                    }>
                                     Delete
                                 </button>
+
+                                <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} aria-labelledby="contained-modal-title-vcenter" centered>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title >Confirm Delete</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                            Yes
+                                        </Button>
+                                        <Button variant="secondary" onClick={handleCloseDeleteModal}>
+                                            No
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>    
                             
                         </li>))}
@@ -194,10 +298,10 @@ function Assignments() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {assignmentsList
-                        .filter((assignment) => assignment.course === courseId  && assignment.category === "Project")
-                        .map((assignment) => (
-                        <li className="list-group-item">
+                        {assignmentList
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "PROJECT")
+                        .map((assignment, index) => (
+                        <li key={index} className="list-group-item" onClick={() => handleSelectAssignment(assignment)}>
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
                             <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
@@ -210,9 +314,29 @@ function Assignments() {
                                 <button
                                     className="btn btn-danger float-end me-2"
                                     style={{height:"25px", width:"50px"}}
-                                    onClick={() => dispatch(deleteAssignment(assignment._id))}>
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        handleShowDeleteModal(assignment._id)}
+                                    }
+                                    >
                                     Delete
                                 </button>
+
+                                <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} aria-labelledby="contained-modal-title-vcenter" centered>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title >Confirm Delete</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                            Yes
+                                        </Button>
+                                        <Button variant="secondary" onClick={handleCloseDeleteModal}>
+                                            No
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>    
                             
                         </li>))}
