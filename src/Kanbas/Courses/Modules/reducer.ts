@@ -4,7 +4,7 @@ import { modules } from "../../Database";
 
 const initialState = {
   modules: modules,
-  module: { name: "New Module", description: "New Description", category: "New Category", category2: "New Category", category3: "New Category" },
+  module: { name: "New Module", description: "New Description", category: "New Category 1", category2: "New Category 2", category3: "New Category 3" },
 };
 
 

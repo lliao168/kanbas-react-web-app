@@ -44,22 +44,24 @@ function Assignments() {
     const dispatch = useDispatch();
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
+    const [selectedAssignmentId, setSelectedAssignmentId] = useState<Assignment | null>(null);
 
     const handleShowDeleteModal = (assignment: Assignment) => {
-        setSelectedAssignment(assignment);
+        setSelectedAssignmentId(assignment);
         setShowDeleteModal(true);
     };
 
-    const handleCloseDeleteModal = () => {
+    const handleCloseDeleteModal = (e?: any) => {   // e is optional and if provided can be of any type
+        if (e) e.stopPropagation();
+        setSelectedAssignmentId(null);
         setShowDeleteModal(false);
-        setSelectedAssignment(null);
     };
 
-    const handleDeleteAssignment = () => {
-        if (selectedAssignment) {
-            dispatch(deleteAssignment(selectedAssignment));
-            handleCloseDeleteModal();
+    const handleDeleteAssignment = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        if (selectedAssignmentId) {
+            dispatch(deleteAssignment(selectedAssignmentId));
+            handleCloseDeleteModal(e);
         }
     };
 
@@ -120,7 +122,7 @@ function Assignments() {
                         <li key={index} className="list-group-item" onClick={() => {handleSelectAssignment(assignment)}}>
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
+                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3" >{assignment.title}</Link>
                             <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
                                 <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
                                 <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>
@@ -130,9 +132,9 @@ function Assignments() {
                                 <button
                                     className="btn btn-danger float-end me-2"
                                     style={{height:"25px", width:"50px", borderRadius: '5px'}}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
+                                    onClick={(event) => {
+                                        // e.preventDefault();
+                                        event.stopPropagation();
                                         handleShowDeleteModal(assignment._id)}
                                     }
                                     >
@@ -145,10 +147,15 @@ function Assignments() {
                                     </Modal.Header>
                                     <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                        <Button variant="primary" 
+                                        onClick={(event) => {
+                                            handleDeleteAssignment(event);}
+                                        }
+                                        >
                                             Yes
                                         </Button>
-                                        <Button variant="secondary" onClick={handleCloseDeleteModal}>
+                                        <Button variant="secondary" 
+                                        onClick={handleCloseDeleteModal}>
                                             No
                                         </Button>
                                     </Modal.Footer>
@@ -251,8 +258,8 @@ function Assignments() {
                                     className="btn btn-danger float-end me-2"
                                     style={{height:"25px", width:"50px", borderRadius: '5px'}}
                                     onClick={(e) => {
-                                        e.stopPropagation();
                                         e.preventDefault();
+                                        e.stopPropagation();
                                         handleShowDeleteModal(assignment._id)}
                                     }>
                                     Delete
