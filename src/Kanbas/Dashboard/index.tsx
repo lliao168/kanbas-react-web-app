@@ -38,7 +38,7 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
     //     setCourses(courses.filter((course) => course._id !== courseId));
     // };
     
-    
+
 
     return (
         <div className="p-4">
