@@ -6,6 +6,8 @@ import { FaXmark } from "react-icons/fa6";
 import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment, selectAssignment } from "../assignmentsReducer";
 import { KanbasState } from "../../../store";
+import * as client from "../client";
+
 
 function AssignmentEditor() {
     const { assignmentId, courseId, categoryId } = useParams();
@@ -16,19 +18,37 @@ function AssignmentEditor() {
     const assignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const handleAddAssignment = () => {
+        const newAssignmentDetails = {
+            ...assignment,
+            course: courseId,
+            category: assignment.category
+        };
+        if(courseId) {
+            client.createAssignment(courseId, newAssignmentDetails).then((newAssignmentDetails) => {
+                dispatch(addAssignment(newAssignmentDetails));
+            });
+        }
+      };
+    const handleUpdateAssignment = async () => {
+        const status = await client.updateAssignment(assignment);
+        dispatch(updateAssignment(assignment));
+    };
     const handleSave = () => {
         if (assignmentId && assignmentId !== 'new') {
-            dispatch(updateAssignment(assignment)); 
+            handleUpdateAssignment(); 
         } else {
-            const newAssignmentDetails = {
-                ...assignment, 
-                course: courseId,
-                category: assignment.category
-            };
-            dispatch(addAssignment(newAssignmentDetails));
+            // const newAssignmentDetails = {
+            //     ...assignment,
+            //     course: courseId,
+            //     category: assignment.category
+            // };
+            // dispatch(addAssignment(newAssignmentDetails));
+            handleAddAssignment();
         }
         navigate(`/Kanbas/Courses/${courseId}/Assignments`);
     };
+    
 
     return (
         <div className="flex-fill p-4" >

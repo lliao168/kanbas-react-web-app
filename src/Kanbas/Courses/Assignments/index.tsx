@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { Link, useParams, useNavigate} from "react-router-dom";
 import { assignments } from "../../Database";
@@ -15,9 +15,18 @@ import {
     updateAssignment,
     selectAssignment,
   } from "./assignmentsReducer";
+
+import * as client from "./client";  
+import { findAssignmentsForCourse, createAssignment } from "./client";
   
 function Assignments() {
     const { courseId } = useParams();
+    useEffect(() => {
+        findAssignmentsForCourse(courseId)
+          .then((assignments) =>
+            dispatch(selectAssignment(assignments))
+        );
+      }, [courseId]);   
     const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
     interface Assignment {
         _id: string;
@@ -60,7 +69,9 @@ function Assignments() {
     const handleDeleteAssignment = (e: any) => {
         e.stopPropagation();
         if (selectedAssignmentId) {
-            dispatch(deleteAssignment(selectedAssignmentId));
+            client.deleteAssignment(selectedAssignmentId).then((status) => {
+                dispatch(deleteAssignment(selectedAssignmentId));
+            });
             handleCloseDeleteModal(e);
         }
     };
@@ -213,7 +224,11 @@ function Assignments() {
                                     </Modal.Header>
                                     <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                        <Button variant="primary" 
+                                        onClick={(event) => {
+                                            handleDeleteAssignment(event);}
+                                        }
+                                        >
                                             Yes
                                         </Button>
                                         <Button variant="secondary" onClick={handleCloseDeleteModal}>
@@ -272,7 +287,11 @@ function Assignments() {
                                     </Modal.Header>
                                     <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                        <Button variant="primary" 
+                                        onClick={(event) => {
+                                            handleDeleteAssignment(event);}
+                                        }
+                                        >
                                             Yes
                                         </Button>
                                         <Button variant="secondary" onClick={handleCloseDeleteModal}>
@@ -332,7 +351,11 @@ function Assignments() {
                                     </Modal.Header>
                                     <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="primary" onClick={handleDeleteAssignment}>
+                                        <Button variant="primary" 
+                                        onClick={(event) => {
+                                            handleDeleteAssignment(event);}
+                                        }
+                                        >
                                             Yes
                                         </Button>
                                         <Button variant="secondary" onClick={handleCloseDeleteModal}>

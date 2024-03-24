@@ -1,15 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import * as client from "../Courses/client";
 import * as db from "../Database";
 import { courses } from "../Database";
 import { FaEllipsisVertical, FaFilePen} from "react-icons/fa6";
 import "./index.css";
 
-function Dashboard({ courses, course, setCourse, addNewCourse,
-    deleteCourse, updateCourse }: {
-    courses: any[]; course: any; setCourse: (course: any) => void;
-    addNewCourse: () => void; deleteCourse: (course: any) => void;
-    updateCourse: () => void; }) {
+function Dashboard() {
+    interface Course {
+        _id: string;
+        name: string;
+        number: string;
+        startDate: string;
+        endDate: string;
+        courseNumber: string;
+        term: string;
+        termCode: string;
+      }
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [course, setCourse] = useState( {
+        _id: "0", name: "New Course", number: "New Number",
+        startDate: "", endDate: "",
+        image: "/images/reactjs.jpg", courseNumber: "New Course Number", term: "New Course Term",
+        termCode: "New Course Term Code"
+      });
+    const fetchAllCourses = async () => { 
+        const courses = await client.fetchAllCourses();
+        setCourses(courses);
+    };
+    const createCourse = async () => {
+        const newCourse = await client.createCourse(course);
+        fetchAllCourses();
+        setCourses([newCourse, ...courses]);
+    }
+    const deleteCourse = async (id: string) => {
+        await client.deleteCourse(id);
+        fetchAllCourses();
+    }
+    const updateCourse = async (id: string) => {
+        if (course && course._id) {
+            await client.updateCourse(course, course._id);
+            fetchAllCourses(); 
+        }
+    }
+
+
+    useEffect(() => {
+        fetchAllCourses();
+    }, []);
     // const [db_courses, setCourses] = useState(courses);
     // const [course, setCourse] = useState( {
     //     _id: "0", name: "New Course", number: "New Number",
@@ -58,10 +97,12 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
              onChange={(e) => setCourse({ ...course, term: e.target.value }) } />
         <input value={course.termCode} className="form-control mt-2" type="form-control"
              onChange={(e) => setCourse({ ...course, termCode: e.target.value }) } />
-        <button className="btn btn-success me-2 mt-2" onClick={addNewCourse} >
+        <button className="btn btn-success me-2 mt-2" onClick={createCourse} >
             Add
         </button>
-        <button className="btn btn-primary mt-2" onClick={updateCourse} >
+        <button className="btn btn-primary mt-2" onClick={(event) => {event.preventDefault();
+                                    updateCourse(course._id);
+                                    }}>
             Update
         </button>
 
@@ -71,7 +112,7 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
         <hr className="ms-4 mb-0"/>
         <div className="row">
             <div className="row row-cols-1 row-cols-md-5 g-4 mt-0 ms-2">
-              {courses.map((course) => (<div key={course._id} className="col" style={{width: "300px"}}>
+              {courses.map((course: any) => (<div key={course._id} className="col" style={{width: "300px"}}>
                     <div className="card">
                         <img src={`/images/${course.image}`} className="card-img-top"
                             style={{height: "150px"}}/>

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.css";
-import { modules } from "../../Database";
+// import { modules } from "../../Database";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
@@ -13,11 +13,20 @@ import {
   deleteModule,
   updateModule,
   setModule,
+  setModules
 } from "./reducer";
 import { KanbasState } from "../../store";
+import * as client from "./client";
+import { findModulesForCourse, createModule } from "./client";
 
 function ModuleList() {
     const { courseId } = useParams();
+    useEffect(() => {
+        findModulesForCourse(courseId)
+          .then((modules) =>
+            dispatch(setModules(modules))
+        );
+      }, [courseId]);    
     // const modulesList = modules.filter((module) => module.course === courseId);
     // const [selectedModule, setSelectedModule] = useState(modulesList[0]);
     // const [moduleList, setModuleList] = useState<any[]>(modules);
@@ -58,6 +67,26 @@ function ModuleList() {
     const module = useSelector((state: KanbasState) => 
         state.modulesReducer.module);
     const dispatch = useDispatch();
+    const handleAddModule = () => {
+        if(courseId) {
+            createModule(courseId, module).then((module) => {
+                dispatch(addModule(module));
+            });
+        }
+      };
+
+    const handleDeleteModule = (moduleId: string) => {
+        client.deleteModule(moduleId).then((status) => {
+          dispatch(deleteModule(moduleId));
+        });
+      };     
+
+    const handleUpdateModule = async () => {
+        const status = await client.updateModule(module);
+        dispatch(updateModule(module));
+    };
+   
+    
     
     return (
         <>
@@ -96,10 +125,10 @@ function ModuleList() {
                                 dispatch(setModule({ ...module, name: e.target.value }))
                             } 
                             />
-                            <button className="btn btn-primary mb-2 ms-2" onClick={() => dispatch(updateModule(module))} style={{height:"30px", width:"80px", borderRadius: '5px'}}>
+                            <button className="btn btn-primary mb-2 ms-2" onClick={handleUpdateModule} style={{height:"30px", width:"80px", borderRadius: '5px'}}>
                                 Update
                             </button>
-                            <button className="btn btn-success float-end mb-2 ms-2" onClick={() => dispatch(addModule({ ...module, course: courseId }))} style={{height:"30px", width:"50px", borderRadius: '5px'}}>
+                            <button className="btn btn-success float-end mb-2 ms-2" onClick={handleAddModule} style={{height:"30px", width:"50px", borderRadius: '5px'}}>
                                     Add
                             </button>
                         </div>
@@ -171,7 +200,7 @@ function ModuleList() {
                             <button
                                 className="btn btn-danger float-end me-2"
                                 style={{height:"25px", width:"50px", borderRadius: '5px'}}
-                                onClick={() => dispatch(deleteModule(module._id))}>
+                                onClick={() => handleDeleteModule(module._id)}>
                                 Delete
                             </button>
                             
