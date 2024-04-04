@@ -14,6 +14,16 @@ function EncodingParametersInURLs() {
       `http://localhost:4000/a5/subtract/${a}/${b}`);
     setResult(response.data);
   };
+  const fetchMultiplication = async (a : number, b : number) => {
+    const response = await axios.get(
+      `http://localhost:4000/a5/multiply/${a}/${b}`);
+    setResult(response.data);
+  };
+  const fetchDivision = async (a : number, b : number) => {
+    const response = await axios.get(
+      `http://localhost:4000/a5/divide/${a}/${b}`);
+    setResult(response.data);
+  };
   useEffect(() => { fetchSum(a, b) }, []);
   useEffect(() => { fetchSubtraction(a, b) }, []);
 
@@ -32,30 +42,50 @@ function EncodingParametersInURLs() {
       <button  className="btn btn-primary me-2" onClick={() => fetchSum(a, b)} >
         Fetch Sum of {a} + {b}
       </button>
-      <button className="btn btn-danger" onClick={() => fetchSubtraction(a, b)} >
+      <button className="btn btn-danger me-2" onClick={() => fetchSubtraction(a, b)} >
         Fetch Substraction of {a} - {b}
+      </button>
+      <button className="btn btn-danger me-2" onClick={() => fetchMultiplication(a, b)} >
+        Fetch Multiplication of {a} * {b}
+      </button>
+      <button className="btn btn-danger" onClick={() => fetchDivision(a, b)} >
+        Fetch Division of {a} / {b}
       </button>
   
       <h3>Path Parameters</h3>
       <a className="btn btn-primary me-2" href={`http://localhost:4000/a5/add/${a}/${b}`}>
         Add {a} + {b}
       </a>
-      <a className="btn btn-danger" href={`http://localhost:4000/a5/subtract/${a}/${b}`}>
+      <a className="btn btn-danger me-2" href={`http://localhost:4000/a5/subtract/${a}/${b}`}>
         Substract {a} - {b}
       </a>
+      <a className="btn btn-danger me-2" href={`http://localhost:4000/a5/multiply/${a}/${b}`}>
+        Multiply {a} * {b}
+      </a>
+      <a className="btn btn-danger" href={`http://localhost:4000/a5/divide/${a}/${b}`}>
+        Divide {a} / {b}
+      </a>
+
 
       <h3>Query Parameters</h3>
       <a className="btn btn-primary me-2"
         href={`http://localhost:4000/a5/calculator?operation=add&a=${a}&b=${b}`}>
         Add {a} + {b}
       </a>
-      <a className="btn btn-danger"
+      <a className="btn btn-danger me-2"
         href={`http://localhost:4000/a5/calculator?operation=subtract&a=${a}&b=${b}`}>
         Substract {a} - {b}
+      </a>
+      <a className="btn btn-danger me-2"
+        href={`http://localhost:4000/a5/calculator?operation=multiply&a=${a}&b=${b}`}>
+        Multiply {a} * {b}
+      </a>
+      <a className="btn btn-danger"
+        href={`http://localhost:4000/a5/calculator?operation=divide&a=${a}&b=${b}`}>
+        Divide {a} / {b}
       </a>
 
     </div>
   );
 }
 export default EncodingParametersInURLs;
-
