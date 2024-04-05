@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_BASE;
 function WorkingWithArrays() {
     const [errorMessage, setErrorMessage] = useState(null);
-    const API = "https://kanbas-node-server-app-rpcf.onrender.com/a5/todos";
+    const API = `${API_BASE}/a5/todos`;
     interface TodoItem {
         id: number;
         title: string;
