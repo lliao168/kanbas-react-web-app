@@ -6,14 +6,14 @@ function WorkingWithObjects() {
     description: "Create a NodeJS server with ExpressJS",
     due: "2021-10-10", completed: false, score: 0,
   });
-  const ASSIGNMENT_URL = "http://localhost:4000/a5/assignment"
+  const ASSIGNMENT_URL = "https://kanbas-node-server-app-rpcf.onrender.com/a5/assignment"
 
   const [module, setModule] = useState({
     id: 2, name: "Module 1",
     description: "This is a NodeJS Module",
     course: "NodeJS course",
   });
-  const MODULE_URL = "http://localhost:4000/a5/module"
+  const MODULE_URL = "https://kanbas-node-server-app-rpcf.onrender.com/a5/module"
 
   const fetchAssignment = async () => {
     const response = await axios.get(`${ASSIGNMENT_URL}`);
@@ -100,19 +100,19 @@ function WorkingWithObjects() {
       </div> 
 
       <h4>Retrieving Objects</h4>
-      <a className="btn btn-primary" href="http://localhost:4000/a5/assignment">
+      <a className="btn btn-primary" href="https://kanbas-node-server-app-rpcf.onrender.com/a5/assignment">
         Get Assignment
       </a>
       <h4>Retrieving Properties</h4>
-      <a className="btn btn-primary" href="http://localhost:4000/a5/assignment/title">
+      <a className="btn btn-primary" href="https://kanbas-node-server-app-rpcf.onrender.com/a5/assignment/title">
         Get Title
       </a>
       <h4>Retrieving Objects</h4>
-      <a className="btn btn-primary" href="http://localhost:4000/a5/module">
+      <a className="btn btn-primary" href="https://kanbas-node-server-app-rpcf.onrender.com/a5/module">
         Get Module
       </a>
       <h4>Retrieving Properties</h4>
-      <a className="btn btn-primary" href="http://localhost:4000/a5/module/name">
+      <a className="btn btn-primary" href="https://kanbas-node-server-app-rpcf.onrender.com/a5/module/name">
         Get Module Name
       </a>
     </div>
