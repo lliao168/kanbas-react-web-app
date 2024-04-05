@@ -7,7 +7,7 @@ function WorkingWithObjects() {
     description: "Create a NodeJS server with ExpressJS",
     due: "2021-10-10", completed: false, score: 0,
   });
-  const ASSIGNMENT_URL = `${API_BASE}/a5/assignment`
+  const ASSIGNMENT_URL = `${API_BASE}/a5/assignment`;
 
   const [module, setModule] = useState({
     id: 2, name: "Module 1",
