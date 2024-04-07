@@ -27,8 +27,8 @@ function EncodingParametersInURLs() {
   };
   useEffect(() => { fetchSum(a, b) }, []);
   useEffect(() => { fetchSubtraction(a, b) }, []);
-
-
+  useEffect(() => { fetchMultiplication(a, b) }, []);
+  useEffect(() => { fetchDivision(a, b) }, []);
 
   return (
     <div>
