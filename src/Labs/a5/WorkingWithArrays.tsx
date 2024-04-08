@@ -62,7 +62,8 @@ function WorkingWithArrays() {
         setTodo(response.data);
     };
     const updateTitle = async () => {
-        const response = await axios.get(`${API}/${todo.id}/title/${todo.title}`);
+        const encodedTitle = encodeURIComponent(todo.title);
+        const response = await axios.get(`${API}/${todo.id}/title/${encodedTitle}`);
         setTodos(response.data);
     };
     
