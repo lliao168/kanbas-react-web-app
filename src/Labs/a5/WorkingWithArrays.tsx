@@ -82,7 +82,7 @@ function WorkingWithArrays() {
             onChange={(e) => setTodo({
             ...todo, title: e.target.value })}/>    
         <h3>Updating an Item in an Array</h3>
-        <a className="btn btn-primary mb-2" href={`${API}/${todo.id}/title/${todo.title}`} >
+        <a className="btn btn-primary mb-2" href={`${API}/${todo.id}/title/${encodeURIComponent(todo.title)}`} >
             Update Title to {todo.title}
         </a>
 
