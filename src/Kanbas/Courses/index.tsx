@@ -32,6 +32,7 @@ import { assignments } from "../Database";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Quizzes from "../Quizzes";
 const API_BASE = process.env.REACT_APP_API_BASE;
 function Courses() {
         const { courseId } = useParams();
@@ -332,7 +333,7 @@ function Courses() {
                                 <li><Link to="/Kanbas/Courses/Assignments">
                                     <FaFilePen/>Assignments</Link>
                                 </li>
-                                <li><Link to="#">
+                                <li><Link to="/Kanbas/Courses/Quizzes">
                                     <IoRocketOutline/>Quizzes</Link>
                                 </li>
                                 <li><Link to="/Kanbas/Courses/Grades">
@@ -392,7 +393,7 @@ function Courses() {
                             <Route path="Zoom Meetings" element={<h1>Zoom Meetings</h1>} />
                             <Route path="Assignments" element={<Assignments/>} />
                             <Route path="Assignments/:assignmentId" element={<AssignmentEditor/>}/>
-                            <Route path="Quizzes" element={<h1>Quizzes</h1>} />
+                            <Route path="Quizzes" element={<Quizzes/>} />
                             <Route path="Grades" element={<Grades />} />
                             <Route path="People" element={<h1>People</h1>} />
                             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />
