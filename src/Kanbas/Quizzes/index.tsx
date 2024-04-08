@@ -8,6 +8,7 @@ import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
 import { KanbasState } from '../store';
 import { Modal, Button} from 'react-bootstrap';
+import { RxRocket } from "react-icons/rx";
 
 import {
     addAssignment,
@@ -20,8 +21,39 @@ import * as client from "../Courses/Assignments/client";
 
 import { findAssignmentsForCourse, createAssignment } from "../Courses/Assignments/client";
 
+function determineQuizAvailability(availableFrom : any, availableUntil : any) {
+    const currentDate = new Date();
+    const availableFromDate = new Date(availableFrom);
+    const availableUntilDate = new Date(availableUntil);
+
+    if (currentDate < availableFromDate) {
+        return `Not available until ${availableFromDate.toLocaleDateString()}`;
+    } else if (currentDate >= availableFromDate && currentDate <= availableUntilDate) {
+        return "Available";
+    } else {
+        return "Closed";
+    }
+}
+
+function formatDate(dateString : any) {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+        month: 'short', 
+        day: '2-digit', 
+        hour: 'numeric', 
+        minute: '2-digit', 
+        hour12: true 
+    };
+
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    return formatter.format(date);
+}
+
 function Quizzes () {
     const { courseId } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     useEffect(() => {
         findAssignmentsForCourse(courseId)
           .then((assignments) =>
@@ -42,8 +74,7 @@ function Quizzes () {
         navigate(`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`);
     };
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedAssignmentId, setSelectedAssignmentId] = useState<Assignment | null>(null);
@@ -69,6 +100,66 @@ function Quizzes () {
         }
     };
 
+    interface ContextMenuElement {
+        x: number;
+        y: number;
+        onEdit: () => void;
+        onDelete: () => void;
+        onPublish: () => void;
+        onCopy: () => void;
+        onSort: () => void;
+    }
+
+    const [contextMenu, setContextMenu] = useState({visible: false, x:0, y:0, assignmentId: null});
+
+    const handleContextMenu = (event : any, assignmentId : any) => {
+        event.preventDefault();
+        if (contextMenu.visible && contextMenu.assignmentId === assignmentId) {
+            setContextMenu({...contextMenu, visible: false});
+        } else {
+            setContextMenu(
+                {
+                    visible: true,
+                    x: event.clientX,
+                    y: event.clientY,
+                    assignmentId: assignmentId,
+                }
+            );
+        }
+    };
+
+    const handleMenu = (action : any, assignmentId : any) => {
+        switch (action) {
+            case 'edit':
+                break;
+            case 'delete':
+                break;
+            case 'publish':
+                break;
+            default:
+                break;            
+        }
+        setContextMenu({...contextMenu, visible: false});
+    };
+
+    const renderContextMenu = () => {
+        if (!contextMenu.visible) return null;
+        const styles = {
+            position: 'fixed',
+            top: `${contextMenu.y}px`,
+            left: `${contextMenu.x}px`,
+            zIndex: 1000,
+        };
+
+        return (
+            <ul className="list-group" style={{top: `${contextMenu.y}px`, left: `${contextMenu.x}px`, position:"fixed", zIndex:"1000", border:"1px solid #ccc", width:"60px", borderRadius: "5px"}}>
+                <li className="list-group-item" style={{borderBottom: "1px solid #ccc", backgroundColor:"#f0f0f0"}}>Edit</li>
+                <li className="list-group-item" style={{borderBottom: "1px solid #ccc", backgroundColor:"#f0f0f0"}}>Delete</li>
+                <li className="list-group-item" style={{borderBottom: "1px solid #ccc", backgroundColor:"#f0f0f0"}}>Publish</li>
+            </ul>
+        );
+    };
+
 
     return (
         <>
@@ -78,12 +169,9 @@ function Quizzes () {
                               <li className="list-group-item d-flex justify-content-end align-items-center">
                                 <div className="col float-start">
                                   
-                                  <input type="text" className="form-control w-25" id="points" placeholder="Search for Assignment"/>
+                                  <input type="text" className="form-control w-25" id="points" placeholder="Search for Quiz"/>
                                 </div>
-                                  <button type="button" className="btn btn-light float end m-2">
-                                    + Group
-                                  </button>
-                                  <button type="button" className="btn btn-danger float end m-2" 
+                                  <button type="button" className="btn btn-danger float end m-1" 
                                   onClick={() => {
                                     const newAssignment = {
                                         title: "New Assignment",
@@ -96,11 +184,12 @@ function Quizzes () {
                                       };
                                     dispatch(selectAssignment(newAssignment));
                                     navigate(`/Kanbas/Courses/${courseId}/Assignments/new`)}}>
-                                    + Assignments
+                                    + Quiz
                                   </button>
-                                  <button type="button" className="btn btn-light float-end m-2">
+                                  <button type="button" className="btn btn-light float-end">
                                     <FaEllipsisV/>
                                   </button>
+                                  
                               </li>
                         
             </div>
@@ -110,35 +199,34 @@ function Quizzes () {
                     <div>
                         <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                         <FaCaretDown className="ms-2 me-2"/>
-                        Assignments
-                        
-                        <span className="float-end">
-                            <button className="btn btn-light rounded border border-light">
-                                        40% of Total
-                            </button>
-                            <FaPlus className="ms-2" />
-                            <FaEllipsisV className="ms-2" />
-                        </span>
+                        <span style={{fontWeight:"bold"}}>Assignment Quizzes</span>
+                    
                     </div>
                     <ul className="list-group">
                         {assignmentList
-                        .filter((assignment) => assignment.course === courseId  && assignment.category === "ASSIGNMENTS")
+                        .filter((assignment) => assignment.course === courseId  && assignment.category === "QUIZZES")
                         .map((assignment, index) => (
-                        <li key={index} className="list-group-item" onClick={() => {handleSelectAssignment(assignment)}}>
+                        <li key={index} className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
-                            <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3" >{assignment.title}</Link>
+                            <RxRocket className="ms-3" style={{color:"green"}}/>                           
+                            <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3" >{assignment.title}</Link>
                             <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
-                                <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
-                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                                <Link to="#" className="" style={{textDecoration: "none", color:"grey", fontSize:"0.8em", marginLeft:"55px"}}>{determineQuizAvailability(assignment.availableFromDate, assignment.availableUntilDate)}  </Link> 
+                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due {formatDate(assignment.dueDate)}  </span>
+                                <span style={{color:"grey", fontSize:"0.8em"}}>| {assignment.pts} pts  </span>
+                                <span style={{color:"grey", fontSize:"0.8em"}}>| {assignment.Questions} Questions  </span>
                                 <span className="float-end">
-                                    <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
+                                    <FaCheckCircle className="text-success me-3" />
+                                    <button onClick={(e) => handleContextMenu(e, assignment._id)} style={{backgroundColor:"white"}}>
+                                        <FaEllipsisV className="me-4"/>
+                                    </button>  
+                                    {renderContextMenu()}  
+                                    
                                 </span>
                                 <button
                                     className="btn btn-danger float-end me-2"
                                     style={{height:"25px", width:"50px", borderRadius: '5px'}}
                                     onClick={(event) => {
-                                        // e.preventDefault();
                                         event.stopPropagation();
                                         handleShowDeleteModal(assignment._id)}
                                     }
@@ -169,86 +257,7 @@ function Quizzes () {
                             
                         </li>))}
                     </ul>
-                </li>
 
-                <li className="list-group-item">
-                    <div>
-                        <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
-                        <FaCaretDown className="ms-2 me-2"/>
-                        Quizzes
-                        
-                        <span className="float-end">
-                            <button className="btn btn-light rounded border border-light">
-                                        10% of Total
-                            </button>
-                            <FaPlus className="ms-2" />
-                            <FaEllipsisV className="ms-2" />
-                        </span>
-                    </div>
-                    <ul className="list-group">
-                        {assignmentList
-                        .filter((assignment) => assignment.course === courseId  && assignment.category === "QUIZZES")
-                        .map((assignment, index) => (
-                        <li key={index} className="list-group-item" onClick={() => handleSelectAssignment(assignment)}>
-                            <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
-                            <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
-                            <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
-                                <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
-                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>
-                                <span className="float-end">
-                                    <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
-                                </span>
-                                <button
-                                    className="btn btn-danger float-end me-2"
-                                    style={{height:"25px", width:"50px", borderRadius: '5px'}}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        handleShowDeleteModal(assignment._id)}
-                                    }
-                                    >
-                                    Delete
-                                </button>
-
-                                <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} aria-labelledby="contained-modal-title-vcenter" centered>
-                                    <Modal.Header closeButton>
-                                        <Modal.Title >Confirm Delete</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
-                                    <Modal.Footer>
-                                        <Button variant="primary" 
-                                        onClick={(event) => {
-                                            handleDeleteAssignment(event);}
-                                        }
-                                        >
-                                            Yes
-                                        </Button>
-                                        <Button variant="secondary" onClick={handleCloseDeleteModal}>
-                                            No
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>
-                            </div>    
-                            
-                        </li>))}
-                    </ul>
-                </li>
-
-                <li className="list-group-item">
-                    <div>
-                        <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
-                        <FaCaretDown className="ms-2 me-2"/>
-                        Exams
-                        
-                        <span className="float-end">
-                            <button className="btn btn-light rounded border border-light">
-                                        20% of Total
-                            </button>
-                            <FaPlus className="ms-2" />
-                            <FaEllipsisV className="ms-2" />
-                        </span>
-                    </div>
                     <ul className="list-group">
                         {assignmentList
                         .filter((assignment) => assignment.course === courseId  && assignment.category === "EXAM")
@@ -258,10 +267,17 @@ function Quizzes () {
                             <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
                             <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
                             <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
-                                <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
-                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>
+                            <Link to="#" className="" style={{textDecoration: "none", color:"grey", fontSize:"0.8em", marginLeft:"55px"}}>{determineQuizAvailability(assignment.availableFromDate, assignment.availableUntilDate)}  </Link> 
+                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due {formatDate(assignment.dueDate)}  </span>
+                                <span style={{color:"grey", fontSize:"0.8em"}}>| {assignment.pts} pts  </span>
+                                <span style={{color:"grey", fontSize:"0.8em"}}>| {assignment.Questions} Questions  </span>
                                 <span className="float-end">
-                                    <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
+                                    <FaCheckCircle className="text-success me-3" />
+                                    <button onClick={(e) => handleContextMenu(e, assignment._id)} style={{backgroundColor:"white"}}>
+                                        <FaEllipsisV className="me-4"/>
+                                    </button>  
+                                    {renderContextMenu()}  
+                                    
                                 </span>
                                 <button
                                     className="btn btn-danger float-end me-2"
@@ -298,69 +314,6 @@ function Quizzes () {
                     </ul>
                 </li>
 
-                <li className="list-group-item">
-                    <div>
-                        <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
-                        <FaCaretDown className="ms-2 me-2"/>
-                        Projects
-                        
-                        <span className="float-end">
-                            <button className="btn btn-light rounded border border-light">
-                                        30% of Total
-                            </button>
-                            <FaPlus className="ms-2" />
-                            <FaEllipsisV className="ms-2" />
-                        </span>
-                    </div>
-                    <ul className="list-group">
-                        {assignmentList
-                        .filter((assignment) => assignment.course === courseId  && assignment.category === "PROJECT")
-                        .map((assignment, index) => (
-                        <li key={index} className="list-group-item" onClick={() => handleSelectAssignment(assignment)}>
-                            <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
-                            <HiOutlinePencilSquare className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3">{assignment.title}</Link>
-                            <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
-                                <Link to="#" className="" style={{textDecoration: "none", color:"crimson", fontSize:"0.8em", marginLeft:"55px"}}>Multiple modules </Link> 
-                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due date: 2024-01-22 23:59:59 | 100pts</span>
-                                <span className="float-end">
-                                    <FaCheckCircle className="text-success me-3" /><FaEllipsisV className="me-4" />
-                                </span>
-                                <button
-                                    className="btn btn-danger float-end me-2"
-                                    style={{height:"25px", width:"50px", borderRadius: '5px'}}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        handleShowDeleteModal(assignment._id)}
-                                    }
-                                    >
-                                    Delete
-                                </button>
-
-                                <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} aria-labelledby="contained-modal-title-vcenter" centered>
-                                    <Modal.Header closeButton>
-                                        <Modal.Title >Confirm Delete</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
-                                    <Modal.Footer>
-                                        <Button variant="primary" 
-                                        onClick={(event) => {
-                                            handleDeleteAssignment(event);}
-                                        }
-                                        >
-                                            Yes
-                                        </Button>
-                                        <Button variant="secondary" onClick={handleCloseDeleteModal}>
-                                            No
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>
-                            </div>    
-                            
-                        </li>))}
-                    </ul>
-                </li>
             </ul>
         </div>
         </>
