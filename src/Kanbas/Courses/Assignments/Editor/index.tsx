@@ -34,7 +34,12 @@ function AssignmentEditor() {
         const status = await client.updateAssignment(assignment);
         dispatch(updateAssignment(assignment));
     };
+
     const handleSave = () => {
+        if (!assignment.dueDate || !assignment.availableFromDate || !assignment.availableUntilDate) {
+            alert("All date fields ('Due to', 'Available from', and 'Until') are required to save this assignment.");
+            return;
+        }
         if (assignmentId && assignmentId !== 'new') {
             handleUpdateAssignment(); 
         } else {
