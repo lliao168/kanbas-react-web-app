@@ -16,6 +16,10 @@ export default function UserTable() {
     }
   };
   const deleteUser = async (user: User) => {
+    if (!user._id) {
+      console.error("User ID is undefined, cannot delete:", user);
+      return;
+    }
     try {
       await client.deleteUser(user);
       setUsers(users.filter((u) => u._id !== user._id));
@@ -84,14 +88,14 @@ export default function UserTable() {
         </tr>
           <tr>
             <td>
-              <input className="form-control" value={user.password} onChange={(e) =>
-                setUser({ ...user, password: e.target.value })}/>
+              <input className="form-control" value={user.username} onChange={(e) =>
+                setUser({ ...user, username: e.target.value })}/>
               
             </td>
 
             <td>
-                <input className="form-control" value={user.username} onChange={(e) =>
-                    setUser({ ...user, username: e.target.value })}/>
+                <input className="form-control" value={user.password} onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })}/>
             </td>
 
             <td>

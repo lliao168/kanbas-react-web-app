@@ -9,7 +9,7 @@ export default function Signup() {
   const signup = async () => {
     try {
       await client.signup(user);
-      navigate("/project/account");
+      navigate("/Kanbas/Account/Profile");
     } catch (err: any) {
       setError(err.response.data.message);
     }

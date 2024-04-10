@@ -12,7 +12,7 @@ export default function Profile() {
   };
   const signout = async () => {
     await client.signout();
-    navigate("/project/signin");
+    navigate("/Kanbas/Account/Signin");
   };
   useEffect(() => {
     fetchProfile();
@@ -39,11 +39,11 @@ export default function Profile() {
             setProfile({ ...profile, firstName: e.target.value })}/>
           <input className="form-control w-100 mb-2" value={profile.lastName} onChange={(e) =>
             setProfile({ ...profile, lastName: e.target.value })}/>
-          <input className="form-control w-100 mb-2" value={profile.dob} type="date" onChange={(e) =>
+          <input type="date" className="form-control w-100 mb-2" value={profile.dob} onChange={(e) =>
             setProfile({ ...profile, dob: e.target.value })}/>
           <input className="form-control w-100 mb-2" value={profile.email} onChange={(e) =>
             setProfile({ ...profile, email: e.target.value })}/>
-          <select className="form-control w-100 mb-2" onChange={(e) =>
+          <select className="form-control w-100 mb-2" value={profile.role} onChange={(e) =>
               setProfile({ ...profile, role: e.target.value })}>
             <option value="USER">User</option>
             <option value="ADMIN">Admin</option>
