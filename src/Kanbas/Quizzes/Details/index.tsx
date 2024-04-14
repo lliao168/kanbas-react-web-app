@@ -48,11 +48,22 @@ function QuizDetailsScreen() {
 return  (
     <div>
 
+        <h1>
+            {assignment.title}
+        </h1>
+
         {assignment && (
                 <button type="button" onClick={handleEditClick} className="btn btn-light float-end m-2">
                     <PiPencil /> Edit
                 </button>
         )}
+
+        <h2>{assignment.description}</h2>
+        <label className="form-check-label" htmlFor="shuffleCheck">
+                            {assignment.shuffleAnswer ? 'Yes' : 'No'}
+                        </label>
+                        <br/>
+        <label>{assignment.dueDate}</label>                
         
     </div>
 

@@ -24,7 +24,7 @@ import {
 import * as client from "../../../Courses/Assignments/client";  
 import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
 
-function QuizQuestionsDetailEditor() {
+function QuizMultipleChoiceEditor() {
     const { assignmentId, courseId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -93,20 +93,9 @@ function QuizQuestionsDetailEditor() {
     return(
         <div>
             
-                <div className="d-flex justify-content-center mt-2">
-                            <button className="btn btn-light ms-3">
-                            + New Question
-                            </button>
-                            <Link to={"#"} className="btn btn-light ms-4">
-                                + New Question Group
-                            </Link>
-                            <Link to={"#"}
-                                className="btn btn-light ms-4">
-                                <CiSearch className="me-2"/>Find Questions
-                            </Link>
-                </div> 
+            
                 
         </div>
     );
 }
-export default QuizQuestionsDetailEditor;
+export default QuizMultipleChoiceEditor;

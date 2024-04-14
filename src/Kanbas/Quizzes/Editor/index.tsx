@@ -110,7 +110,7 @@ function QuizEditor () {
             </div>
             <hr style={{color:"grey", marginLeft:"20px", marginRight:"20px"}} />
 
-            <form>
+            {/* <form>
                 <div className="row g-3" style={{marginLeft:"20px", marginRight:"20px"}}>
                     <div className="col-md-6 text-align:left">
                                         <div className="form-check">
@@ -134,7 +134,7 @@ function QuizEditor () {
                         </Link>
                     </div>    
                 </div>    
-            </form>
+            </form> */}
 
             
         </div>

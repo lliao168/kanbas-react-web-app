@@ -22,10 +22,11 @@ import {
 
 import * as client from "../../../Courses/Assignments/client";  
 import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
+import { title } from 'process';
 
 
 function QuizDetailsEditor() {
-    const { courseId } = useParams();
+    const { assignmentId, courseId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -36,7 +37,13 @@ function QuizDetailsEditor() {
         );
       }, [courseId]);   
     const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
-    const assignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
+    // const assignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
+
+    const assignment = assignmentList.find(
+        (assignment) => assignment.course === courseId && (assignment.category === "QUIZZES" || assignment.category === "EXAM")
+    );
+
+
     interface Assignment {
         _id: string;
         title: string;
@@ -47,17 +54,118 @@ function QuizDetailsEditor() {
     }
 
     const [quizInstructions, setQuizInstructions] = useState('');
-
     const handleInstructionsChange = (value : any) => {
         setQuizInstructions(value);
         dispatch(updateAssignment({...assignment, description: value}));
     };
 
+    const [quizTitle, setQuizTitle] = useState('');
+    const handleTitleChange = (value : any) => {
+        setQuizTitle(value);
+        dispatch(updateAssignment({...assignment, title: value}));
+    };
+
+    const [quizPoints, setQuizPoints] = useState('');
+    const handlePointsChange = (value : any) => {
+        setQuizPoints(value);
+        dispatch(updateAssignment({...assignment, points: value}));
+    };
+
+    const [quizType, setQuizType] = useState('');
+    const handleTypeChange = (value : any) => {
+        setQuizType(value);
+        dispatch(updateAssignment({...assignment, QuizType: value}));
+    };
+
+    const [quizShuffleAnswer, setQuizShuffleAnswer] = useState(true);
+    const handleShuffleAnswerChange = (e: any) => {
+        const isChecked = e.target.checked;
+        setQuizShuffleAnswer(isChecked);
+        dispatch(updateAssignment({...assignment, shuffleAnswer: isChecked}));
+    };
+
+    const [quizMinutes, setQuizMinutes] = useState('');
+    const handleMinutesChange = (value : any) => {
+        setQuizMinutes(value);
+        dispatch(updateAssignment({...assignment, Minutes: value}));
+    };
+
+    const [quizAccessCode, setQuizAccessCode] = useState('');
+    const handleAccessCodeChange = (value : any) => {
+        setQuizAccessCode(value);
+        dispatch(updateAssignment({...assignment, AccessCode: value}));
+    };
+
+    const [quizDueDate, setQuizDueDate] = useState('');
+    const handleDueDateChange = (value : any) => {
+        setQuizDueDate(value);
+        dispatch(updateAssignment({...assignment, dueDate : value}));
+    };
+
+    const [quizAvailableDateFrom, setQuizAvailableDateFrom] = useState('');
+    const handleAvailableDateFromChange = (value : any) => {
+        setQuizAvailableDateFrom(value);
+        dispatch(updateAssignment({...assignment, availableFromDate : value}));
+    };
+
+    const [quizAvailableDateTo, setQuizAvailableDateTo] = useState('');
+    const handleAvailableDateToChange = (value : any) => {
+        setQuizAvailableDateTo(value);
+        dispatch(updateAssignment({...assignment, availableUntilDate : value}));
+    };
+
+
+
+    const handleAddAssignment = () => {
+        const newAssignmentDetails = {
+            ...assignment,
+            course: courseId,
+            category: assignment.category
+        };
+        if(courseId) {
+            client.createAssignment(courseId, newAssignmentDetails).then((newAssignmentDetails) => {
+                dispatch(addAssignment(newAssignmentDetails));
+            });
+        }
+      };
+
+    const handleUpdateAssignment = async () => {
+        const status = await client.updateAssignment(assignment);
+        dispatch(updateAssignment(assignment));
+    };
+
+    const handleSave = () => {
+        if (!assignment.dueDate || !assignment.availableFromDate || !assignment.availableUntilDate) {
+            alert("All date fields ('Due to', 'Available from', and 'Until') are required to save this assignment.");
+            return;
+        }
+        if (assignmentId && assignmentId !== 'new') {
+            handleUpdateAssignment(); 
+        } else {
+            // const newAssignmentDetails = {
+            //     ...assignment,
+            //     course: courseId,
+            //     category: assignment.category
+            // };
+            // dispatch(addAssignment(newAssignmentDetails));
+            handleAddAssignment();
+        }
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${assignment._id}`);
+    };
+
+    const handleChange = (e : any) => {
+        dispatch(selectAssignment({...assignment, shuffleAnswers: e.target.checked}));
+    };
+
+
+    
     return(
         <div className="flex-fill p-4">
             <form>
                 <div className="col-12" style={{width:"500px"}}>
                         <input 
+                        value={assignment.title}
+                        onChange={(e) => handleTitleChange(e.target.value)}
                             className="form-control mb-2" />
                 </div>   
                 <div className="row g-3 justify-content-center"> 
@@ -68,7 +176,7 @@ function QuizDetailsEditor() {
                             Quiz Instructions:</label>
                             <ReactQuill 
                                 theme="snow"
-                                value={quizInstructions}
+                                value={assignment.description}
                                 onChange={handleInstructionsChange}
                             />
                     </div>
@@ -79,8 +187,9 @@ function QuizDetailsEditor() {
                                             <label htmlFor="quiz-type" className="col-sm-2  
                                             col-form-label col-form-label-sm">Quiz Type</label>
                                             <div className="col-sm">
-                                                <select className="form-select">
-                                                    <option selected>Graded Quiz</option>
+                                                <select className="form-select" onChange={(e) => handleTypeChange(e.target.value)}>
+                                                    <option selected>{assignment.QuizType}</option>
+                                                    <option value="Graded Quiz">Graded Quiz</option>
                                                     <option value="Practice Quiz">Practice Quiz</option>
                                                     <option value="Graded Survey">Graded Survey</option>
                                                     <option value="Ungraded Survey">Ungraded Survey</option>
@@ -95,9 +204,8 @@ function QuizDetailsEditor() {
                                                 <input type="number" 
                                                 className="form-control" 
                                                 id="points" 
-                                                value={assignment?.points}
-                                                onChange={(e) =>
-                                                    dispatch(selectAssignment({...assignment, points: e.target.value}))} 
+                                                value={assignment.points}
+                                                onChange={(e) => handlePointsChange(e.target.value)} 
                                                 />
                                             </div>
                                         </div>
@@ -131,7 +239,7 @@ function QuizDetailsEditor() {
                                             col-form-label col-form-label-sm"></label>
                                             <div className="col-sm">
                                                 <div className="form-check">
-                                                    <input className="form-check-input" type="checkbox" id="gridCheck" defaultChecked/>
+                                                    <input className="form-check-input" type="checkbox"  checked={assignment.shuffleAnswer} id="gridCheck" onChange={handleShuffleAnswerChange} />
                                                     <label className="form-check-label" htmlFor="gridCheck">
                                                     Shuffle Answers
                                                     </label>
@@ -149,10 +257,11 @@ function QuizDetailsEditor() {
                                                     Time Limit
                                                     </label>
                                                     <input type="number" 
-                                                        value = "20"
+                                                        value = {assignment.Minutes}
                                                         className="form-control float-end me-2"
                                                         style={{width:"70px"}} 
-                                                        id="minutes" 
+                                                        id="minutes"
+                                                        onChange={(e) => handleMinutesChange(e.target.value)} 
                                                     />
                                                     <label className="float-end mt-2">Minutes</label>
                                                 </div>
@@ -205,6 +314,8 @@ function QuizDetailsEditor() {
                                                 <input type="text" 
                                                 className="form-control" 
                                                 id="access code" 
+                                                value={assignment.AccessCode}
+                                                onChange={(e) => handleAccessCodeChange(e.target.value)} 
                                                 />
                                             </div>
                                         </div>
@@ -277,23 +388,20 @@ function QuizDetailsEditor() {
                                                             id="due-date"
                                                             placeholder=""
                                                             value={assignment?.dueDate}
-                                                            onChange={(e) =>
-                                                                dispatch(selectAssignment({...assignment, dueDate: e.target.value}))}
+                                                            onChange={(e) => handleDueDateChange(e.target.value)} 
                                                             />
                                                     </div>
                 
                                                     <div className="col-md-6" style={{textAlign:"left"}}>
                                                         <label htmlFor="available-from" className="form-label"><b>Available from</b></label>
                                                         <input type="date" className="form-control mb-4" id="available-from" value={assignment?.availableFromDate}
-                                                        onChange={(e) =>
-                                                            dispatch(selectAssignment({...assignment, availableFromDate: e.target.value}))}/>
+                                                        onChange={(e) => handleAvailableDateFromChange(e.target.value)} />
                                                     </div>
                                                     
                                                     <div className="col-md-6" style={{textAlign:"left"}}>
                                                         <label htmlFor="until" className="form-label"><b>Until</b></label>
                                                         <input type="date" className="form-control mb-4" id="until" value={assignment?.availableUntilDate}
-                                                        onChange={(e) =>
-                                                            dispatch(selectAssignment({...assignment, availableUntilDate: e.target.value}))}/>
+                                                        onChange={(e) => handleAvailableDateToChange(e.target.value)}/>
                                                     </div>
                                                     
                                                 </div>  
@@ -307,6 +415,30 @@ function QuizDetailsEditor() {
                                             </div>
                                         </div>
                     </div>
+
+                    <div className="row g-3" style={{marginLeft:"20px", marginRight:"20px"}}>
+                    <div className="col-md-6 text-align:left">
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="gridCheck"/>
+                                            <label className="form-check-label" htmlFor="gridCheck">
+                                              Notify users that this quiz has changed
+                                            </label>
+                                        </div>
+                    </div>
+    
+                    <div className="col-md-6 text-align:left">
+                        <button onClick={handleSave}  className="btn btn-danger ms-2 float-end">
+                        Save
+                        </button>
+                        <Link to={"#"} className="btn btn-light float-end ms-2">
+                            Save & Publish
+                        </Link>
+                        <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}
+                            onClick={() => {navigate(`/Kanbas/Courses/${courseId}/Quizzes`)}} className="btn btn-light float-end">
+                            Cancel
+                        </Link>
+                    </div>    
+                </div>    
             </form>
         </div>
     );
