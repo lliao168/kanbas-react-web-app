@@ -8,7 +8,9 @@ export default function Profile() {
   const navigate = useNavigate();
   const fetchProfile = async () => {
     const account = await client.profile();
-    setProfile(account);
+    const formattedDob = account.dob ? new Date(account.dob).toISOString().split('T')[0] : '';
+    const updatedAccount = { ...account, dob: formattedDob };
+    setProfile(updatedAccount);
   };
   const signout = async () => {
     await client.signout();

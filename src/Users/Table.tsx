@@ -72,6 +72,9 @@ export default function UserTable() {
         <thead>
         <tr> 
             <td>
+            <span style={{fontWeight:"bold"}}>ID</span>
+            </td>
+            <td>
                 <span style={{fontWeight:"bold"}}>Username</span>
             </td>
             <td>
@@ -87,6 +90,10 @@ export default function UserTable() {
             </td>
         </tr>
           <tr>
+            <td>
+            <input className="form-control" value={user._id} onChange={(e) =>
+                setUser({ ...user, _id: e.target.value })}/>
+            </td>
             <td>
               <input className="form-control" value={user.username} onChange={(e) =>
                 setUser({ ...user, username: e.target.value })}/>
@@ -131,6 +138,7 @@ export default function UserTable() {
         <tbody>
           {users.map((user: any) => (
             <tr key={user._id}>
+              <td>{user._id}</td>
               <td>{user.username}</td>
               <td></td>
               <td>{user.firstName}</td>
