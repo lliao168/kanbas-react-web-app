@@ -71,9 +71,9 @@ export default function UserTable() {
       <table className="table">
         <thead>
         <tr> 
-            <td>
+            {/* <td>
             <span style={{fontWeight:"bold"}}>ID</span>
-            </td>
+            </td> */}
             <td>
                 <span style={{fontWeight:"bold"}}>Username</span>
             </td>
@@ -90,10 +90,10 @@ export default function UserTable() {
             </td>
         </tr>
           <tr>
-            <td>
+            {/* <td>
             <input className="form-control" value={user._id} onChange={(e) =>
                 setUser({ ...user, _id: e.target.value })}/>
-            </td>
+            </td> */}
             <td>
               <input className="form-control" value={user.username} onChange={(e) =>
                 setUser({ ...user, username: e.target.value })}/>
@@ -102,7 +102,7 @@ export default function UserTable() {
 
             <td>
                 <input className="form-control" value={user.password} onChange={(e) =>
-                    setUser({ ...user, password: e.target.value })}/>
+                    setUser({ ...user, password: e.target.value })} type="password" />
             </td>
 
             <td>
@@ -138,12 +138,12 @@ export default function UserTable() {
         <tbody>
           {users.map((user: any) => (
             <tr key={user._id}>
-              <td>{user._id}</td>
+              {/* <td>{user._id}</td> */}
               <td>{user.username}</td>
               <td></td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
-              <td></td>
+              <td>{user.role}</td>
               
               <td>
                 <button className="btn btn-danger me-2"
