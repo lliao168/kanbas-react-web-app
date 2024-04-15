@@ -69,7 +69,7 @@ function ModuleList() {
     const dispatch = useDispatch();
     const handleAddModule = () => {
         if(courseId) {
-            createModule(courseId, module).then((module) => {
+            client.createModule(courseId, module).then((module) => {
                 dispatch(addModule(module));
             });
         }

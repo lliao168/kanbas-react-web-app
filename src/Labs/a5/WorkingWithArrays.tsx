@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_BASE;
 function WorkingWithArrays() {
     const [errorMessage, setErrorMessage] = useState(null);
-    const API = "http://localhost:4000/a5/todos";
+    const API = `${API_BASE}/a5/todos`;
     interface TodoItem {
         id: number;
         title: string;
@@ -61,7 +62,8 @@ function WorkingWithArrays() {
         setTodo(response.data);
     };
     const updateTitle = async () => {
-        const response = await axios.get(`${API}/${todo.id}/title/${todo.title}`);
+        const encodedTitle = encodeURIComponent(todo.title);
+        const response = await axios.get(`${API}/${todo.id}/title/${encodedTitle}`);
         setTodos(response.data);
     };
     
@@ -80,7 +82,7 @@ function WorkingWithArrays() {
             onChange={(e) => setTodo({
             ...todo, title: e.target.value })}/>    
         <h3>Updating an Item in an Array</h3>
-        <a className="btn btn-primary mb-2" href={`${API}/${todo.id}/title/${todo.title}`} >
+        <a className="btn btn-primary mb-2" href={`${API}/${todo.id}/title/${encodeURIComponent(todo.title)}`} >
             Update Title to {todo.title}
         </a>
 

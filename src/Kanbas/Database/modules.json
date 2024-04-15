@@ -228,7 +228,7 @@
 
   },
   {
-    "_id": "M102",
+    "_id": "M202",
     "name": "Week 2",
     "description": "Understanding rocket fuel, combustion processes, and efficiency.",
     "course": "CS5520",
@@ -257,7 +257,7 @@
     ]
   },
   {
-    "_id": "M103",
+    "_id": "M203",
     "name": "Week 3",
     "description": "Principles of rocket nozzle design and performance optimization.",
     "course": "CS5520",
@@ -295,7 +295,7 @@
 
 
   {
-    "_id": "M202",
+    "_id": "M301",
     "name": "Subsonic and Supersonic Flow",
     "description": "Understanding subsonic and supersonic aerodynamic behaviors.",
     "course": "CS5001",
@@ -359,7 +359,7 @@
 
   },
   {
-    "_id": "M102",
+    "_id": "M302",
     "name": "Week 2",
     "description": "Understanding rocket fuel, combustion processes, and efficiency.",
     "course": "CS5001",
@@ -411,7 +411,7 @@
     ]
   },
   {
-    "_id": "M103",
+    "_id": "M303",
     "name": "Week 3",
     "description": "Principles of rocket nozzle design and performance optimization.",
     "course": "CS5001",
@@ -447,7 +447,7 @@
   },
 
   {
-    "_id": "M203",
+    "_id": "M401",
     "name": "Aerodynamic Heating",
     "description": "Study of aerodynamic heating and thermal protection systems.",
     "course": "CS5002",
@@ -517,7 +517,7 @@
 
   },
   {
-    "_id": "M102",
+    "_id": "M402",
     "name": "Week 2",
     "description": "Understanding rocket fuel, combustion processes, and efficiency.",
     "course": "CS5002",
@@ -569,7 +569,7 @@
     ]
   },
   {
-    "_id": "M103",
+    "_id": "M403",
     "name": "Week 3",
     "description": "Principles of rocket nozzle design and performance optimization.",
     "course": "CS5002",
@@ -606,7 +606,7 @@
 
 
   {
-    "_id": "M301",
+    "_id": "M501",
     "name": "Spacecraft Structural Design",
     "description": "Fundamentals of designing spacecraft structures and materials selection.",
     "course": "CS5004",
@@ -676,7 +676,7 @@
 
   },
   {
-    "_id": "M102",
+    "_id": "M502",
     "name": "Week 2",
     "description": "Understanding rocket fuel, combustion processes, and efficiency.",
     "course": "CS5004",
@@ -728,7 +728,7 @@
     ]
   },
   {
-    "_id": "M103",
+    "_id": "M503",
     "name": "Week 3",
     "description": "Principles of rocket nozzle design and performance optimization.",
     "course": "CS5004",
@@ -764,7 +764,7 @@
   },
   
   {
-    "_id": "M302",
+    "_id": "M601",
     "name": "Orbital Mechanics",
     "description": "Understanding orbital dynamics and mission planning.",
     "course": "CS5008",
@@ -834,7 +834,7 @@
 
   },
   {
-    "_id": "M102",
+    "_id": "M602",
     "name": "Week 2",
     "description": "Understanding rocket fuel, combustion processes, and efficiency.",
     "course": "CS5008",
@@ -886,7 +886,7 @@
     ]
   },
   {
-    "_id": "M103",
+    "_id": "M603",
     "name": "Week 3",
     "description": "Principles of rocket nozzle design and performance optimization.",
     "course": "CS5008",
@@ -922,7 +922,7 @@
   },
 
   {
-    "_id": "M303",
+    "_id": "M701",
     "name": "Spacecraft Systems Engineering",
     "description": "Overview of spacecraft systems and subsystems engineering.",
     "course": "CS5010",
@@ -992,7 +992,7 @@
 
   },
   {
-    "_id": "M102",
+    "_id": "M702",
     "name": "Week 2",
     "description": "Understanding rocket fuel, combustion processes, and efficiency.",
     "course": "CS5010",
@@ -1044,7 +1044,7 @@
     ]
   },
   {
-    "_id": "M103",
+    "_id": "M703",
     "name": "Week 3",
     "description": "Principles of rocket nozzle design and performance optimization.",
     "course": "CS5010",

@@ -1,7 +1,10 @@
 import axios from "axios";
 const API_BASE = process.env.REACT_APP_API_BASE;
 const COURSES_API =  `${API_BASE}/api/courses`;
-const MODULES_API = `${API_BASE}/api/courses/modules`;
+const MODULES_API = `${API_BASE}/api/modules`;
+export interface Module { _id: string; description: string; category: string; category2: string;
+  category3: String };
+
 export const updateModule = async (module: any) => {
     const response = await axios.
       put(`${MODULES_API}/${module._id}`, module);
@@ -23,6 +26,7 @@ export const findModulesForCourse = async (courseId? : string) => {
   const response = await axios
     .get(`${COURSES_API}/${courseId}/modules`);
   return response.data;
-};
+};  
+
 
 
