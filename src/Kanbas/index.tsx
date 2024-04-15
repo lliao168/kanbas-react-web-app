@@ -57,9 +57,9 @@ function Kanbas() {
     return (
     <Provider store={store}>
         <div className="d-flex">
-            <div>
-                <KanbasNavigation/>
-            </div>
+            
+            <KanbasNavigation/>
+            
             <div style={{ flexGrow: 1 }}>
                 {/* <h1>Account</h1>
                 <h1>Dashboard</h1>
