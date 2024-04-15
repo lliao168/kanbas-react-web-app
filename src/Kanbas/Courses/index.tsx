@@ -32,11 +32,58 @@ import { assignments } from "../Database";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import * as client from "./client";
+import { Course } from "./client";
 const API_BASE = process.env.REACT_APP_API_BASE;
+
 function Courses() {
         const { courseId } = useParams();
         const COURSES_API = `${API_BASE}/api/courses`;
-        const [course, setCourse] = useState<any>({ _id: "" });
+        const [courses, setCourses] = useState<Course[]>([]);
+        const [course, setCourse] = useState<any>({ _id: "", name: "", 
+        courseNumber: "", term: "", number: "", startDate: "", endDate: "", termCode: "", image: ""});
+        const createCourse = async () => {
+            try {
+                const newCourse = await client.createCourse(course);
+                setCourses([newCourse, ...courses]);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        const deleteCourse = async (course: Course) => {
+            if (!course._id) {
+              console.error("Course ID is undefined, cannot delete:", course);
+              return;
+            }
+            try {
+              await client.deleteCourse(course);
+              setCourses(courses.filter((u) => u._id !== course._id));
+            } catch (err) {
+              console.log(err);
+            }
+          };
+          const selectCourse = async (course: Course) => {
+            try {
+              const u = await client.fetchCourseById(course._id);
+              setCourse(u);
+            } catch (err) {
+              console.log(err);
+            }
+          };
+          const updateCourse = async () => {
+            try {
+              const status = await client.updateCourse(course);
+              setCourses(courses.map((u) =>
+                (u._id === course._id ? course : u)));
+            } catch (err) {
+              console.log(err);
+            }
+          };
+          const fetchAllCourses = async () => {
+            const courses = await client.fetchAllCourses();
+            setCourses(courses);
+          };
+
         const findCourseById = async (courseId?: string) => {
             const response = await axios.get(
             `${COURSES_API}/${courseId}`

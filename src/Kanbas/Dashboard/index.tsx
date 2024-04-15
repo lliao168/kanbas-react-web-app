@@ -17,6 +17,7 @@ function Dashboard() {
         courseNumber: string;
         term: string;
         termCode: string;
+        image: string;
       }
     const [courses, setCourses] = useState<Course[]>([]);
     const [course, setCourse] = useState( {
@@ -25,25 +26,69 @@ function Dashboard() {
         image: "/images/reactjs.jpg", courseNumber: "New Course Number", term: "New Course Term",
         termCode: "New Course Term Code"
       });
-    const fetchAllCourses = async () => { 
+
+      const createCourse = async () => {
+        try {
+            const newCourse = await client.createCourse(course);
+            setCourses([newCourse, ...courses]);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    const deleteCourse = async (course: Course) => {
+        if (!course._id) {
+          console.error("Course ID is undefined, cannot delete:", course);
+          return;
+        }
+        try {
+          await client.deleteCourse(course);
+          setCourses(courses.filter((u) => u._id !== course._id));
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      const selectCourse = async (course: Course) => {
+        try {
+          const u = await client.fetchCourseById(course._id);
+          setCourse(u);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      const updateCourse = async () => {
+        try {
+          const status = await client.updateCourse(course);
+          setCourses(courses.map((u) =>
+            (u._id === course._id ? course : u)));
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      const fetchAllCourses = async () => {
         const courses = await client.fetchAllCourses();
         setCourses(courses);
-    };
-    const createCourse = async () => {
-        const newCourse = await client.createCourse(course);
-        fetchAllCourses();
-        setCourses([newCourse, ...courses]);
-    }
-    const deleteCourse = async (id: string) => {
-        await client.deleteCourse(id);
-        fetchAllCourses();
-    }
-    const updateCourse = async (id: string) => {
-        if (course && course._id) {
-            await client.updateCourse(course, course._id);
-            fetchAllCourses(); 
-        }
-    }
+      };  
+
+
+    // const fetchAllCourses = async () => { 
+    //     const courses = await client.fetchAllCourses();
+    //     setCourses(courses);
+    // };
+    // const createCourse = async () => {
+    //     const newCourse = await client.createCourse(course);
+    //     fetchAllCourses();
+    //     setCourses([newCourse, ...courses]);
+    // }
+    // const deleteCourse = async (id: string) => {
+    //     await client.deleteCourse(id);
+    //     fetchAllCourses();
+    // }
+    // const updateCourse = async (id: string) => {
+    //     if (course && course._id) {
+    //         await client.updateCourse(course, course._id);
+    //         fetchAllCourses(); 
+    //     }
+    // }
 
 
     useEffect(() => {
@@ -101,7 +146,7 @@ function Dashboard() {
             Add
         </button>
         <button className="btn btn-primary mt-2" onClick={(event) => {event.preventDefault();
-                                    updateCourse(course._id);
+                                    updateCourse();
                                     }}>
             Update
         </button>
@@ -135,9 +180,9 @@ function Dashboard() {
                                 <FaFilePen style={{ color: "grey"}}/>
                             </button>
 
-                            <button className="float-end btn btn-danger" onClick={(event) => {
-                                    event.preventDefault();
-                                    deleteCourse(course._id);
+                            <button className="float-end btn btn-danger" onClick={() => {
+                                    // event.preventDefault();
+                                    deleteCourse(course);
                                     }}>
                                     Delete
                             </button>

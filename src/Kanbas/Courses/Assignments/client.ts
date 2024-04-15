@@ -3,6 +3,9 @@ import { assignments } from "../../Database";
 const API_BASE = process.env.REACT_APP_API_BASE;
 const COURSES_API =  `${API_BASE}/api/courses`;
 const ASSIGNMENTS_API = `${API_BASE}/api/assignments`;
+export interface Assignment { _id: string; title: string; course: string; category: string; description: string;
+  points: number, dueDate: Date, availableFromDate: Date, availableUntilDate: Date};
+
 export const updateAssignment = async (assignment: any) => {
     const response = await axios.
       put(`${ASSIGNMENTS_API}/${assignment._id}`, assignment);
