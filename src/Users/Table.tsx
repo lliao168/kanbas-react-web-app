@@ -16,6 +16,10 @@ export default function UserTable() {
     }
   };
   const deleteUser = async (user: User) => {
+    if (!user._id) {
+      console.error("User ID is undefined, cannot delete:", user);
+      return;
+    }
     try {
       await client.deleteUser(user);
       setUsers(users.filter((u) => u._id !== user._id));
@@ -67,6 +71,9 @@ export default function UserTable() {
       <table className="table">
         <thead>
         <tr> 
+            {/* <td>
+            <span style={{fontWeight:"bold"}}>ID</span>
+            </td> */}
             <td>
                 <span style={{fontWeight:"bold"}}>Username</span>
             </td>
@@ -83,15 +90,19 @@ export default function UserTable() {
             </td>
         </tr>
           <tr>
+            {/* <td>
+            <input className="form-control" value={user._id} onChange={(e) =>
+                setUser({ ...user, _id: e.target.value })}/>
+            </td> */}
             <td>
-              <input className="form-control" value={user.password} onChange={(e) =>
-                setUser({ ...user, password: e.target.value })}/>
+              <input className="form-control" value={user.username} onChange={(e) =>
+                setUser({ ...user, username: e.target.value })}/>
               
             </td>
 
             <td>
-                <input className="form-control" value={user.username} onChange={(e) =>
-                    setUser({ ...user, username: e.target.value })}/>
+                <input className="form-control" value={user.password} onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })} type="password" />
             </td>
 
             <td>
@@ -127,11 +138,12 @@ export default function UserTable() {
         <tbody>
           {users.map((user: any) => (
             <tr key={user._id}>
+              {/* <td>{user._id}</td> */}
               <td>{user.username}</td>
               <td></td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
-              <td></td>
+              <td>{user.role}</td>
               
               <td>
                 <button className="btn btn-danger me-2"

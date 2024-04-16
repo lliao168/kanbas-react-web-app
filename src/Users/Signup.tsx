@@ -4,12 +4,12 @@ import * as client from "./client";
 export default function Signup() {
   const [error, setError] = useState("");
   const [user, setUser] = useState({
-    username: "", password: "" });
+    username: "", password: ""});
   const navigate = useNavigate();
   const signup = async () => {
     try {
       await client.signup(user);
-      navigate("/project/account");
+      navigate("/Kanbas/Account/Profile");
     } catch (err: any) {
       setError(err.response.data.message);
     }

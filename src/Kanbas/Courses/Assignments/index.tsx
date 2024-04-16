@@ -14,6 +14,7 @@ import {
     deleteAssignment,
     updateAssignment,
     selectAssignment,
+    setAssignments,
   } from "./assignmentsReducer";
 
 import * as client from "./client";  
@@ -24,7 +25,7 @@ function Assignments() {
     useEffect(() => {
         findAssignmentsForCourse(courseId)
           .then((assignments) =>
-            dispatch(selectAssignment(assignments))
+            dispatch(setAssignments(assignments))
         );
       }, [courseId]);   
     const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
