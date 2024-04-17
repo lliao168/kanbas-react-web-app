@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { Link, useParams, useNavigate} from "react-router-dom";
-import { assignments } from '../Database';
+import { assignments } from '../../Database';
 import { FaCaretDown, FaPlus } from "react-icons/fa6";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
-import { KanbasState } from '../store';
+import { KanbasState } from '../../store';
 import { Modal, Button} from 'react-bootstrap';
 import { RxRocket } from "react-icons/rx";
 import { RiProhibitedLine } from "react-icons/ri";
@@ -17,11 +17,11 @@ import {
     deleteAssignment,
     updateAssignment,
     selectAssignment,
-  } from "../Courses/Assignments/assignmentsReducer";
+  } from "../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../Courses/Assignments/client";  
+import * as client from "../../Courses/Assignments/client";  
 
-import { findAssignmentsForCourse, createAssignment } from "../Courses/Assignments/client";
+import { findAssignmentsForCourse, createAssignment } from "../../Courses/Assignments/client";
 
 function determineQuizAvailability(availableFrom : any, availableUntil : any) {
     const currentDate = new Date();
@@ -71,6 +71,28 @@ function Quizzes () {
         description: string;
         isPublished: boolean;
     }
+
+    const createAndNavigationToQuiz = async () => {
+        if (!courseId) {
+            console.error("Course Id is undefined");
+            return;
+        }
+        const newQuiz = {
+            _id: new Date(),
+            title: "New Quiz",
+            course: courseId,
+            category: "QUIZZES",
+            description: "",
+            isPublished: false,
+            points: 100,
+            dueDate: "",
+            availableFromDate: "",
+            availableUntilDate: "",
+        };
+        dispatch(selectAssignment(newQuiz));
+        navigate(`/Kanbas/Courses/${courseId}/Assignments/new`)
+        
+    };
     
     const handleSelectAssignment = (assignment: Assignment) => {
         dispatch(selectAssignment(assignment));
@@ -252,7 +274,7 @@ function Quizzes () {
                                   <input type="text" className="form-control w-25" id="points" placeholder="Search for Quiz"/>
                                 </div>
                                   <button type="button" className="btn btn-danger float end m-1"
-                                  onClick={() => {}}>
+                                  onClick={createAndNavigationToQuiz}>
                                     + Quiz
                                   </button>
                                   <button type="button" className="btn btn-light float-end">

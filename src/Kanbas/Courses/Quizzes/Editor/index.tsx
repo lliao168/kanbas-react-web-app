@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { KanbasState } from '../../store';
+import { KanbasState } from '../../../store';
 import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { RiProhibitedLine } from "react-icons/ri";
 import QuizDetailsEditor from './DetailsEditor';
@@ -11,10 +11,10 @@ import {
     deleteAssignment,
     updateAssignment,
     selectAssignment,
-  } from "../../Courses/Assignments/assignmentsReducer";
+  } from "../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../Courses/Assignments/client";  
-import { findAssignmentsForCourse, createAssignment } from "../../Courses/Assignments/client";
+import * as client from "../../../Courses/Assignments/client";  
+import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
 import QuizQuestionsDetailEditor from './QuestionsEditor';
 
 

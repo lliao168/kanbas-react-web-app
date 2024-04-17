@@ -32,14 +32,15 @@ import { assignments } from "../Database";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Quizzes from "../Quizzes";
-import QuizDetailsScreen from "../Quizzes/Details";
-import QuizDetailsEditor from "../Quizzes/Editor/DetailsEditor";
-import QuizEditor from "../Quizzes/Editor";
-import QuizQuestionsDetailEditor from "../Quizzes/Editor/QuestionsEditor";
+import Quizzes from "./Quizzes";
+import QuizDetailsScreen from "./Quizzes/Details";
+import QuizDetailsEditor from "./Quizzes/Editor/DetailsEditor";
+import QuizEditor from "./Quizzes/Editor";
+import QuizQuestionsDetailEditor from "./Quizzes/Editor/QuestionsEditor";
 
 import * as client from "./client";
 import { Course } from "./client";
+import QuizPreview from "../Quizzes/Preview";
 const API_BASE = process.env.REACT_APP_API_BASE;
 
 function Courses() {
@@ -450,6 +451,7 @@ function Courses() {
                             <Route path="Quizzes/:assignmentId/Editor" element={<QuizEditor/>}/>
                             <Route path="Quizzes/:assignmentId/Editor/DetailsEditor" element={<QuizDetailsEditor/>}/>
                             <Route path="Quizzes/:assignmentId/Editor/QuestionsEditor" element={<QuizQuestionsDetailEditor/>}/>
+                            <Route path="Quizzes/:assignmentId/Preview" element={<QuizPreview/>}/>
                             <Route path="Grades" element={<Grades />} />
                             <Route path="People" element={<h1>People</h1>} />
                             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />

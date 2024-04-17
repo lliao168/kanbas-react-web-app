@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate} from "react-router-dom";
-import { assignments } from "../../Database";
+import { assignments } from "../../../Database";
 import { useSelector, useDispatch } from "react-redux";
-import { KanbasState } from "../../store";
+import { KanbasState } from "../../../store";
 import { PiPencil } from "react-icons/pi";
 import { FaArrowRightFromBracket, FaBan, FaChartSimple, FaCircle, FaCircleCheck, FaFileImport, FaXmark } from "react-icons/fa6";
 import { RiProhibitedLine } from "react-icons/ri";
@@ -12,11 +12,11 @@ import {
     deleteAssignment,
     updateAssignment,
     selectAssignment,
-  } from "../../Courses/Assignments/assignmentsReducer";
+  } from "../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../Courses/Assignments/client";  
+import * as client from "../../../Courses/Assignments/client";  
 
-import { findAssignmentsForCourse, createAssignment } from "../../Courses/Assignments/client";
+import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
 
 function QuizDetailsScreen() {
     const { courseId, assignmentId } = useParams();

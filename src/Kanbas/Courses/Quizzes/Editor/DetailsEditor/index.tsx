@@ -5,7 +5,7 @@ import { FaCaretDown, FaPlus } from "react-icons/fa6";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
-import { KanbasState } from '../../../store';
+import { KanbasState } from '../../../../store';
 import { Modal, Button} from 'react-bootstrap';
 import { RxRocket } from "react-icons/rx";
 import { RiProhibitedLine } from "react-icons/ri";
@@ -18,10 +18,10 @@ import {
     deleteAssignment,
     updateAssignment,
     selectAssignment,
-  } from "../../../Courses/Assignments/assignmentsReducer";
+  } from "../../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../../Courses/Assignments/client";  
-import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
+import * as client from "../../../../Courses/Assignments/client";  
+import { findAssignmentsForCourse, createAssignment } from "../../../../Courses/Assignments/client";
 
 
 function QuizDetailsEditor() {
