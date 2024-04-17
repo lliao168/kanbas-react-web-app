@@ -24,24 +24,35 @@ import {
     selectAssignment,
   } from "../../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../../../Courses/Assignments/client";  
+// import * as client from "../../../../Courses/Assignments/client";  
 import { findAssignmentsForCourse, createAssignment } from "../../../../Courses/Assignments/client";
 
+import {
+    addQuiz,
+    deleteQuiz,
+    updateQuiz,
+    selectQuiz,
+    setQuizzes,
+} from "../../reducer"
+
+import * as client from "../../client";  
+import { findQuizzesForCourse, createQuiz } from "../../client";
+
 function QuizMultipleChoiceEditor({onCancel} : any) {
-    const { assignmentId, courseId } = useParams();
+    const { assignmentId, courseId, quizId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        findAssignmentsForCourse(courseId)
-          .then((assignments) =>
-            dispatch(selectAssignment(assignments))
+        findQuizzesForCourse(courseId)
+          .then((quizzes) =>
+            dispatch(selectQuiz(quizzes))
         );
       }, [courseId]);   
-    const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    const quizList = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
     // const assignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
-    const assignment = assignmentList.find(
-        (assignment) => assignment.course === courseId && assignment._id === assignmentId && (assignment.category === "QUIZZES" || assignment.category === "EXAM")
+    const quiz = quizList.find(
+        (quiz) => quiz.course === courseId && quiz._id === quizId 
     );
     interface Assignment {
         _id: string;
@@ -50,6 +61,24 @@ function QuizMultipleChoiceEditor({onCancel} : any) {
         category: string;
         description: string;
         isPublished: boolean;
+    }
+
+    interface Quiz {
+        _id: string;
+        title: string;
+        course: string;
+        description: string;
+        isPublished: boolean;
+        points: Number;
+        dueDate: Date;
+        availableFromDate: Date;
+        availableUntilDate: Date;
+        pts: Number;
+        Questions: Number;
+        shuffleAnswer: Boolean;
+        QuizType: String;
+        Minutes: Number;
+        AccessCode: Number;
     }
 
     const [quizQuestion, setQuizQuestion] = useState('');
@@ -72,31 +101,32 @@ function QuizMultipleChoiceEditor({onCancel} : any) {
             return {...choice, isCorrect: choice.id === id};
         }));
     };
-    const handleAddChoice = () => {
+    const handleAddChoice = (e : any) => {
+        e.preventDefault();
         const newId = choices.length > 0 ? choices[choices.length - 1].id + 1 : 1;
         setChoices([...choices, {id: newId, text: '', isCorrect: false}]);
     };
-    const handleRemoveChoice = (id : any) => {
+    const handleRemoveChoice = (id : any, e : any) => {
+        e.preventDefault();
         setChoices(choices.filter(choice => choice.id !== id));
     };
 
 
-    const handleAddAssignment = () => {
-        const newAssignmentDetails = {
-            ...assignment,
+    const handleAddQuiz = () => {
+        const newQuizDetails = {
+            ...quiz,
             course: courseId,
-            category: assignment.category
         };
         if(courseId) {
-            client.createAssignment(courseId, newAssignmentDetails).then((newAssignmentDetails) => {
-                dispatch(addAssignment(newAssignmentDetails));
+            client.createQuiz(courseId, newQuizDetails).then((newQuizDetails) => {
+                dispatch(addQuiz(newQuizDetails));
             });
         }
       };
 
-    const handleUpdateAssignment = async () => {
-        const status = await client.updateAssignment(assignment);
-        dispatch(updateAssignment(assignment));
+    const handleUpdateQuiz = async () => {
+        const status = await client.updateQuiz(quiz);
+        dispatch(updateQuiz(quiz));
     };
 
     const handleSave = () => {
@@ -104,7 +134,7 @@ function QuizMultipleChoiceEditor({onCancel} : any) {
             question: quizQuestion,
             choices,
         };
-        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${assignment._id}`);
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`);
     };
 
     const handleCancel = () => {
@@ -161,7 +191,7 @@ function QuizMultipleChoiceEditor({onCancel} : any) {
                                 />  
                             </div>    
                             <div className="col-md-6">
-                                <button className="ms-2" onClick={() => handleRemoveChoice(choice.id)} style={{border:"none", backgroundColor:"white"}}><GoTrash/></button>
+                                <button className="ms-2" onClick={(e) => handleRemoveChoice(choice.id, e)} style={{border:"none", backgroundColor:"white"}}><GoTrash/></button>
                             </div>
                             
                     </div>

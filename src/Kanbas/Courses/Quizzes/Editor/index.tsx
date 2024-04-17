@@ -13,9 +13,21 @@ import {
     selectAssignment,
   } from "../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../../Courses/Assignments/client";  
+// import * as client from "../../../Courses/Assignments/client";  
 import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
 import QuizQuestionsDetailEditor from './QuestionsEditor';
+
+import {
+    addQuiz,
+    deleteQuiz,
+    updateQuiz,
+    selectQuiz,
+    setQuizzes,
+} from "../reducer"
+
+import * as client from "../client";  
+
+import { findQuizzesForCourse, createQuiz } from "../client";
 
 
 function QuizEditor () {
@@ -24,12 +36,12 @@ function QuizEditor () {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        findAssignmentsForCourse(courseId)
-          .then((assignments) =>
-            dispatch(selectAssignment(assignments))
+        findQuizzesForCourse(courseId)
+          .then((quizzes) =>
+            dispatch(selectQuiz(quizzes))
         );
       }, [courseId]);   
-    const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    const quizList = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
     interface Assignment {
         _id: string;
         title: string;
@@ -39,6 +51,24 @@ function QuizEditor () {
         isPublished: boolean;
     }
     
+    interface Quiz {
+        _id: string;
+        title: string;
+        course: string;
+        description: string;
+        isPublished: boolean;
+        points: Number;
+        dueDate: Date;
+        availableFromDate: Date;
+        availableUntilDate: Date;
+        pts: Number;
+        Questions: Number;
+        shuffleAnswer: Boolean;
+        QuizType: String;
+        Minutes: Number;
+        AccessCode: Number;
+    }
+
     const handleSelectAssignment = (assignment: Assignment) => {
         dispatch(selectAssignment(assignment));
         navigate(`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`);

@@ -8,12 +8,19 @@ interface Quiz {
   dueDate: Date;
   availableFromDate: Date;
   availableUntilDate: Date;
-  category:string;
+  pts: Number;
+  Questions: Number;
+  isPublished: Boolean;
+  shuffleAnswer: Boolean;
+  QuizType: string; 
+  Minutes: Number;
+  AccessCode: Number;
+
 }
 
 const initialState = {
   quizzes: [] as Quiz[],
-  quiz: { title: "New Assignment", description: "New Assignment Description", points: 100, dueDate: '', availableFromDate: '', availableUntilDate: '', category: ''},
+  quiz: { title: "New Quiz", description: "New Quiz Description", points: 100, dueDate: '', availableFromDate: '', availableUntilDate: '', pts: 0, Questions: 0, isPublished: false, shuffleAnswer: true, QuizType: "Graded Quiz", Minutes: 20, AccessCode: "123"},
 };
 
 const quizzesSlice = createSlice({

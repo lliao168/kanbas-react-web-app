@@ -11,7 +11,6 @@ import { Modal, Button} from 'react-bootstrap';
 import { RxRocket } from "react-icons/rx";
 import { RiProhibitedLine } from "react-icons/ri";
 
-
 import {
     addAssignment,
     deleteAssignment,
@@ -19,9 +18,22 @@ import {
     selectAssignment,
   } from "../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../Courses/Assignments/client";  
+// import * as client from "../../Courses/Assignments/client";  
 
 import { findAssignmentsForCourse, createAssignment } from "../../Courses/Assignments/client";
+
+import {
+    addQuiz,
+    deleteQuiz,
+    updateQuiz,
+    selectQuiz,
+    setQuizzes
+} from "../Quizzes/reducer"
+
+import * as client from "../Quizzes/client";
+
+import { findQuizzesForCourse, createQuiz } from '../Quizzes/client';
+
 
 function determineQuizAvailability(availableFrom : any, availableUntil : any) {
     const currentDate = new Date();
@@ -57,46 +69,67 @@ function Quizzes () {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        findAssignmentsForCourse(courseId)
-          .then((assignments) =>
-            dispatch(selectAssignment(assignments))
+        findQuizzesForCourse(courseId)
+          .then((quizzes) =>
+            dispatch(setQuizzes(quizzes))
         );
       }, [courseId]);   
-    const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
-    interface Assignment {
+    const quizList = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
+    interface Quiz {
         _id: string;
         title: string;
         course: string;
-        category: string;
         description: string;
         isPublished: boolean;
+        points: Number;
+        dueDate: Date;
+        availableFromDate: Date;
+        availableUntilDate: Date;
+        pts: Number;
+        Questions: Number;
+        shuffleAnswer: Boolean;
+        QuizType: String;
+        Minutes: Number;
+        AccessCode: Number;
     }
 
-    const createAndNavigationToQuiz = async () => {
+    const createDefaultQuiz = () => {
+        return {
+            _id: new Date(),
+            title: "New Quiz " + new Date(),
+            course: courseId,  
+            description: "New Quiz Description",
+            points: 0,
+            dueDate: new Date(),
+            availableFromDate: new Date(),
+            availableUntilDate: new Date(),
+            isPublished: false,
+            pts: 0,
+            Questions: 0,
+            shuffleAnswer: false,
+            QuizType: "Graded Quiz",
+            Minutes: 0,
+            AccessCode: ''
+        };
+    };
+
+    const handleCreateQuiz = async (e : any) => {
         if (!courseId) {
-            console.error("Course Id is undefined");
+            console.error("Course ID is undefined.");
             return;
         }
-        const newQuiz = {
-            _id: new Date(),
-            title: "New Quiz",
-            course: courseId,
-            category: "QUIZZES",
-            description: "",
-            isPublished: false,
-            points: 100,
-            dueDate: "",
-            availableFromDate: "",
-            availableUntilDate: "",
-        };
-        dispatch(selectAssignment(newQuiz));
-        navigate(`/Kanbas/Courses/${courseId}/Assignments/new`)
+        e.preventDefault(); 
+        const newQuiz = createDefaultQuiz();
+        const createdQuiz = await client.createQuiz(courseId, newQuiz);
+        dispatch(addQuiz(createQuiz));
+        dispatch(selectQuiz(createdQuiz));
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${createdQuiz._id}`);
         
     };
     
-    const handleSelectAssignment = (assignment: Assignment) => {
-        dispatch(selectAssignment(assignment));
-        navigate(`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`);
+    const handleSelectQuiz = (quiz: Quiz) => {
+        dispatch(selectQuiz(quiz));
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`);
     };
 
     interface ContextMenuElement {
@@ -115,19 +148,19 @@ function Quizzes () {
         visible: boolean;
         x: number;
         y: number;
-        assignmentId: string | null;
-        selectedAssignment: Assignment | null;  
+        quizId: string | null;
+        selectedQuiz: Quiz | null;  
     }>({
         visible: false,
         x: 0,
         y: 0,
-        assignmentId: null,
-        selectedAssignment: null,
+        quizId: null,
+        selectedQuiz: null,
     });
 
-    const handleContextMenu = (event : any, assignment : any) => {
+    const handleContextMenu = (event : any, quiz : any) => {
         event.preventDefault();
-        if (contextMenu.visible && contextMenu.assignmentId === assignment._id) {
+        if (contextMenu.visible && contextMenu.quizId === quiz._id) {
             setContextMenu({...contextMenu, visible: false});
         } else {
             setContextMenu(
@@ -135,21 +168,21 @@ function Quizzes () {
                     visible: true,
                     x: event.clientX,
                     y: event.clientY,
-                    assignmentId: assignment._id,
-                    selectedAssignment: assignment
+                    quizId: quiz._id,
+                    selectedQuiz: quiz
                 }
             );
         }
     };
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedAssignmentId, setSelectedAssignmentId] = useState<Assignment | null>(null);
+    const [selectedQuizId, setSelectedQuizId] = useState<Quiz | null>(null);
 
-    const handleShowDeleteModal = (assignmentId: Assignment | null) => {
-        if (assignmentId) {
-            const assignment = assignmentList.find(a => a._id === assignmentId);
-            if(assignment) {
-                setSelectedAssignmentId(assignment);
+    const handleShowDeleteModal = (quizId: Quiz | null) => {
+        if (quizId) {
+            const quiz = quizList.find(q => q._id === quizId);
+            if(quiz) {
+                setSelectedQuizId(quiz);
                 setShowDeleteModal(true);
             }
         } 
@@ -157,44 +190,44 @@ function Quizzes () {
 
     const handleCloseDeleteModal = (e?: any) => {   // e is optional and if provided can be of any type
         if (e) e.stopPropagation();
-        setSelectedAssignmentId(null);
+        setSelectedQuizId(null);
         setShowDeleteModal(false);
     };
 
-    const handleDeleteAssignment = () => {
+    const handleDeleteQuiz = () => {
         // e.stopPropagation();
-        if (selectedAssignmentId) {
-            client.deleteAssignment(selectedAssignmentId._id).then((status) => {
-                dispatch(deleteAssignment(selectedAssignmentId._id));
+        if (selectedQuizId) {
+            client.deleteQuiz(selectedQuizId._id).then((status) => {
+                dispatch(deleteQuiz(selectedQuizId._id));
             });
             handleCloseDeleteModal();
         }
     };
 
-    const handlePublish = (assignmentId : Assignment | null) => {
-        if (!assignmentId) return;
-        const assignment = assignmentList.find(a => a._id === assignmentId);
-        if (assignment) {
-            const updatedAssignment = {...assignment, isPublished: !assignment.isPublished};
-            client.updateAssignment(updatedAssignment).then(() => {  
-                dispatch(updateAssignment(updatedAssignment));
+    const handlePublish = (quizId : Quiz | null) => {
+        if (!quizId) return;
+        const quiz = quizList.find(q => q._id === quizId);
+        if (quiz) {
+            const updatedQuiz = {...quiz, isPublished: !quiz.isPublished};
+            client.updateQuiz(updatedQuiz).then(() => {  
+                dispatch(updateQuiz(updatedQuiz));
                 
                 setContextMenu({...contextMenu, visible: false});
             })
         }
     };
 
-    const handleUnpublish = (assignmentId : Assignment | null) => {
-        const updatedAssignments = assignmentList.map(assignment => {
-            if (assignment._id === assignmentId) {
-                return { ...assignment, isPublished: false };
+    const handleUnpublish = (quizId : Quiz | null) => {
+        const updatedQuizzes = quizList.map(quiz => {
+            if (quiz._id === quizId) {
+                return { ...quiz, isPublished: false };
             }
-            return assignment;
+            return quiz;
         });
-        dispatch(updateAssignment(updatedAssignments));  
+        dispatch(updateQuiz(updatedQuizzes));  
     };
 
-    const handleMenu = (action : any, assignmentId : any) => {
+    const handleMenu = (action : any, quizId : any) => {
         switch (action) {
             case 'edit':
                 break;
@@ -214,15 +247,15 @@ function Quizzes () {
         return (
             <ul className="list-group" style={{top: `${contextMenu.y}px`, left: `${contextMenu.x}px`, position:"fixed", zIndex:"1000", border:"1px solid #ccc", width:"60px", borderRadius: "5px"}}>
                 <li className="list-group-item" style={{borderBottom: "1px solid #ccc", backgroundColor:"#f0f0f0"}}>
-                    <button type="button"onClick={() => navigate(`/Kanbas/Courses/${courseId}/Quizzes/${contextMenu.selectedAssignment}`)}>
+                    <button type="button"onClick={() => navigate(`/Kanbas/Courses/${courseId}/Quizzes/${contextMenu.selectedQuiz}`)}>
                         Edit
                     </button>
                 </li>
                 <li className="list-group-item" style={{borderBottom: "1px solid #ccc", backgroundColor:"#f0f0f0"}}>
                     <button type="button" onClick={(event) => {
                         event.stopPropagation();
-                        if (contextMenu.selectedAssignment && contextMenu.selectedAssignment) {
-                            handleShowDeleteModal(contextMenu.selectedAssignment);
+                        if (contextMenu.selectedQuiz && contextMenu.selectedQuiz) {
+                            handleShowDeleteModal(contextMenu.selectedQuiz);
                         }
                     }}>
                         Delete
@@ -235,7 +268,7 @@ function Quizzes () {
                                     <Modal.Footer>
                                         <Button variant="primary" 
                                         onClick={
-                                            handleDeleteAssignment
+                                            handleDeleteQuiz
                                         }
                                         >
                                             Yes
@@ -250,11 +283,11 @@ function Quizzes () {
                 <li className="list-group-item" style={{borderBottom: "1px solid #ccc", backgroundColor:"#f0f0f0"}}>
                     <button type="button" onClick={(event) => {
                         event.stopPropagation();
-                        if (contextMenu.selectedAssignment && contextMenu.selectedAssignment) {
-                            handlePublish(contextMenu.selectedAssignment);
+                        if (contextMenu.selectedQuiz && contextMenu.selectedQuiz) {
+                            handlePublish(contextMenu.selectedQuiz);
                         }
                     }}>
-                        {contextMenu.selectedAssignment && contextMenu.selectedAssignment.isPublished ? 'Unpublish' : 'Publish'}
+                        {contextMenu.selectedQuiz && contextMenu.selectedQuiz.isPublished ? 'Unpublish' : 'Publish'}
                     </button>
                 </li>
             </ul>
@@ -274,7 +307,7 @@ function Quizzes () {
                                   <input type="text" className="form-control w-25" id="points" placeholder="Search for Quiz"/>
                                 </div>
                                   <button type="button" className="btn btn-danger float end m-1"
-                                  onClick={createAndNavigationToQuiz}>
+                                  onClick={handleCreateQuiz}>
                                     + Quiz
                                   </button>
                                   <button type="button" className="btn btn-light float-end">
@@ -294,29 +327,29 @@ function Quizzes () {
                     
                     </div>
                     <ul className="list-group">
-                        {assignmentList
-                        .filter((assignment) => assignment.course === courseId  && (assignment.category === "QUIZZES" || assignment.category === "EXAM"))
-                        .map((assignment, index) => (
+                        {quizList
+                        .filter((quiz) => quiz.course === courseId)
+                        .map((quiz, index) => (
                         <li key={index} className="list-group-item">
                             <PiDotsSixVerticalBold style={{fontSize:"1.3em"}}/> 
                             <RxRocket className="ms-3" style={{color:"green"}}/>                           
-                            <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${assignment._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3" >{assignment.title}</Link>
+                            <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`} style={{textDecoration:"none", color:"black", fontWeight:"bold"}} className="ms-3" >{quiz.title}</Link>
                             <div className="ms-3 mb-2" style={{flexWrap:"wrap", overflowWrap:"break-word"}}>    
-                                <Link to="#" className="" style={{textDecoration: "none", color:"grey", fontSize:"0.8em", marginLeft:"55px"}}>{determineQuizAvailability(assignment.availableFromDate, assignment.availableUntilDate)}  </Link> 
-                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due {formatDate(assignment.dueDate)}  </span>
-                                {assignment.isPublished && (
+                                <Link to="#" className="" style={{textDecoration: "none", color:"grey", fontSize:"0.8em", marginLeft:"55px"}}>{determineQuizAvailability(quiz.availableFromDate, quiz.availableUntilDate)}  </Link> 
+                                <span style={{color:"grey", fontSize:"0.8em"}}>| Due {formatDate(quiz.dueDate)}  </span>
+                                {quiz.isPublished && (
                                     <>
-                                        <span style={{color:"grey", fontSize:"0.8em"}}>| {assignment.pts} pts  </span>
-                                        <span style={{color:"grey", fontSize:"0.8em"}}>| {assignment.Questions} Questions  </span>
+                                        <span style={{color:"grey", fontSize:"0.8em"}}>| {quiz.pts} pts  </span>
+                                        <span style={{color:"grey", fontSize:"0.8em"}}>| {quiz.Questions} Questions  </span>
                                     </>
                                 )}
                                 <span className="float-end">
-                                    {assignment.isPublished ? (
-                                        <FaCheckCircle className="text-success me-3" onClick={() => handlePublish(assignment._id)}/>
+                                    {quiz.isPublished ? (
+                                        <FaCheckCircle className="text-success me-3" onClick={() => handlePublish(quiz._id)}/>
                                     ) : (
-                                        <RiProhibitedLine className="text-muted me-3" onClick={() => handlePublish(assignment._id)} />
+                                        <RiProhibitedLine className="text-muted me-3" onClick={() => handlePublish(quiz._id)} />
                                     )}
-                                    <button onClick={(e) => handleContextMenu(e, assignment._id)} style={{backgroundColor:"white"}}>
+                                    <button onClick={(e) => handleContextMenu(e, quiz._id)} style={{backgroundColor:"white"}}>
                                         <FaEllipsisV className="me-4"/>
                                     </button>  
                                     {renderContextMenu()}  

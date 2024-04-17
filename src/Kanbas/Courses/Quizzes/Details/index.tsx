@@ -14,22 +14,37 @@ import {
     selectAssignment,
   } from "../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../../Courses/Assignments/client";  
+// import * as client from "../../../Courses/Assignments/client";  
 
 import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
 
+import {
+    addQuiz,
+    deleteQuiz,
+    updateQuiz,
+    selectQuiz,
+    setQuizzes,
+} from "../reducer"
+
+import * as client from "../client";  
+
+import { findQuizzesForCourse, createQuiz } from "../client";
+
 function QuizDetailsScreen() {
-    const { courseId, assignmentId } = useParams();
+    const { courseId, quizId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        findAssignmentsForCourse(courseId)
-          .then((assignments) =>
-            dispatch(selectAssignment(assignments))
-        );
+            findQuizzesForCourse(courseId)
+            .then((quizzes) =>
+                dispatch(selectQuiz(quizzes))
+            );
       }, [courseId]);   
-    const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    const quizList = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
+
+    // const quiz = quizList.find((quiz) => quiz.course === courseId && quiz._id === quizId );
+    const quiz = quizList.find(q => q.course === courseId && q._id === quizId);    
     interface Assignment {
         _id: string;
         title: string;
@@ -39,62 +54,91 @@ function QuizDetailsScreen() {
         isPublished: boolean;
     }
 
-    const assignment = assignmentList.find(
-        (assignment) => assignment.course === courseId && assignment._id === assignmentId && (assignment.category === "QUIZZES" || assignment.category === "EXAM")
-    );
+    interface Quiz {
+        _id: string;
+        title: string;
+        course: string;
+        description: string;
+        isPublished: boolean;
+        points: Number;
+        dueDate: Date;
+        availableFromDate: Date;
+        availableUntilDate: Date;
+        pts: Number;
+        Questions: Number;
+        shuffleAnswer: Boolean;
+        QuizType: String;
+        Minutes: Number;
+        AccessCode: Number;
+    }
+
+   
 
     const handleEditClick = () => {
-        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${assignment._id}/Editor`);
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Editor`);
     };
 
     const handlePreviewClick = () => {
-        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${assignment._id}/Preview`);
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`);
     }
 
 
-
-    const handlePublish = (assignmentId : Assignment | null) => {
-        if (!assignmentId) return;
-        const assignment = assignmentList.find(a => a._id === assignmentId);
-        if (assignment) {
-            const updatedAssignment = {...assignment, isPublished: !assignment.isPublished};
-            client.updateAssignment(updatedAssignment).then(() => {  
-                dispatch(updateAssignment(updatedAssignment));
+    const handlePublish = (quizId : Quiz | null, e : any) => {
+        e.preventDefault(); 
+        if (!quizId) return;
+        const quiz = quizList.find(q => q._id === quizId);
+        if (quiz) {
+            const updatedQuiz = {...quiz, isPublished: !quiz.isPublished};
+            client.updateQuiz(updatedQuiz).then(() => {  
+                dispatch(updateQuiz(updatedQuiz));
             })
         }
     };
 
+
+
 return  (
     <div>
+        {quiz && (
+            <h1>
+                {quiz.title}
+            </h1>
+        )}    
 
-        <h1>
-            {assignment.title}
-        </h1>
-
-        {assignment && (
+        {quiz && (
                 <button type="button" onClick={handleEditClick} className="btn btn-light float-end m-2">
                     <PiPencil /> Edit
                 </button>
         )}
 
-        <button type="button" onClick={handlePreviewClick} className="btn btn-light float-end m-2">
-                 Preview
+        {quiz && (
+            <button type="button" onClick={handlePreviewClick} className="btn btn-light float-end m-2">
+                    Preview
             </button>
+        )}
 
-        {assignment.isPublished ? (
-                <button className="btn btn-success float-end m-2" onClick={() => handlePublish(assignment._id)}>
+        {quiz && quiz.isPublished ? (
+                <button className="btn btn-success float-end m-2" onClick={(e) => handlePublish(quiz._id, e)}>
                 <FaCircleCheck style={{color:"white"}} /> Published</button>
                                     ) : (
-                <button className="btn btn-light float-end m-2" onClick={() => handlePublish(assignment._id)} >
+                <button className="btn btn-light float-end m-2" onClick={(e) => handlePublish(quiz._id, e)} >
                 <RiProhibitedLine className="text-muted me-1" />
                 Unpublish</button>)}      
 
-        <h2>{assignment.description}</h2>
-        <label className="form-check-label" htmlFor="shuffleCheck">
-                            {assignment.shuffleAnswer ? 'Yes' : 'No'}
-                        </label>
-                        <br/>
-        <label>{assignment.dueDate}</label>                
+        {quiz && (
+            <h2>{quiz.description}</h2>
+        )}
+
+        {quiz && (
+            <label className="form-check-label" htmlFor="shuffleCheck">
+                                {quiz.shuffleAnswer ? 'Yes' : 'No'}
+                            </label>
+        )}
+                            <br/>
+        {quiz && (                    
+            <label>{quiz.dueDate}</label>   
+        )}         
+
         
     </div>
 

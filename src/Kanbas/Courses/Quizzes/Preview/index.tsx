@@ -5,7 +5,7 @@ import { FaCaretDown, FaPlus } from "react-icons/fa6";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { PiDotsSixVerticalBold } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
-import { KanbasState } from '../../store';
+import { KanbasState } from '../../../store';
 import { Modal, Button} from 'react-bootstrap';
 import { RxRocket } from "react-icons/rx";
 import { RiProhibitedLine } from "react-icons/ri";
@@ -19,26 +19,37 @@ import {
     deleteAssignment,
     updateAssignment,
     selectAssignment,
-  } from "../../Courses/Assignments/assignmentsReducer";
+  } from "../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../Courses/Assignments/client";  
-import { findAssignmentsForCourse, createAssignment } from "../../Courses/Assignments/client";
+// import * as client from "../../../Courses/Assignments/client";  
+import { findAssignmentsForCourse, createAssignment } from "../../../Courses/Assignments/client";
+
+import {
+    addQuiz,
+    deleteQuiz,
+    updateQuiz,
+    selectQuiz,
+    setQuizzes,
+} from "../reducer"
+
+import * as client from "../client";  
+import { findQuizzesForCourse, createQuiz } from "../client";
 
 function QuizPreview() {
-    const { assignmentId, courseId } = useParams();
+    const { assignmentId, courseId, quizId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        findAssignmentsForCourse(courseId)
-          .then((assignments) =>
-            dispatch(selectAssignment(assignments))
+        findQuizzesForCourse(courseId)
+          .then((quizzes) =>
+            dispatch(selectQuiz(quizzes))
         );
       }, [courseId]);   
-    const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    const quizList = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
     // const assignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
-    const assignment = assignmentList.find(
-        (assignment) => assignment.course === courseId && (assignment.category === "QUIZZES" || assignment.category === "EXAM")
+    const quiz = quizList.find(
+        (quiz) => quiz.course === courseId && quiz._id === quizId 
     );
     interface Assignment {
         _id: string;
@@ -49,29 +60,46 @@ function QuizPreview() {
         isPublished: boolean;
     }
 
+    interface Quiz {
+        _id: string;
+        title: string;
+        course: string;
+        description: string;
+        isPublished: boolean;
+        points: Number;
+        dueDate: Date;
+        availableFromDate: Date;
+        availableUntilDate: Date;
+        pts: Number;
+        Questions: Number;
+        shuffleAnswer: Boolean;
+        QuizType: String;
+        Minutes: Number;
+        AccessCode: Number;
+    }
+
     const [quizInstructions, setQuizInstructions] = useState('');
 
     const handleInstructionsChange = (value : any) => {
         setQuizInstructions(value);
-        dispatch(updateAssignment({...assignment, description: value}));
+        dispatch(updateQuiz({...quiz, description: value}));
     };
 
-    const handleAddAssignment = () => {
-        const newAssignmentDetails = {
-            ...assignment,
+    const handleAddQuiz = () => {
+        const newQuizDetails = {
+            ...quiz,
             course: courseId,
-            category: assignment.category
         };
         if(courseId) {
-            client.createAssignment(courseId, newAssignmentDetails).then((newAssignmentDetails) => {
-                dispatch(addAssignment(newAssignmentDetails));
+            client.createQuiz(courseId, newQuizDetails).then((newQuizDetails) => {
+                dispatch(addQuiz(newQuizDetails));
             });
         }
       };
 
-    const handleUpdateAssignment = async () => {
-        const status = await client.updateAssignment(assignment);
-        dispatch(updateAssignment(assignment));
+    const handleUpdateQuiz = async () => {
+        const status = await client.updateQuiz(quiz);
+        dispatch(updateQuiz(quiz));
     };
 
     const handleSave = () => {
@@ -79,8 +107,8 @@ function QuizPreview() {
         //     alert("All date fields ('Due to', 'Available from', and 'Until') are required to save this assignment.");
         //     return;
         // }
-        if (assignmentId && assignmentId !== 'new') {
-            handleUpdateAssignment(); 
+        if (quizId && quizId !== 'new') {
+            handleUpdateQuiz(); 
         } else {
             // const newAssignmentDetails = {
             //     ...assignment,
@@ -88,15 +116,15 @@ function QuizPreview() {
             //     category: assignment.category
             // };
             // dispatch(addAssignment(newAssignmentDetails));
-            handleAddAssignment();
+            handleAddQuiz();
         }
-        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${assignment._id}`);
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`);
     };
 
     return(
         <div>
             <h1 style={{marginLeft:"20px", marginRight:"20px"}} >
-                {assignment.title}
+                {quiz.title}
             </h1>
             <h1 style={{marginLeft:"20px", marginRight:"20px"}} >
                 Quiz Instructions

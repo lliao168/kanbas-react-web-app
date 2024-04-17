@@ -21,8 +21,19 @@ import {
     selectAssignment,
   } from "../../../../Courses/Assignments/assignmentsReducer";
 
-import * as client from "../../../../Courses/Assignments/client";  
+// import * as client from "../../../../Courses/Assignments/client";  
 import { findAssignmentsForCourse, createAssignment } from "../../../../Courses/Assignments/client";
+
+import {
+    addQuiz,
+    deleteQuiz,
+    updateQuiz,
+    selectQuiz,
+    setQuizzes,
+} from "../../reducer"
+
+import * as client from "../../client";  
+import { findQuizzesForCourse, createQuiz } from "../../client";
 
 function QuizTrueFalseEditor({onCancel} : any) {
     const { assignmentId, courseId } = useParams();
@@ -30,13 +41,13 @@ function QuizTrueFalseEditor({onCancel} : any) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        findAssignmentsForCourse(courseId)
-          .then((assignments) =>
-            dispatch(selectAssignment(assignments))
+        findQuizzesForCourse(courseId)
+          .then((quizzes) =>
+            dispatch(selectQuiz(quizzes))
         );
-      }, [courseId]);   
-    const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
-    const assignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
+      }, [courseId]);    
+    // const assignmentList = useSelector((state: KanbasState) => state.assignmentsReducer.assignments);
+    const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
     interface Assignment {
         _id: string;
         title: string;
@@ -46,10 +57,29 @@ function QuizTrueFalseEditor({onCancel} : any) {
         isPublished: boolean;
     }
 
+    interface Quiz {
+        _id: string;
+        title: string;
+        course: string;
+        description: string;
+        isPublished: boolean;
+        points: Number;
+        dueDate: Date;
+        availableFromDate: Date;
+        availableUntilDate: Date;
+        pts: Number;
+        Questions: Number;
+        shuffleAnswer: Boolean;
+        QuizType: String;
+        Minutes: Number;
+        AccessCode: Number;
+    }
+
+
     const [quizInstructions, setQuizInstructions] = useState('');
     const handleInstructionsChange = (value : any) => {
         setQuizInstructions(value);
-        dispatch(updateAssignment({...assignment, description: value}));
+        dispatch(updateQuiz({...quiz, description: value}));
     };
 
     const [quizQuestion, setQuizQuestion] = useState('');
@@ -64,22 +94,21 @@ function QuizTrueFalseEditor({onCancel} : any) {
     };
 
 
-    const handleAddAssignment = () => {
-        const newAssignmentDetails = {
-            ...assignment,
+    const handleAddQuiz = () => {
+        const newQuizDetails = {
+            ...quiz,
             course: courseId,
-            category: assignment.category
         };
         if(courseId) {
-            client.createAssignment(courseId, newAssignmentDetails).then((newAssignmentDetails) => {
-                dispatch(addAssignment(newAssignmentDetails));
+            client.createQuiz(courseId, newQuizDetails).then((newQuizDetails) => {
+                dispatch(addQuiz(newQuizDetails));
             });
         }
       };
 
-    const handleUpdateAssignment = async () => {
-        const status = await client.updateAssignment(assignment);
-        dispatch(updateAssignment(assignment));
+    const handleUpdateQuiz = async () => {
+        const status = await client.updateQuiz(quiz);
+        dispatch(updateQuiz(quiz));
     };
 
     const handleSave = () => {
@@ -121,7 +150,7 @@ function QuizTrueFalseEditor({onCancel} : any) {
                     <label className="form-check-label" htmlFor="trueOption">True</label>
                 </div>
 
-                <div className="form-check mt-5">
+                <div className="form-check mt-2">
                     <input 
                         className="form-check-input" 
                         type="radio" 
