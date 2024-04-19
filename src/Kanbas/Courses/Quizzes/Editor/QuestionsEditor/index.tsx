@@ -35,186 +35,196 @@ import {
     setQuizzes,
 } from "../../reducer"
 
-import * as client from "../../client";  
+
 import { findQuizzesForCourse, createQuiz } from "../../client";
+import { findQuestionsForQuiz } from './client';
 
+import {
+    addQuestion,
+    deleteQuestion,
+    updateQuestion,
+    setQuestions,
+    selectQuestion,
+} from "./reducer"
 
+import * as client from "./client";  
+
+interface Choice {
+    _id: string;
+    text: string;
+    isCorrect: boolean;
+  }
+  
+  interface TrueFalse {
+    _id: string;
+    isTrue: boolean;
+  }
+  
+  interface Blank {
+    _id: string;
+    correctAnswers: string[];
+    caseInsensitive: boolean;
+  }
 interface Question {
-    id: number;
-    type: string;
+    _id: string; 
+    title: string; 
+    quizId: string; 
+    question: string;
+    points: number, 
+    questionType: string;
+    multipleChoice?: Choice[];
+    trueFalse?: TrueFalse[];
+    fillBlank?: Blank[];
 }
 
 function QuizQuestionsDetailEditor() {
-    const { assignmentId, courseId, quizId } = useParams();
+    const { assignmentId, courseId, quizId, questionId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // useEffect(() => {
+    //     findQuizzesForCourse(courseId)
+    //       .then((quizzes) =>
+    //         dispatch(selectQuiz(quizzes))
+    //     );
+    //   }, [courseId]);   
+    // const quizList = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
+    // const quiz = quizList.find(
+    //     (quiz) => quiz.course === courseId && quiz._id === quizId 
+    // );
+
     useEffect(() => {
-        findQuizzesForCourse(courseId)
-          .then((quizzes) =>
-            dispatch(selectQuiz(quizzes))
-        );
-      }, [courseId]);   
-    const quizList = useSelector((state: KanbasState) => state.quizzesReducer.quizzes);
-    // const assignment = useSelector((state: KanbasState) => state.assignmentsReducer.assignment);
-    const quiz = quizList.find(
-        (quiz) => quiz.course === courseId && quiz._id === quizId 
+        findQuestionsForQuiz(quizId)
+            .then((questions) => 
+                dispatch(selectQuestion(questions))
+            );
+    }, [quizId]);
+
+
+    const questionList = useSelector((state: KanbasState) => state.questionsReducer.questions);
+    const question = questionList.find(
+        (question) => question.quiz === quizId && question._id === questionId
     );
-    interface Assignment {
-        _id: string;
-        title: string;
-        course: string;
-        category: string;
-        description: string;
-        isPublished: boolean;
-    }
 
-    interface Quiz {
-        _id: string;
-        title: string;
-        course: string;
-        description: string;
-        isPublished: boolean;
-        points: Number;
-        dueDate: Date;
-        availableFromDate: Date;
-        availableUntilDate: Date;
-        pts: Number;
-        Questions: Number;
-        shuffleAnswer: Boolean;
-        QuizType: String;
-        Minutes: Number;
-        AccessCode: Number;
-    }
+    const [showQuestionForm, setShowQuestionForm] = useState(true);
+    // const [questions, setQuestions] = useState<Question[]>([]);
+    const [questionType, setQuestionType] = useState('Multiple Choice');
+    const [currentQuestionId, setCurrentQuestionId] = useState<number | null>(null);
+    const [questionTitle, setQuestionTitle] = useState('');
+    const [points, setPoints] = useState(1); 
 
-    const [quizInstructions, setQuizInstructions] = useState('');
-
-    const handleInstructionsChange = (value : any) => {
-        setQuizInstructions(value);
-        dispatch(updateQuiz({...quiz, description: value}));
+    const handleTitleChange = (value : any, questionId : any) => {
+        const updatedQuestions = questionList.map(question => {
+            if (question._id === questionId) {
+                return {...question, title: value};
+            }
+            return question;
+        });
+        dispatch(setQuestions(updatedQuestions)); 
     };
 
-    const handleAddQuiz = () => {
-        const newQuizDetails = {
-            ...quiz,
-            course: courseId,
-        };
-        if(courseId) {
-            client.createQuiz(courseId, newQuizDetails).then((newQuizDetails) => {
-                dispatch(addQuiz(newQuizDetails));
-            });
-        }
-      };
-
-    const handleUpdateQuiz = async () => {
-        const status = await client.updateQuiz(quiz);
-        dispatch(updateQuiz(quiz));
-    };
-
-    const handleSave = () => {
-        // if (!assignment.dueDate || !assignment.availableFromDate || !assignment.availableUntilDate) {
-        //     alert("All date fields ('Due to', 'Available from', and 'Until') are required to save this assignment.");
-        //     return;
-        // }
-        if (quizId && quizId !== 'new') {
-            handleUpdateQuiz(); 
-        } else {
-            // const newAssignmentDetails = {
-            //     ...assignment,
-            //     course: courseId,
-            //     category: assignment.category
-            // };
-            // dispatch(addAssignment(newAssignmentDetails));
-            handleAddQuiz();
-        }
-        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`);
-    };
-    
-
-    const [title, setTitle] = useState('');
-    const handleTitleChange = (e : any) => setTitle(e.target.value);
-
-    const [points, setPoints] = useState(1);
     const handlePointsChange = (e : any) => setPoints(Number(e.target.value) || 0);
 
-    const [showQuestionForm, setShowQuestionForm] = useState(false);
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [questionType, setQuestionType] = useState('multipleChoice');
-    const [currentQuestionId, setCurrentQuestionId] = useState<number | null>(null);
-
-    const handleQuestionTypeChange = (event : any) => {
-        setQuestionType(event.target.value);
+    const handleQuestionTypeChange = (newType : any, questionId : any) => {
+        const updatedQuestions = questionList.map(question => {
+            if (question._id === questionId) {
+                return {...question, questionType: newType};
+            }
+            return question;
+        });
+        dispatch(setQuestions(updatedQuestions)); 
     };
 
-    const handleAddQuestionClick = () => {
-        const newId = Date.now();
-        // const newId = questions.length > 0 ? Math.max(...questions.map(q => q.id)) + 1 : 1;
-        setQuestions([
-            ...questions,
-            {id: newId, type: 'multipleChoice'}
-        ]);
-        setCurrentQuestionId(newId);
-        setShowQuestionForm(true); 
+    const createDefaultQuestion = () => {
+        return {
+            _id: new Date(),
+            title: "New Question Title",
+            quiz: quizId,  
+            question: "New Question",
+            points: 0,
+            questionType: "Multiple Choice",
+        };
+    };
+
+    const handleAddQuestionClick = async () => {
+        if (quizId) {
+            const newQuestion = createDefaultQuestion();
+            const createdQuestion = await client.createQuestion(quizId, newQuestion)
+            if (createdQuestion && createdQuestion._id) {
+                dispatch(addQuestion(createdQuestion))
+                dispatch(selectQuestion(createdQuestion));
+                setShowQuestionForm(true);
+            }
+        }
+    };
+
+
+    const handleSave = () => {
+        
     };
 
     const handleCancel = () => {
-        setShowQuestionForm(false);
-        if (questions.length === 1 && questions[0].id === currentQuestionId) {
-            setQuestions([]);  
-        } else {
-            setQuestions(questions.filter(question => question.id !== currentQuestionId));
-            setCurrentQuestionId(null);
-        }
+        // setShowQuestionForm(false);
+        // if (questions.length === 1 && questions[0].id === currentQuestionId) {
+        //     setQuestions([]);  
+        // } else {
+        //     setQuestions(questions.filter(question => question.id !== currentQuestionId));
+        //     setCurrentQuestionId(null);
+        // }
     };
     
 
     return(
         <div>
-                
-                    {questions.length > 0 && questions.map((question, index) => {
+                {questionList.length > 0 && questionList.map((question, index) => {
                         return (
-                            <div className="row g-3 mt-2" style={{marginLeft:"20px", marginRight:"20px"}}>
-                                    <div className="col-md-6" style={{width:"200px"}} key={question.id}>
+                            <div key={question._id} className="row g-3 mt-2" style={{marginLeft:"20px", marginRight:"20px"}}>
+                                {question && (
+                                    <div className="col-md-6" style={{width:"200px"}} >
                                         <input 
-                                        value="Question Title"
-                                        onChange={handleTitleChange}
+                                        value= {question.title}
+                                        onChange={(e) => handleTitleChange(e.target.value, question._id)}
                                         className="form-control mb-2" />
                                     </div>
+                                )}
+                                {question && (
                                     <div className="col-md-6" style={{width:"300px"}}>
                                         <select
                                             id="questionTypeSelect"
                                             className="form-select"
-                                            value={questionType}
-                                            onChange={handleQuestionTypeChange}
+                                            value={question.questionType}
+                                            onChange={(event) => handleQuestionTypeChange(event.target.value, question._id)}
                                         >
-                                            <option value="multipleChoice">Multiple Choice</option>
-                                            <option value="trueFalse">True/False</option>
-                                            <option value="fillInBlank">Fill In the Blank</option>
+                                            <option value="Multiple Choice">Multiple Choice</option>
+                                            <option value="True/False">True/False</option>
+                                            <option value="Fill In The Blank">Fill In the Blank</option>
                                         </select>   
                                     </div>  
-                                    {questionType === 'multipleChoice' && (
+                                )}
+                                        {question.questionType === "Multiple Choice" && (
                                             <QuizMultipleChoiceEditor onCancel={handleCancel}/>
                                         )}
-                                        {questionType === 'trueFalse' && (
+                                        {question.questionType === 'True/False' && (
                                             <QuizTrueFalseEditor onCancel={handleCancel}/>
                                         )}
-                                        {questionType === 'fillInBlank' && (
+                                        {question.questionType === 'Fill In The Blank' && (
                                             <QuizFillBlankEditor onCancel={handleCancel}/>
-                                        )}
+                                )}
+                                {question && (        
                                     <div className="col-md-6 text-align:left flex-fill" >
                                         <input type="number" 
                                             className="form-control float-end me-2"
                                             style={{width:"70px"}} 
                                             id="pts"
-                                            value={points}
+                                            value={question.points}
                                             onChange={handlePointsChange}
                                         />
                                         <label className="float-end mt-2 me-2">pts:</label>
                                     </div>   
-                                
-                            </div>
-                        );
-                    })}
+                                )}
+                            </div>   
+                        );  
+                    })}       
                  
 
                 <hr style={{color:"black", marginLeft:"20px", marginRight:"20px"}} />
@@ -251,8 +261,8 @@ function QuizQuestionsDetailEditor() {
                         <Link to={"#"} className="btn btn-light float-end ms-2">
                             Save & Publish
                         </Link>
-                        <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}
-                            onClick={() => {navigate(`/Kanbas/Courses/${courseId}/Quizzes`)}} className="btn btn-light float-end">
+                        <Link to={"#"}
+                            onClick={() => {handleCancel()}} className="btn btn-light float-end">
                             Cancel
                         </Link>
                     </div>    

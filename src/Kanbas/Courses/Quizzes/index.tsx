@@ -10,6 +10,7 @@ import { KanbasState } from '../../store';
 import { Modal, Button} from 'react-bootstrap';
 import { RxRocket } from "react-icons/rx";
 import { RiProhibitedLine } from "react-icons/ri";
+import axios from "axios";
 
 import {
     addAssignment,
@@ -121,9 +122,11 @@ function Quizzes () {
         e.preventDefault(); 
         const newQuiz = createDefaultQuiz();
         const createdQuiz = await client.createQuiz(courseId, newQuiz);
-        dispatch(addQuiz(createQuiz));
-        dispatch(selectQuiz(createdQuiz));
-        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${createdQuiz._id}`);
+        if (createdQuiz && createdQuiz._id) {
+            dispatch(addQuiz(createdQuiz));
+            dispatch(selectQuiz(createdQuiz));
+            navigate(`/Kanbas/Courses/${courseId}/Quizzes/${createdQuiz._id}`);
+        }
         
     };
     

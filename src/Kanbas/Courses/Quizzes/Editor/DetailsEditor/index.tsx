@@ -202,14 +202,17 @@ function QuizDetailsEditor() {
     return(
         <div className="flex-fill p-4">
             <form>
+            {quiz && (
                 <div className="col-12" style={{width:"500px"}}>
                         <input 
                         value={quiz.title}
                         onChange={(e) => handleTitleChange(e.target.value)}
                             className="form-control mb-2" />
                 </div>   
+            )}
                 <div className="row g-3 justify-content-center"> 
 
+            {quiz && ( 
                     <div className="col-12">
                         <label htmlFor="Quiz Instructions"
                             className="form-label mt-2">
@@ -220,171 +223,192 @@ function QuizDetailsEditor() {
                                 onChange={handleInstructionsChange}
                             />
                     </div>
+            )}
                 </div>
 
                     <div className="d-grid gap-3 container text-sm-end justify-content-center mt-3">
                                         <div className="row" >
                                             <label htmlFor="quiz-type" className="col-sm-2  
                                             col-form-label col-form-label-sm">Quiz Type</label>
-                                            <div className="col-sm">
-                                                <select className="form-select" onChange={(e) => handleTypeChange(e.target.value)}>
-                                                    <option selected>{quiz.QuizType}</option>
-                                                    <option value="Graded Quiz">Graded Quiz</option>
-                                                    <option value="Practice Quiz">Practice Quiz</option>
-                                                    <option value="Graded Survey">Graded Survey</option>
-                                                    <option value="Ungraded Survey">Ungraded Survey</option>
-                                                </select>
-                                            </div>
+                                            {quiz && ( 
+                                                <div className="col-sm">
+                                                    <select className="form-select" onChange={(e) => handleTypeChange(e.target.value)}>
+                                                        <option selected>{quiz.QuizType}</option>
+                                                        <option value="Graded Quiz">Graded Quiz</option>
+                                                        <option value="Practice Quiz">Practice Quiz</option>
+                                                        <option value="Graded Survey">Graded Survey</option>
+                                                        <option value="Ungraded Survey">Ungraded Survey</option>
+                                                    </select>
+                                                </div>
+                                            )}
                                         </div>
 
                                         <div className="row" >
                                             <label htmlFor="points" className="col-sm-2  
                                             col-form-label col-form-label-sm">Points</label>
-                                            <div className="col-sm">
-                                                <input type="number" 
-                                                className="form-control" 
-                                                id="points" 
-                                                value={quiz.points}
-                                                onChange={(e) => handlePointsChange(e.target.value)} 
-                                                />
-                                            </div>
+                                            {quiz && ( 
+                                                <div className="col-sm">
+                                                    <input type="number" 
+                                                    className="form-control" 
+                                                    id="points" 
+                                                    value={quiz.points}
+                                                    onChange={(e) => handlePointsChange(e.target.value)} 
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
 
                                         <div className="row" >
                                             <label htmlFor="quiz-group" className="col-sm-2  
                                             col-form-label col-form-label-sm">Assignment Group</label>
-                                            <div className="col-sm">
-                                                <select className="form-select"
-                                                onChange={(e) => dispatch(selectQuiz({...quiz, category: e.target.value}))}>
-                                                    <option selected>QUIZZES</option>
-                                                    <option value="ASSIGNMENTS">ASSIGNMENTS</option>
-                                                    <option value="EXAM">EXAM</option>
-                                                    <option value="PROJECT">PROJECT</option>
-                                                </select>
-                                            </div>
+                                            {quiz && ( 
+                                                <div className="col-sm">
+                                                    <select className="form-select"
+                                                    onChange={(e) => dispatch(selectQuiz({...quiz, category: e.target.value}))}>
+                                                        <option selected>QUIZZES</option>
+                                                        <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+                                                        <option value="EXAM">EXAM</option>
+                                                        <option value="PROJECT">PROJECT</option>
+                                                    </select>
+                                                </div>
+                                            )}
                                         </div>
 
-                                        <div className="row" style={{textAlign:"left"}}>
-                                            <label htmlFor="display-grade" className="col-sm-2  
-                                            col-form-label col-form-label-sm"></label>
-                                            <div className="col-sm">
-                                                <label style={{fontWeight:"bold"}}>
-                                                    Options
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div className="row" style={{textAlign:"left"}}>
-                                            <label className="col-sm-2  
-                                            col-form-label col-form-label-sm"></label>
-                                            <div className="col-sm">
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="checkbox"  checked={quiz.shuffleAnswer} id="gridCheck" onChange={handleShuffleAnswerChange} />
-                                                    <label className="form-check-label" htmlFor="gridCheck">
-                                                    Shuffle Answers
+                                        {quiz && ( 
+                                            <div className="row" style={{textAlign:"left"}}>
+                                                <label htmlFor="display-grade" className="col-sm-2  
+                                                col-form-label col-form-label-sm"></label>
+                                                <div className="col-sm">
+                                                    <label style={{fontWeight:"bold"}}>
+                                                        Options
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        )}
 
-                                        <div className="row" style={{textAlign:"left"}}>
-                                            <label className="col-sm-2  
-                                            col-form-label col-form-label-sm"></label>
-                                            <div className="col-sm">
-                                                <div className="form-check d-flex">
-                                                    <input className="form-check-input me-2" type="checkbox" id="gridCheck"/>
-                                                    <label className="form-check-label" htmlFor="gridCheck" style={{marginRight:"50px"}}>
-                                                    Time Limit
-                                                    </label>
-                                                    <input type="number" 
-                                                        value = {quiz.Minutes}
-                                                        className="form-control float-end me-2"
-                                                        style={{width:"70px"}} 
-                                                        id="minutes"
-                                                        onChange={(e) => handleMinutesChange(e.target.value)} 
-                                                    />
-                                                    <label className="float-end mt-2">Minutes</label>
+                                        {quiz && ( 
+                                            <div className="row" style={{textAlign:"left"}}>
+                                                <label className="col-sm-2  
+                                                col-form-label col-form-label-sm"></label>
+                                                <div className="col-sm">
+                                                    <div className="form-check">
+                                                        <input className="form-check-input" type="checkbox"  checked={quiz.shuffleAnswer} id="gridCheck" onChange={handleShuffleAnswerChange} />
+                                                        <label className="form-check-label" htmlFor="gridCheck">
+                                                        Shuffle Answers
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        )}
+
+                                        {quiz && ( 
+                                            <div className="row" style={{textAlign:"left"}}>
+                                                <label className="col-sm-2  
+                                                col-form-label col-form-label-sm"></label>
+                                                <div className="col-sm">
+                                                    <div className="form-check d-flex">
+                                                        <input className="form-check-input me-2" type="checkbox" id="gridCheck"/>
+                                                        <label className="form-check-label" htmlFor="gridCheck" style={{marginRight:"50px"}}>
+                                                        Time Limit
+                                                        </label>
+                                                        <input type="number" 
+                                                            value = {quiz.Minutes}
+                                                            className="form-control float-end me-2"
+                                                            style={{width:"70px"}} 
+                                                            id="minutes"
+                                                            onChange={(e) => handleMinutesChange(e.target.value)} 
+                                                        />
+                                                        <label className="float-end mt-2">Minutes</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
 
 
-                                        <div className="row">
-                                            <label htmlFor="display-grade" className="col-sm-2  
-                                            col-form-label col-form-label-sm"></label>
-                                            <div className="d-grid gap-3 col-sm border border-1 rounded">
-                                                <div className="row p-2" style={{textAlign:"left"}}>
-                                                    <label ></label>
-                                                    <div className="col-sm">
-                                                        <div className="form-check float-start">
-                                                            <input className="form-check-input" type="checkbox" id="gridCheck"/>
-                                                            <label className="form-check-label" htmlFor="gridCheck">
-                                                                Allow Multiple Attempts
-                                                            </label>
+                                        {quiz && ( 
+                                            <div className="row">
+                                                <label htmlFor="display-grade" className="col-sm-2  
+                                                col-form-label col-form-label-sm"></label>
+                                                <div className="d-grid gap-3 col-sm border border-1 rounded">
+                                                    <div className="row p-2" style={{textAlign:"left"}}>
+                                                        <label ></label>
+                                                        <div className="col-sm">
+                                                            <div className="form-check float-start">
+                                                                <input className="form-check-input" type="checkbox" id="gridCheck"/>
+                                                                <label className="form-check-label" htmlFor="gridCheck">
+                                                                    Allow Multiple Attempts
+                                                                </label>
+                                                            </div>
                                                         </div>
-                                                     </div>
+                                                    </div>
                                                 </div>
-                                                
-                                        
                                             </div>
-                                        </div>
+                                        )}
 
-                                        <div className="row" style={{textAlign:"left"}}>
-                                            <label className="col-sm-2  
-                                            col-form-label col-form-label-sm"></label>
-                                            <div className="col-sm">
-                                                <div className="form-check d-flex">
-                                                    <input className="form-check-input me-2" type="checkbox" id="gridCheck"/>
-                                                    <label className="form-check-label" htmlFor="gridCheck" style={{marginRight:"50px"}}>
-                                                    Show Correct Answers
-                                                    </label>
-                                                    <input type="date" 
-                                                        className="form-control float-end me-2"
-                                                        style={{width:"50%"}} 
-                                                        id="Show Answers Date" 
+                                        {quiz && ( 
+                                            <div className="row" style={{textAlign:"left"}}>
+                                                <label className="col-sm-2  
+                                                col-form-label col-form-label-sm"></label>
+                                                <div className="col-sm">
+                                                    <div className="form-check d-flex">
+                                                        <input className="form-check-input me-2" type="checkbox" id="gridCheck"/>
+                                                        <label className="form-check-label" htmlFor="gridCheck" style={{marginRight:"50px"}}>
+                                                        Show Correct Answers
+                                                        </label>
+                                                        <input type="date" 
+                                                            className="form-control float-end me-2"
+                                                            style={{width:"50%"}} 
+                                                            id="Show Answers Date" 
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {quiz && ( 
+                                            <div className="row" >
+                                                <label htmlFor="access code" className="col-sm-2  
+                                                col-form-label col-form-label-sm">Access Code</label>
+                                                <div className="col-sm">
+                                                    <input type="text" 
+                                                    className="form-control" 
+                                                    id="access code" 
+                                                    value={quiz.AccessCode}
+                                                    onChange={(e) => handleAccessCodeChange(e.target.value)} 
                                                     />
                                                 </div>
                                             </div>
-                                        </div>
+                                        )}
 
-                                        <div className="row" >
-                                            <label htmlFor="access code" className="col-sm-2  
-                                            col-form-label col-form-label-sm">Access Code</label>
-                                            <div className="col-sm">
-                                                <input type="text" 
-                                                className="form-control" 
-                                                id="access code" 
-                                                value={quiz.AccessCode}
-                                                onChange={(e) => handleAccessCodeChange(e.target.value)} 
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="row" style={{textAlign:"left"}}>
-                                            <label className="col-sm-2  
-                                            col-form-label col-form-label-sm"></label>
-                                            <div className="col-sm">
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="checkbox" id="gridCheck" defaultChecked/>
-                                                    <label className="form-check-label" htmlFor="gridCheck">
-                                                    One Question at a Time
-                                                    </label>
+                                        {quiz && ( 
+                                            <div className="row" style={{textAlign:"left"}}>
+                                                <label className="col-sm-2  
+                                                col-form-label col-form-label-sm"></label>
+                                                <div className="col-sm">
+                                                    <div className="form-check">
+                                                        <input className="form-check-input" type="checkbox" id="gridCheck" defaultChecked/>
+                                                        <label className="form-check-label" htmlFor="gridCheck">
+                                                        One Question at a Time
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        )}
 
-                                        <div className="row" style={{textAlign:"left"}}>
-                                            <label className="col-sm-2  
-                                            col-form-label col-form-label-sm"></label>
-                                            <div className="col-sm">
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="checkbox" id="gridCheck"/>
-                                                    <label className="form-check-label" htmlFor="gridCheck">
-                                                    Webcam Required
-                                                    </label>
+                                        {quiz && ( 
+                                            <div className="row" style={{textAlign:"left"}}>
+                                                <label className="col-sm-2  
+                                                col-form-label col-form-label-sm"></label>
+                                                <div className="col-sm">
+                                                    <div className="form-check">
+                                                        <input className="form-check-input" type="checkbox" id="gridCheck"/>
+                                                        <label className="form-check-label" htmlFor="gridCheck">
+                                                        Webcam Required
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        )}
 
                                         <div className="row" style={{textAlign:"left"}}>
                                             <label className="col-sm-2  
@@ -419,31 +443,36 @@ function QuizDetailsEditor() {
                                                         </div>
                                                     </div>
                             
-                                                    <div className="col-12" style={{textAlign:"left"}}>
-                                                        <label htmlFor="Due"
-                                                            className="form-label"><b>
-                                                            Due to</b></label>
-                                                        <input type="date"
-                                                            className="form-control"
-                                                            id="due-date"
-                                                            placeholder=""
-                                                            value={quiz?.dueDate}
-                                                            onChange={(e) => handleDueDateChange(e.target.value)} 
-                                                            />
-                                                    </div>
+                                                    {quiz && ( 
+                                                        <div className="col-12" style={{textAlign:"left"}}>
+                                                            <label htmlFor="Due"
+                                                                className="form-label"><b>
+                                                                Due to</b></label>
+                                                            <input type="date"
+                                                                className="form-control"
+                                                                id="due-date"
+                                                                placeholder=""
+                                                                value={quiz?.dueDate}
+                                                                onChange={(e) => handleDueDateChange(e.target.value)} 
+                                                                />
+                                                        </div>
+                                                    )}
                 
-                                                    <div className="col-md-6" style={{textAlign:"left"}}>
-                                                        <label htmlFor="available-from" className="form-label"><b>Available from</b></label>
-                                                        <input type="date" className="form-control mb-4" id="available-from" value={quiz?.availableFromDate}
-                                                        onChange={(e) => handleAvailableDateFromChange(e.target.value)} />
-                                                    </div>
+                                                    {quiz && ( 
+                                                        <div className="col-md-6" style={{textAlign:"left"}}>
+                                                            <label htmlFor="available-from" className="form-label"><b>Available from</b></label>
+                                                            <input type="date" className="form-control mb-4" id="available-from" value={quiz?.availableFromDate}
+                                                            onChange={(e) => handleAvailableDateFromChange(e.target.value)} />
+                                                        </div>
+                                                    )}
                                                     
-                                                    <div className="col-md-6" style={{textAlign:"left"}}>
-                                                        <label htmlFor="until" className="form-label"><b>Until</b></label>
-                                                        <input type="date" className="form-control mb-4" id="until" value={quiz?.availableUntilDate}
-                                                        onChange={(e) => handleAvailableDateToChange(e.target.value)}/>
-                                                    </div>
-                                                    
+                                                    {quiz && ( 
+                                                        <div className="col-md-6" style={{textAlign:"left"}}>
+                                                            <label htmlFor="until" className="form-label"><b>Until</b></label>
+                                                            <input type="date" className="form-control mb-4" id="until" value={quiz?.availableUntilDate}
+                                                            onChange={(e) => handleAvailableDateToChange(e.target.value)}/>
+                                                        </div>
+                                                    )}
                                                 </div>  
                                                 
                                                 <div className="d-flex row justify-content-end">
